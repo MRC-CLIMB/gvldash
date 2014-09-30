@@ -1,87 +1,122 @@
-{% load staticfiles i18n %}<!DOCTYPE html>
-<html lang="en" ng-app>
-  <head>
-    <meta charset="utf-8">
-    <title>{% block title %}gvldash{% endblock title %}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+{% load staticfiles i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{% block title %}gvldash{% endblock title %}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<meta name="HandheldFriendly" content="true">
+<meta name="apple-mobile-web-app-capable" content="YES">
 
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
       <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    {% block css %}
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+{% block css %}
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css"
+    type="text/css">
 
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+<!-- Optional theme -->
+<link rel="stylesheet" href="{% static 'css/templates.purity_iii.less.bootstrap.less.css' %}" type="text/css">
+<link rel="stylesheet" href="{% static 'css/plugins.system.t3.base-bs3.less.t3.less.css' %}" type="text/css">
+<link rel="stylesheet" href="{% static 'css/plugins.system.t3.base-bs3.less.off-canvas.less.css' %}" type="text/css">
+<link rel="stylesheet" href="{% static 'css/templates.purity_iii.less.off-canvas.less.css' %}" type="text/css">
 
-    <!-- Your stuff: Third-party css libraries go here -->
+<!-- Your stuff: Third-party css libraries go here -->
 
-    <!-- This file store project specific CSS -->
-    <link href="{% static 'css/project.css' %}" rel="stylesheet">
-    {% endblock %}
+<!-- This file store project specific CSS -->
+<link href="{% static 'css/project.css' %}" rel="stylesheet">
+{% endblock %} {% block angular %}
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.js"></script>
+{% endblock %}
 
-    {% block angular %}
-      <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
-    {% endblock %}
+</head>
 
-  </head>
+<body>
 
-  <body>
+    <div id="t3-off-canvas" class="t3-off-canvas  off-canvas-effect-4 off-canvas-left">
 
-    <div class="header navbar">
-      <div class="container">
-        <a class="navbar-brand" href="/">gvldash</a>
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="{% url 'home' %}">Home</a></li>
-          <li><a href="{% url 'about' %}">About</a></li>
+        <div class="t3-off-canvas-header">
+            <h2 class="t3-off-canvas-header-title">{% trans "Menu" %}</h2>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        </div>
 
-          {% if request.user.is_authenticated %}
-            <li><a href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a></li>
-            <li><a href="{% url 'account_logout' %}">{% trans "Logout" %}</a></li>
-          {% else %}
-            <li><a href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a></li>
-            <li><a href="{% url 'account_login' %}">{% trans "Log In" %}</a></li>
-          {% endif %}
-        </ul>
-      </div>
+        <div class="t3-off-canvas-body">
+        <ul class="nav">
+                        <li><a href="{% url 'home' %}">{% trans "Home" %}</a></li>
+                        <li><a href="{% url 'about' %}">{% trans "About" %}</a></li> {% if request.user.is_authenticated %}
+                        <li><a href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a></li>
+                        <li><a href="{% url 'account_logout' %}">{% trans "Logout" %}</a></li> {% else %}
+                        <li><a href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a></li>
+                        <li><a href="{% url 'account_login' %}">{% trans "Log In" %}</a></li> {% endif %}
+                    </ul>
+        </div>
+
     </div>
+    <div class="t3-wrapper features-intro features-intro-1">
+        <!-- Need this wrapper for off-canvas menu. Remove if you don't use of-canvas -->
 
-    <div class="container">
-        
-      {% if messages %}
-          {% for message in messages %}
-              <div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>{{ message }}</div>
-          {% endfor %}
-      {% endif %}
+        <!-- MAIN NAVIGATION -->
+        <header id="t3-mainnav" class="wrap navbar navbar-default navbar-fixed-top t3-mainnav">
+            <!-- OFF-CANVAS -->
 
-      {% block content %}
-        <p>Use this document as a way to quick start any new project.</p>
-      {% endblock content %}
+            <button class="btn btn-default off-canvas-toggle " type="button" data-pos="left" data-nav="#t3-off-canvas"
+                data-effect="off-canvas-effect-4">
+                <i class="fa fa-bars"></i>
+            </button>
 
-    </div> <!-- /container -->
-    
-    {% block modal %}{% endblock modal %}
+            <div class="container">
+                <div class="navbar-header">
+                
+                    <a class="navbar-brand" href="/"><img src="{% static 'images/GVLlogo.png' %}" style="width: 28px" alt="Home"> {% trans "GVL Dashboard" %}</a>
+                    <ul class="nav navbar-nav">
+                        <li><a href="{% url 'home' %}">{% trans "Home" %}</a></li>
+                        <li><a href="{% url 'about' %}">{% trans "About" %}</a></li> {% if request.user.is_authenticated %}
+                        <li><a href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a></li>
+                        <li><a href="{% url 'account_logout' %}">{% trans "Logout" %}</a></li> {% else %}
+                        <li><a href="{% url 'account_login' %}">{% trans "Log In" %}</a></li> {% endif %}
+                    </ul>
+                </div>
 
-    <!-- Le javascript
+            </div>
+        </header>
+
+        <div class="container">
+            <br /><br /><br /><br />
+            {% if messages %} {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>{{ message }}</div>
+            {% endfor %} {% endif %} {% block content %}
+            <p>No content specified. Override the content block.</p>
+            {% endblock content %}
+
+        </div>
+        <!-- /container -->
+
+        {% block modal %}{% endblock modal %}
+
+        <!-- Le javascript
     ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    {% block javascript %}
-      <!-- Latest JQuery -->
-      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <!-- Placed at the end of the document so the pages load faster -->
+        {% block javascript %}
+        <!-- Latest JQuery -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
-      <!-- Latest compiled and minified JavaScript -->
-      <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
-      <!-- Your stuff: Third-party javascript libraries go here -->
+        <!-- Your stuff: Third-party javascript libraries go here -->
+        <script src="{% static 'js/jquery.tap.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'js/off-canvas.js' %}" type="text/javascript"></script>
 
-      <!-- place project specific Javascript in this file -->
-      <script src="{% static 'js/project.js' %}"></script>
-    {% endblock javascript %}
-  </body>
+
+        <!-- place project specific Javascript in this file -->
+        <script src="{% static 'js/project.js' %}"></script>
+        {% endblock javascript %}
+    </div>
+</body>
 </html>
- 

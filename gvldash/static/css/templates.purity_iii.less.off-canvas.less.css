@@ -1,0 +1,72 @@
+.off-canvas-toggle {
+  border-radius: 0;
+  border: 0;
+  background: transparent;
+  color: #bbe6ff;
+  padding: 0;
+  width: 55px;
+  height: 55px;
+  line-height: 55px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.off-canvas-toggle:hover,
+.off-canvas-toggle:active,
+.off-canvas-toggle:focus {
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  background: #0067a2;
+  color: #ffffff;
+}
+.t3-off-canvas {
+  background: #ffffff;
+  color: #444444;
+}
+.t3-off-canvas .t3-off-canvas-header {
+  background: #eeeeee;
+  color: #444444;
+  padding: 0 0 0 12px;
+  height: 55px;
+}
+.t3-off-canvas .t3-off-canvas-header h2 {
+  margin: 0;
+  line-height: 55px;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.t3-off-canvas .close {
+  margin: 0;
+  height: 55px;
+  line-height: 55px;
+  width: 55px;
+  background: transparent;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.t3-off-canvas .t3-off-canvas-body {
+  padding: 24px 12px;
+}
+.t3-off-canvas .t3-off-canvas-body a {
+  color: #0077bb;
+  text-decoration: none;
+}
+.t3-off-canvas .t3-off-canvas-body a:hover,
+.t3-off-canvas .t3-off-canvas-body a:focus {
+  color: #00466e;
+  text-decoration: none;
+}
+.t3-off-canvas .t3-off-canvas-body a:focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+.t3-off-canvas .t3-off-canvas-body .t3-module {
+  margin-bottom: 20px;
+}
+.t3-off-canvas .t3-off-canvas-body .module-title {
+  margin-bottom: 10px;
+}

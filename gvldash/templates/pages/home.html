@@ -1,1 +1,160 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block content %}
+
+<div ng-app="gvldash.home">
+    <p>Welcome to the GVL Dashboard! The GVL Dashboard is a portal through which you can access all services on the
+        GVL workbench.</p>
+    <h1>
+        Available Services <span ng-show="isRefreshInProgress()"><i class="fa fa-spinner"></i></span>
+    </h1>
+
+    <div class="table-responsive" ng-controller="gvlHomePageActionsController">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Service Name</th>
+                    <th>Description</th>
+                    <th class="text-center">Status</th>
+                    <th>Access Link</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Galaxy</td>
+                    <td>Galaxy is an open, web-based platform for accessible, reproducible, and transparent
+                        computational biomedical research.</td>
+                    <td>
+                        <div ng-switch on="getServiceData('galaxy').service_status">
+                            <p ng-switch-when="running" class="text-success text-center">
+                                <i class="fa fa-check" title="{$ getServiceData('galaxy').service_status $}"></i>
+                            </p>
+                            <p ng-switch-default class="text-danger text-center">
+                                <i class="fa fa-close" title="{$ getServiceData('galaxy').service_status $}"></i>
+                            </p>
+                        </div>
+                    </td>
+
+                    <td><a href="http://localhost/galaxy">http://localhost/galaxy</a></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Cloudman</td>
+                    <td>CloudMan is a cloud manager that orchestrates the steps required to provision and manage
+                        compute clusters on a cloud infrastructure. Use Cloudman to start and manage your Galaxy
+                        service, and to add additional nodes to your compute cluster.</td>
+                    <td>
+                        <div ng-switch on="getServiceData('cloudman').service_status">
+                            <p ng-switch-when="running" class="text-success text-center">
+                                <i class="fa fa-check" title="{$ getServiceData('cloudman').service_status $}"></i>
+                            </p>
+                            <p ng-switch-default class="text-danger text-center">
+                                <i class="fa fa-close" title="{$ getServiceData('cloudman').service_status $}"></i>
+                            </p>
+                        </div>
+                    </td>
+                    <td><a href="http://localhost/cloud">http://localhost/cloud</a></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Lubuntu Desktop</td>
+                    <td>This is a lightweight desktop environment through which you can run desktop applications on
+                        your virtual machine. You can also access the GVL command line utilities through the desktop.</td>
+                    <td>
+                        <div ng-switch on="getServiceData('vnc').service_status">
+                            <p ng-switch-when="running" class="text-success text-center">
+                                <i class="fa fa-check" title="{$ getServiceData('vnc').service_status $}"></i>
+                            </p>
+                            <p ng-switch-default class="text-danger text-center">
+                                <i class="fa fa-close" title="{$ getServiceData('vnc').service_status $}"></i>
+                            </p>
+                        </div>
+                    </td>
+                    <td><a href="http://localhost/vnc">http://localhost/vnc</a></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>GVL GenomeSpace</td>
+                    <td>Genomespace is like a dropbox for GenomeData. Use Genomespace to store all your Genomics
+                        Data securely and redundantly.</td>
+                    <td>
+                        <p class="text-success text-center">
+                            <i class="fa fa-check" title="Available"></i>
+                        </p>
+                    </td>
+                    <td><a href="https://genomespace.genome.edu.au/jsui/">https://genomespace.genome.edu.au</td>
+                </tr>
+
+                <tr>
+                    <td>5</td>
+                    <td>iPython Notebook</td>
+                    <td>The IPython Notebook is a web-based interactive computational environment where you can
+                        combine code execution, text, mathematics, plots and rich media into a single document.</td>
+                    <td>
+                        <div ng-switch on="getServiceData('ipython_notebook').service_status">
+                            <p ng-switch-when="running" class="text-success text-center">
+                                <i class="fa fa-check" title="{$ getServiceData('ipython_notebook').service_status $}"></i>
+                            </p>
+                            <p ng-switch-default class="text-danger text-center">
+                                <i class="fa fa-close" title="{$ getServiceData('ipython_notebook').service_status $}"></i>
+                            </p>
+                        </div>
+                    </td>
+                    <td><a href="http://localhost/ipython_notebook">http://localhost/ipython_notebook</a></td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>R-Studio</td>
+                    <td>R Studio IDE is a powerful and productive user interface for R</td>
+                    <td>
+                        <div ng-switch on="getServiceData('rstudio').service_status">
+                            <p ng-switch-when="running" class="text-success text-center">
+                                <i class="fa fa-check" title="{$ getServiceData('rstudio').service_status $}"></i>
+                            </p>
+                            <p ng-switch-default class="text-danger text-center">
+                                <i class="fa fa-close" title="{$ getServiceData('rstudio').service_status $}"></i>
+                            </p>
+                        </div>
+                    </td>
+                    <td><a href="http://localhost/rstudio">http://localhost/rstudio</a></td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>SSH</td>
+                    <td>You can login to your virtual machine remotely through an SSH client.</td>
+                    <td>
+                        <p class="text-success text-center">
+                            <i class="fa fa-check" title="Available"></i>
+                        </p>
+                    </td>
+                    <td><kbd>ssh -i &lt;your_cloudman_keypair&gt; ubuntu@localhost</kbd></td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>GVL UCSC Genome Browser</td>
+                    <td>The UCSC Genome Browser allows you to visualise genome sequence data from a variety of
+                        vertebrate and invertebrate species and major model organisms, integrated with a large
+                        collection of aligned annotations.</td>
+                    <td>
+                        <p class="text-success text-center">
+                            <i class="fa fa-check" title="Available"></i>
+                        </p>
+                    </td>
+                    <td><a href="https://ucsc.genome.edu.au/">https://ucsc.genome.edu.au/</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>GVL Tutorial</td>
+                    <td>Access GVL tutorials and other learning resources.</td>
+                    <td>
+                        <p class="text-success text-center">
+                            <i class="fa fa-check" title="Available"></i>
+                        </p>
+                    </td>
+                    <td><a href="https://genome.edu.au/wiki/Learn">https://genome.edu.au/wiki/Learn</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}
