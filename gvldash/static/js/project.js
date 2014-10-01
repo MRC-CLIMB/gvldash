@@ -61,5 +61,9 @@ homeModule.controller("gvlHomePageActionsController", [ "$scope", "gvlAppDataSer
     $scope.getServiceData = function(service_name) {
         return gvlAppDataService.getServiceData(service_name);
     }
-
+    
+    $scope.getServiceURL = function(service_name) {
+        return window.location.origin + gvlAppDataService.getServiceData(service_name).service_path;
+    }
+    
 } ]);

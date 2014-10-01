@@ -92,3 +92,9 @@ def get_service_path(service_name):
         return "/galaxy"
     elif service_name.lower() == "cloudman":
         return "/cloud"
+    elif service_name.lower() == "vnc":
+        return "/vnc"
+    elif service_name.lower() == "rstudio":
+        return "/rstudio"
+    elif service_name.lower() == "ipython_notebook":
+        return "/ipython_notebook"
