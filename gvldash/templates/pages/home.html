@@ -1,12 +1,12 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} {% load staticfiles %} {% block content %}
 
 <div ng-app="gvldash.home" ng-controller="gvlHomePageActionsController">
-    <p>Welcome to the GVL Dashboard! The GVL Dashboard is a portal through which you can access all services on the
-        GVL workbench.</p>
+    <p>Welcome to the GVL Dashboard! The GVL Dashboard is a portal through which you can access all services on your
+        GVL instance.</p>
     <h1>
-        Available Services <span ng-show="isRefreshInProgress()"><i class="fa fa-spinner"></i></span>
+        Instance Services <span ng-show="isRefreshInProgress()"><i class="fa fa-spinner"></i></span>
     </h1>
-    
+
     <hr />
 
     <div class="table-responsive">
@@ -22,7 +22,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>1</td>
+                    <td class="text-center"><img src="{% static 'images/galaxy_logo.png' %}"></img></td>
                     <td>Galaxy</td>
                     <td>Galaxy is an open, web-based platform for accessible, reproducible, and transparent
                         computational biomedical research.</td>
@@ -40,7 +40,7 @@
                     <td><a href="{$ getServiceURL('galaxy') $}">{$ getServiceURL('galaxy') $}</a></td>
                 </tr>
                 <tr>
-                    <td>2</td>
+                    <td class="text-center"><img src="{% static 'images/cloudman_logo.png' %}"></td>
                     <td>Cloudman</td>
                     <td>CloudMan is a cloud manager that orchestrates the steps required to provision and manage
                         compute clusters on a cloud infrastructure. Use Cloudman to start and manage your Galaxy
@@ -58,7 +58,7 @@
                     <td><a href="{$ getServiceURL('cloudman') $}">{$ getServiceURL('cloudman') $}</a></td>
                 </tr>
                 <tr>
-                    <td>3</td>
+                    <td class="text-center"><img src="{% static 'images/lubuntu_logo.png' %}"></td>
                     <td>Lubuntu Desktop</td>
                     <td>This is a lightweight desktop environment through which you can run desktop applications on
                         your virtual machine. You can also access the GVL command line utilities through the desktop.</td>
@@ -67,28 +67,15 @@
                             <p ng-switch-when="running" class="text-success text-center">
                                 <i class="fa fa-check" title="{$ getServiceData('vnc').service_status $}"></i>
                             </p>
-                            <p ng-switch-default class="text-danger text-center">
-                                <i class="fa fa-close" title="{$ getServiceData('vnc').service_status $}"></i>
+                            <p ng-switch-default class="text-warning text-center">
+                                <i class="fa fa-question" title="{$ getServiceData('vnc').service_status $}"></i>
                             </p>
                         </div>
                     </td>
                     <td><a href="{$ getServiceURL('vnc') $}">{$ getServiceURL('vnc') $}</a></td>
                 </tr>
                 <tr>
-                    <td>4</td>
-                    <td>GVL GenomeSpace</td>
-                    <td>Genomespace is like a dropbox for GenomeData. Use Genomespace to store all your Genomics
-                        Data securely and redundantly.</td>
-                    <td>
-                        <p class="text-success text-center">
-                            <i class="fa fa-check" title="Available"></i>
-                        </p>
-                    </td>
-                    <td><a href="https://genomespace.genome.edu.au/jsui/">https://genomespace.genome.edu.au</td>
-                </tr>
-
-                <tr>
-                    <td>5</td>
+                    <td class="text-center"><img src="{% static 'images/ipython_logo.png' %}"></td>
                     <td>iPython Notebook</td>
                     <td>The IPython Notebook is a web-based interactive computational environment where you can
                         combine code execution, text, mathematics, plots and rich media into a single document.</td>
@@ -102,10 +89,11 @@
                             </p>
                         </div>
                     </td>
-                    <td><a href="{$ getServiceURL('ipython_notebook') $}">{$ getServiceURL('ipython_notebook') $}</a></td>
+                    <td><a href="{$ getServiceURL('ipython_notebook') $}">{$ getServiceURL('ipython_notebook')
+                            $}</a></td>
                 </tr>
                 <tr>
-                    <td>6</td>
+                    <td class="text-center"><img src="{% static 'images/rstudio_logo.png' %}"></td>
                     <td>R-Studio</td>
                     <td>R Studio IDE is a powerful and productive user interface for R</td>
                     <td>
@@ -121,7 +109,7 @@
                     <td><a href="{$ getServiceURL('rstudio') $}">{$ getServiceURL('rstudio') $}</a></td>
                 </tr>
                 <tr>
-                    <td>7</td>
+                    <td class="text-center"><img src="{% static 'images/ssh_logo.png' %}"></td>
                     <td>SSH</td>
                     <td>You can login to your virtual machine remotely through an SSH client.</td>
                     <td>
@@ -131,8 +119,33 @@
                     </td>
                     <td><kbd>ssh -i &lt;your_cloudman_keypair&gt; ubuntu@localhost</kbd></td>
                 </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <br />
+    <h1>Public Services</h1>
+
+    <hr />
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
                 <tr>
-                    <td>8</td>
+                    <td class="text-center"><img src="{% static 'images/genomespace_logo.png' %}"></td>
+                    <td>GVL GenomeSpace</td>
+                    <td>Genomespace is like a dropbox for GenomeData. Use Genomespace to store all your Genomics
+                        Data securely and redundantly.</td>
+                    <td>
+                        <p class="text-success text-center">
+                            <i class="fa fa-check" title="Available"></i>
+                        </p>
+                    </td>
+                    <td><a href="https://genomespace.genome.edu.au/jsui/">https://genomespace.genome.edu.au</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><img src="{% static 'images/ucsc_logo.jpg' %}"></td>
                     <td>GVL UCSC Genome Browser</td>
                     <td>The UCSC Genome Browser allows you to visualise genome sequence data from a variety of
                         vertebrate and invertebrate species and major model organisms, integrated with a large
@@ -145,7 +158,7 @@
                     <td><a href="https://ucsc.genome.edu.au/">https://ucsc.genome.edu.au/</td>
                 </tr>
                 <tr>
-                    <td>9</td>
+                    <td class="text-center"><img src="{% static 'images/gvl_learn_logo.png' %}"></td>
                     <td>GVL Tutorials</td>
                     <td>Access GVL tutorials and other learning resources.</td>
                     <td>
