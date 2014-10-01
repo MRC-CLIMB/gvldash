@@ -52,7 +52,7 @@ def _is_galaxy_running():
 
 
 def _is_cloudman_running():
-    dns = "http://127.0.0.1:8080/cloud"
+    dns = "http://127.0.0.1:42284/cloud"
     running_error_codes = [403]
     try:
         urllib2.urlopen(dns)
