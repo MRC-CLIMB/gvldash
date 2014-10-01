@@ -17,7 +17,7 @@ homeModule.service('gvlAppDataService', function($http, $timeout) {
     var poll_data = function() {
         // Poll gvl status
         _refresh_in_progress = true;
-        $http.get('api/v1/services', {
+        $http.get('api/v1/services/', {
             params : {}
         }).success(function(data) {
             _service_data = data;

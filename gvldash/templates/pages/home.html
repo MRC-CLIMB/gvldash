@@ -1,13 +1,15 @@
 {% extends "base.html" %} {% block content %}
 
-<div ng-app="gvldash.home">
+<div ng-app="gvldash.home" ng-controller="gvlHomePageActionsController">
     <p>Welcome to the GVL Dashboard! The GVL Dashboard is a portal through which you can access all services on the
         GVL workbench.</p>
     <h1>
         Available Services <span ng-show="isRefreshInProgress()"><i class="fa fa-spinner"></i></span>
     </h1>
+    
+    <hr />
 
-    <div class="table-responsive" ng-controller="gvlHomePageActionsController">
+    <div class="table-responsive">
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -144,7 +146,7 @@
                 </tr>
                 <tr>
                     <td>9</td>
-                    <td>GVL Tutorial</td>
+                    <td>GVL Tutorials</td>
                     <td>Access GVL tutorials and other learning resources.</td>
                     <td>
                         <p class="text-success text-center">

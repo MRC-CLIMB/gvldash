@@ -5,6 +5,7 @@ from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
+from views import get_service, get_services
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -19,15 +20,17 @@ urlpatterns = patterns('',
         name="about"),
 
     # Uncomment the next line to enable the admin:
-    url(r'^admin/', include(admin.site.urls)),
+#     url(r'^admin/', include(admin.site.urls)),
 
     # User management
-    url(r'^users/', include("users.urls", namespace="users")),
-    url(r'^accounts/', include('allauth.urls')),
+#     url(r'^users/', include("users.urls", namespace="users")),
+#     url(r'^accounts/', include('allauth.urls')),
 
     # Uncomment the next line to enable avatars
-    url(r'^avatar/', include('avatar.urls')),
+#     url(r'^avatar/', include('avatar.urls')),
 
     # Your stuff: custom urls go here
+    url(r'^api/v1/services/$', get_services, name='get_services'),
+    url(r'^api/v1/services/(?P<service_name>\w+)/$', get_service, name='get_service'),
 
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

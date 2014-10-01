@@ -23,10 +23,10 @@ class Common(Configuration):
     # APP CONFIGURATION
     DJANGO_APPS = (
         # Default Django apps:
-        'django.contrib.auth',
+#         'django.contrib.auth',
         'django.contrib.contenttypes',
-        'django.contrib.sessions',
-        'django.contrib.sites',
+#         'django.contrib.sessions',
+#         'django.contrib.sites',
         'django.contrib.messages',
         'django.contrib.staticfiles',
 
@@ -34,19 +34,22 @@ class Common(Configuration):
         # 'django.contrib.humanize',
 
         # Admin
-        'django.contrib.admin',
+#         'django.contrib.admin',
     )
+
+    SESSION_ENGINE = ('django.contrib.sessions.backends.signed_cookies')
+
     THIRD_PARTY_APPS = (
         'crispy_forms',  # Form layouts
-        'avatar',  # for user avatars
-        'allauth',  # registration
-        'allauth.account',  # registration
-        'allauth.socialaccount',  # registration
+#         'avatar',  # for user avatars
+#         'allauth',  # registration
+#         'allauth.account',  # registration
+#         'allauth.socialaccount',  # registration
     )
 
     # Apps specific for this project go here.
     LOCAL_APPS = (
-        'users',  # custom users app
+#         'users',  # custom users app
         # Your stuff: custom apps go here
     )
 
@@ -86,7 +89,7 @@ class Common(Configuration):
     # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
     # Note: This key only used for development and testing.
     #       In production, this is changed to a values.SecretValue() setting
-    SECRET_KEY = "CHANGEME!!!"
+    SECRET_KEY = "TODO_GVL_SECRET_KEY_NEEDS_TO_BE_GENERATED"
     # END SECRET CONFIGURATION
 
     # FIXTURE CONFIGURATION
@@ -112,7 +115,8 @@ class Common(Configuration):
 
     # DATABASE CONFIGURATION
     # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
-    DATABASES = values.DatabaseURLValue('postgres://localhost/gvldash')
+    DATABASES = {}
+    # DATABASES = values.DatabaseURLValue('postgres://user:pass@localhost/gvldash')
     # END DATABASE CONFIGURATION
 
     # CACHING
@@ -149,9 +153,9 @@ class Common(Configuration):
     # TEMPLATE CONFIGURATION
     # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-context-processors
     TEMPLATE_CONTEXT_PROCESSORS = (
-        'django.contrib.auth.context_processors.auth',
-        "allauth.account.context_processors.account",
-        "allauth.socialaccount.context_processors.socialaccount",
+#         'django.contrib.auth.context_processors.auth',
+#         "allauth.account.context_processors.account",
+#         "allauth.socialaccount.context_processors.socialaccount",
         'django.core.context_processors.debug',
         'django.core.context_processors.i18n',
         'django.core.context_processors.media',
@@ -212,19 +216,19 @@ class Common(Configuration):
 
     # AUTHENTICATION CONFIGURATION
     AUTHENTICATION_BACKENDS = (
-        "django.contrib.auth.backends.ModelBackend",
-        "allauth.account.auth_backends.AuthenticationBackend",
+        # "django.contrib.auth.backends.ModelBackend",
+        # "allauth.account.auth_backends.AuthenticationBackend",
     )
 
     # Some really nice defaults
-    ACCOUNT_AUTHENTICATION_METHOD = "username"
+    # ACCOUNT_AUTHENTICATION_METHOD = "username"
     ACCOUNT_EMAIL_REQUIRED = True
     ACCOUNT_EMAIL_VERIFICATION = "mandatory"
     # END AUTHENTICATION CONFIGURATION
 
     # Custom user app defaults
     # Select the correct user model
-    AUTH_USER_MODEL = "users.User"
+    # AUTH_USER_MODEL = "users.User"
     LOGIN_REDIRECT_URL = "users:redirect"
     LOGIN_URL = "account_login"
     # END Custom user app defaults
