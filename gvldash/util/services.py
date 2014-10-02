@@ -33,13 +33,13 @@ class Service(object):
             return "unavailable"
 
     def _is_service_installed(self):
-        return False
+        return True
 
     def _is_service_running(self):
         return util.is_process_running(self.service_process) and self._is_service_path_available()
 
     def _is_service_path_available(self):
-        dns = "http://127.0.0.1:80" + path
+        dns = "http://127.0.0.1:80" + str(self.service_path)
         running_error_codes = [401, 403]
         try:
             urllib2.urlopen(dns)
@@ -53,13 +53,23 @@ class Service(object):
         return self.service_path
 
 
+class GVLCmdLineService(Service):
+
+    def __init__(self, service_name, display_name, service_process, service_path):
+        super(GVLCmdLineService, self).__init__(service_name, display_name, service_process, service_path)
+
+    # override
+    def _is_service_installed(self):
+        return os.path.exists("/home/researcher")
+
+
 service_list = [Service("galaxy", "Galaxy", "universe_wsgi.ini", "/galaxy"),
                 Service("cloudman", "Cloudman", "cm_wsgi.ini", "/cloud"),
                 Service("vnc", "Lubuntu Desktop", "wsproxy.py", "/vnc"),
-                Service("ipython_notebook", "iPython Notebook", "ipython notebook", "/ipython_notebook"),
-                Service("rstudio", "RStudio", "rstudio", "/rstudio"),
-                Service("public_html", "Public HTML", "nginx", "/public/researcher/"),
-                Service("ssh", "SSH", "ssh", None),
+                GVLCmdLineService("ipython_notebook", "iPython Notebook", "ipython notebook", "/ipython_notebook"),
+                GVLCmdLineService("rstudio", "RStudio", "rstudio", "/rstudio"),
+                GVLCmdLineService("public_html", "Public HTML", "nginx", "/public/researcher/"),
+                Service("ssh", "SSH", "sshd", None),
                 ]
 
 

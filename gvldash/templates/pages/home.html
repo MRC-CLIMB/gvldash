@@ -63,10 +63,13 @@
                     <td>
                         <div ng-switch on="service.service_status">
                             <p ng-switch-when="running" class="text-success text-center">
-                                <i class="fa fa-check-circle" title="{$ service.service_status $}"></i>
+                                <i class="fa fa-check-circle" title="Running"></i>
+                            </p>
+                            <p ng-switch-when="not_installed" class="text-warning text-center">
+                                <i class="fa fa-minus" title="Not Installed"></i>
                             </p>
                             <p ng-switch-default class="text-danger text-center">
-                                <i class="fa fa-close" title="{$ service.service_status $}"></i>
+                                <i class="fa fa-close" title="Error or Unavailable"></i>
                             </p>
                         </div>
                     </td>
