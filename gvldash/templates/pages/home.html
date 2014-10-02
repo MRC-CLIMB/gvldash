@@ -95,7 +95,7 @@
                 <tr>
                     <td class="text-center"><img src="{% static 'images/rstudio_logo.png' %}"></td>
                     <td>R-Studio</td>
-                    <td>R Studio IDE is a powerful and productive user interface for R</td>
+                    <td>R Studio IDE is a powerful and productive user interface for R.</td>
                     <td>
                         <div ng-switch on="getServiceData('rstudio').service_status">
                             <p ng-switch-when="running" class="text-success text-center">
@@ -133,9 +133,18 @@
         <table class="table table-striped">
             <thead>
                 <tr>
+                    <th></th>
+                    <th>Service Name</th>
+                    <th>Description</th>
+                    <th class="text-center">Status</th>
+                    <th>Access Link</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
                     <td class="text-center"><img src="{% static 'images/genomespace_logo.png' %}"></td>
                     <td>GVL GenomeSpace</td>
-                    <td>Genomespace is like a dropbox for GenomeData. Use Genomespace to store all your Genomics
+                    <td>Genomespace is like dropbox, for GenomeData. Use Genomespace to store all your Genomics
                         Data securely and redundantly.</td>
                     <td>
                         <p class="text-success text-center">
