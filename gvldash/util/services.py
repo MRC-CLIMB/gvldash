@@ -36,7 +36,10 @@ class Service(object):
         return True
 
     def _is_service_running(self):
-        return util.is_process_running(self.service_process) and self._is_service_path_available()
+        if self.service_path:
+            return util.is_process_running(self.service_process) and self._is_service_path_available()
+        else:
+            return util.is_process_running(self.service_process)
 
     def _is_service_path_available(self):
         dns = "http://127.0.0.1:80" + str(self.service_path)
