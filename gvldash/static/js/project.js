@@ -7,7 +7,7 @@ homeModule.config(function($interpolateProvider) {
 
 homeModule.service('gvlAppDataService', function($http, $timeout) {
     // Server Status Cache
-    var _service_data = [];
+    var _service_list = [];
     var _messages;
 
     // Local vars
@@ -20,7 +20,7 @@ homeModule.service('gvlAppDataService', function($http, $timeout) {
         $http.get('api/v1/services/', {
             params : {}
         }).success(function(data) {
-            _service_data = data;
+            _service_list = data;
             _refresh_in_progress = false;
         }).error(function(data) {
             _refresh_in_progress = false;
@@ -43,8 +43,16 @@ homeModule.service('gvlAppDataService', function($http, $timeout) {
             $timeout.cancel(_data_timeout_id);
         },
         resumeDataService : resumeDataService,
-        getServiceData : function(service_name) {
-            return _service_data[service_name];
+        getServiceList : function() {
+            return _service_list;
+        },
+        getServicePath : function(service_name) {
+            for (var index in _service_list) {
+                if (_service_list[index].service_name == service_name) {
+                    return _service_list[index].service_path;
+                }
+            }
+            return null;
         },
         isRefreshInProgress : function() {
             return _refresh_in_progress;
@@ -52,18 +60,21 @@ homeModule.service('gvlAppDataService', function($http, $timeout) {
     };
 });
 
-homeModule.controller("gvlHomePageActionsController", [ "$scope", "gvlAppDataService", function($scope, gvlAppDataService) {
+homeModule.controller("gvlHomePageActionsController", [ "$scope", "gvlAppDataService",
+        function($scope, gvlAppDataService) {
 
-    $scope.isRefreshInProgress = function() {
-        return gvlAppDataService.isRefreshInProgress();
-    }
+            $scope.isRefreshInProgress = function() {
+                return gvlAppDataService.isRefreshInProgress();
+            }
 
-    $scope.getServiceData = function(service_name) {
-        return gvlAppDataService.getServiceData(service_name);
-    }
-    
-    $scope.getServiceURL = function(service_name) {
-        return window.location.origin + gvlAppDataService.getServiceData(service_name).service_path;
-    }
-    
-} ]);
+            $scope.getServiceList = function(service_name) {
+                return gvlAppDataService.getServiceList();
+            }
+
+            $scope.getServiceURL = function(service_name) {
+                if (service_name == "ssh")
+                    return window.location.hostname;
+                return window.location.origin + gvlAppDataService.getServicePath(service_name);
+            }
+
+        } ]);

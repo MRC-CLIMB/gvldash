@@ -72,7 +72,7 @@ class Common(Configuration):
 
     # MIGRATIONS CONFIGURATION
     MIGRATION_MODULES = {
-        'sites': 'contrib.sites.migrations'
+        # 'sites': 'contrib.sites.migrations'
     }
     # END MIGRATIONS CONFIGURATION
 
