@@ -29,7 +29,7 @@
                     <td>
                         <div ng-switch on="getServiceData('galaxy').service_status">
                             <p ng-switch-when="running" class="text-success text-center">
-                                <i class="fa fa-check" title="{$ getServiceData('galaxy').service_status $}"></i>
+                                <i class="fa fa-smile-o" title="{$ getServiceData('galaxy').service_status $}"></i>
                             </p>
                             <p ng-switch-default class="text-danger text-center">
                                 <i class="fa fa-close" title="{$ getServiceData('galaxy').service_status $}"></i>
@@ -89,8 +89,7 @@
                             </p>
                         </div>
                     </td>
-                    <td><a href="{$ getServiceURL('ipython_notebook') $}">{$ getServiceURL('ipython_notebook')
-                            $}</a></td>
+                    <td><a href="{$ getServiceURL('ipython_notebook') $}">{$ getServiceURL('ipython_notebook') $}</a></td>
                 </tr>
                 <tr>
                     <td class="text-center"><img src="{% static 'images/rstudio_logo.png' %}"></td>
@@ -109,6 +108,22 @@
                     <td><a href="{$ getServiceURL('rstudio') $}">{$ getServiceURL('rstudio') $}</a></td>
                 </tr>
                 <tr>
+                    <td class="text-center"><img src="{% static 'images/public_html_logo.png' %}"></td>
+                    <td>Public HTML</td>
+                    <td>This is a shared web-accessible folder. Any files you place in this directory will be publicly accessible.<filename></td>
+                    <td>
+                        <div ng-switch on="getServiceData('public_html').service_status">
+                            <p ng-switch-when="running" class="text-success text-center">
+                                <i class="fa fa-check" title="{$ getServiceData('public_html').service_status $}"></i>
+                            </p>
+                            <p ng-switch-default class="text-danger text-center">
+                                <i class="fa fa-close" title="{$ getServiceData('public_html').service_status $}"></i>
+                            </p>
+                        </div>
+                    </td>
+                    <td><a href="{$ getServiceURL('public_html') $}">{$ getServiceURL('public_html') $}</a></td>
+                </tr>
+                <tr>
                     <td class="text-center"><img src="{% static 'images/ssh_logo.png' %}"></td>
                     <td>SSH</td>
                     <td>You can login to your virtual machine remotely through an SSH client.</td>
@@ -117,7 +132,7 @@
                             <i class="fa fa-check" title="Available"></i>
                         </p>
                     </td>
-                    <td><kbd>ssh -i &lt;your_cloudman_keypair&gt; ubuntu@localhost</kbd></td>
+                    <td><kbd>ssh ubuntu@localhost</kbd></td>
                 </tr>
             </tbody>
         </table>
@@ -172,7 +187,7 @@
                     <td>Access GVL tutorials and other learning resources.</td>
                     <td>
                         <p class="text-success text-center">
-                            <i class="fa fa-check" title="Available"></i>
+                            <i class="fa fa-thumbs-up" title="Available"></i>
                         </p>
                     </td>
                     <td><a href="https://genome.edu.au/wiki/Learn">https://genome.edu.au/wiki/Learn</td>
