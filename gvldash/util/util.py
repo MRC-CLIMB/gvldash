@@ -18,5 +18,5 @@ def is_process_running(process_name):
     Check if a process with ``process_name`` is running. Return ``True`` is so,
     ``False`` otherwise.
     """
-    p = _run("ps xa | grep {0} | grep -v grep".format(process_name))
+    p = _run("ps xa | grep \"{0}\"".format(process_name))
     return p and process_name in p

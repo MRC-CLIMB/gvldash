@@ -48,7 +48,7 @@ class Service(object):
             protocol = "https"
         else:
             protocol = "http"
-        dns = protocol + "://127.0.0.1:80" + str(self.service_path)
+        dns = protocol + "://127.0.0.1" + str(self.service_path)
         running_error_codes = [401, 403]
         try:
             urllib2.urlopen(dns)

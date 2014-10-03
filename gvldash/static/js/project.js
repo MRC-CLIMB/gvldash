@@ -74,7 +74,10 @@ homeModule.controller("gvlHomePageActionsController", [ "$scope", "gvlAppDataSer
             $scope.getServiceURL = function(service_name) {
                 if (service_name == "ssh")
                     return window.location.hostname;
-                return window.location.origin + gvlAppDataService.getServicePath(service_name);
+                else if (service_name == "ipython_notebook")
+                    return "https://" + window.location.hostname + gvlAppDataService.getServicePath(service_name);
+                else
+                	return window.location.origin + gvlAppDataService.getServicePath(service_name);
             }
 
         } ]);
