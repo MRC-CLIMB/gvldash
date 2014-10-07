@@ -26,9 +26,9 @@ class Production(Common):
 #     # properly on Heroku.
 #     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # 
-#     # INSTALLED_APPS
-#     INSTALLED_APPS = Common.INSTALLED_APPS
-#     # END INSTALLED_APPS
+    # INSTALLED_APPS
+    INSTALLED_APPS = Common.INSTALLED_APPS
+    # END INSTALLED_APPS
 # 
 #     # SECRET KEY
 #     SECRET_KEY = values.SecretValue()
