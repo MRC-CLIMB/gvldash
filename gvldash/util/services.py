@@ -72,7 +72,7 @@ class HttpsService(Service):
         return super(HttpsService, self)._is_service_path_available(secure)
 
 
-service_list = [Service("galaxy", "Galaxy", "universe_wsgi.ini", "/galaxy", "/mnt/galaxy"),
+service_list = [Service("galaxy", "Galaxy", "universe_wsgi.ini", "/galaxy", "/mnt/galaxy/galaxy-app"),
                 Service("cloudman", "Cloudman", "cm_wsgi.ini", "/cloud", "/mnt/cm"),
                 Service("vnc", "Lubuntu Desktop", "wsproxy.py", "/vnc", "/opt/novnc"),
                 HttpsService("ipython_notebook", "iPython Notebook", "ipython notebook", "/ipython", "/home/researcher"),
