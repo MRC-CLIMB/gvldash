@@ -38,6 +38,19 @@
 	overflow: hidden;
 }
 
+
+.spinner-fadein {
+  opacity: 1;
+}
+
+.spinner-fadeout {
+  opacity: 0;
+  -webkit-transition: opacity 1s ease-in; //for chrome, safari
+  moz-transition: opacity 1s ease-in; //for mozilla firefox
+  -o-transition: opacity 1s ease-in; //for opera
+}
+
+
 @-webkit-keyframes shake {
 	0%, 100% {-webkit-transform: translateX(0);}
 	10%, 30%, 50%, 70%, 90% {-webkit-transform: translateX(-10px);}

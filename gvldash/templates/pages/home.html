@@ -4,7 +4,7 @@
     <p>Welcome to the GVL Dashboard! The GVL Dashboard is a portal through which you can access all services on your
         GVL instance.</p>
     <h1>
-        Instance Services <span ng-show="isRefreshInProgress()"><i class="fa fa-spinner"></i></span>
+        Instance Services <span ng-class="{ 'spinner-fadein': isRefreshInProgress(), 'spinner-fadeout': !isRefreshInProgress() }"><i class="fa fa-refresh fa-spin"></i></span>
     </h1>
 
     <hr />
