@@ -23,13 +23,18 @@
             <tbody>
                 <tr ng-repeat="service in getServiceList()">
                     <td ng-switch on="service.service_name" class="text-center">
-                        <img ng-switch-when="galaxy" src="{% static 'images/galaxy_logo.png' %}"></img>
-                        <img ng-switch-when="cloudman" src="{% static 'images/cloudman_logo.png' %}"></img>
-                        <img ng-switch-when="vnc" src="{% static 'images/lubuntu_logo.png' %}"></img>
-                        <img ng-switch-when="ipython_notebook" src="{% static 'images/ipython_logo.png' %}"></img>
-                        <img ng-switch-when="rstudio" src="{% static 'images/rstudio_logo.png' %}"></img>                        
-                        <img ng-switch-when="public_html" src="{% static 'images/public_html_logo.png' %}"></img>
-                        <img ng-switch-when="ssh" src="{% static 'images/ssh_logo.png' %}"></img>
+                    	<a ng-if="service.service_name != 'ssh'" class="btn btn-link" ng-class="{ 'application-disabled': service.service_status!='running', 'application-enabled': service.service_status=='running' }" href="{$ getServiceURL(service.service_name) $}">
+	                        <img ng-switch-when="galaxy" src="{% static 'images/galaxy_logo.png' %}"></img>
+	                        <img ng-switch-when="cloudman" src="{% static 'images/cloudman_logo.png' %}"></img>
+	                        <img ng-switch-when="vnc" src="{% static 'images/lubuntu_logo.png' %}"></img>
+	                        <img ng-switch-when="ipython_notebook" src="{% static 'images/ipython_logo.png' %}"></img>
+	                        <img ng-switch-when="rstudio" src="{% static 'images/rstudio_logo.png' %}"></img>                        
+	                        <img ng-switch-when="public_html" src="{% static 'images/public_html_logo.png' %}"></img>
+	                        <img ng-switch-when="ssh" src="{% static 'images/ssh_logo.png' %}"></img>
+	                    </a>
+	                    <a ng-if="service.service_name == 'ssh'" class="btn btn-link" ng-class="{ 'application-disabled': service.service_status!='running', 'application-enabled': service.service_status=='running' }" href="#">
+	                        <img ng-switch-when="ssh" src="{% static 'images/ssh_logo.png' %}"></img>
+	                    </a>
                     </td>
                     <td>{$ service.display_name $}</td>
                     <td ng-switch on="service.service_name">
@@ -102,7 +107,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td class="text-center"><img src="{% static 'images/genomespace_logo.png' %}"></td>
+                    <td class="text-center"><a href="https://genomespace.genome.edu.au/jsui/" class="application-enabled"><img src="{% static 'images/genomespace_logo.png' %}"></a></td>
                     <td>GVL GenomeSpace</td>
                     <td>Genomespace is like dropbox, for GenomeData. Use Genomespace to store all your Genomics
                         Data securely and redundantly.</td>
@@ -114,7 +119,7 @@
                     <td><a href="https://genomespace.genome.edu.au/jsui/">https://genomespace.genome.edu.au</td>
                 </tr>
                 <tr>
-                    <td class="text-center"><img src="{% static 'images/ucsc_logo.jpg' %}"></td>
+                    <td class="text-center"><a href="https://ucsc.genome.edu.au/" class="application-enabled"><img src="{% static 'images/ucsc_logo.jpg' %}"></a></td>
                     <td>GVL UCSC Genome Browser</td>
                     <td>The UCSC Genome Browser allows you to visualise genome sequence data from a variety of
                         vertebrate and invertebrate species and major model organisms, integrated with a large
@@ -127,7 +132,7 @@
                     <td><a href="https://ucsc.genome.edu.au/">https://ucsc.genome.edu.au/</td>
                 </tr>
                 <tr>
-                    <td class="text-center"><img src="{% static 'images/gvl_learn_logo.png' %}"></td>
+                    <td class="text-center"><a href="https://genome.edu.au/wiki/Learn" class="application-enabled"><img src="{% static 'images/gvl_learn_logo.png' %}"></a></td>
                     <td>GVL Tutorials</td>
                     <td>Access GVL tutorials and other learning resources.</td>
                     <td>
@@ -135,7 +140,7 @@
                             <i class="fa fa-check-circle" title="Available"></i>
                         </p>
                     </td>
-                    <td><a href="https://genome.edu.au/wiki/Learn">https://genome.edu.au/wiki/Learn</td>
+                    <td><a href="https://genome.edu.au/wiki/Learn">https://genome.edu.au/wiki/Learn</a></td>
                 </tr>
             </tbody>
         </table>

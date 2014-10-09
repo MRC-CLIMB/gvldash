@@ -35,4 +35,58 @@
 
 .table > tbody > tr > td {
     vertical-align: middle;
+	overflow: hidden;
+}
+
+@-webkit-keyframes shake {
+	0%, 100% {-webkit-transform: translateX(0);}
+	10%, 30%, 50%, 70%, 90% {-webkit-transform: translateX(-10px);}
+	20%, 40%, 60%, 80% {-webkit-transform: translateX(10px);}
+}
+
+@keyframes shake {
+	0%, 100% {transform: translateX(0);}
+	10%, 30%, 50%, 70%, 90% {transform: translateX(-10px);}
+	20%, 40%, 60%, 80% {transform: translateX(10px);}
+}
+
+a.application-disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+}
+
+a.application-disabled:hover {
+	/* -webkit-animation: shake 1s 1 alternate;
+	animation-name: shake; */
+}
+
+a.application-enabled {
+}
+
+a.application-enabled:hover
+{
+    animation: bounce 0.5s 4 alternate;
+    -webkit-animation: bounce 0.5s 4 alternate;
+}
+
+@keyframes bounce {
+  from {
+    transform: translateY(0px);
+  }
+
+  to {
+    transform: translateY(-10px);
+  }
+}
+
+@-webkit-keyframes bounce {
+  from {
+    -webkit-transform: translateY(0);
+  }
+
+  to {
+    -webkit-transform: translateY(-10px);
+  }
 }
