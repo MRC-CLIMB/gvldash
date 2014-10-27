@@ -1,0 +1,30 @@
+.off-canvas {
+  background: #ffffff;
+  color: #444444;
+  margin: 0;
+}
+.off-canvas .off-canvas-header {
+  background: #eeeeee;
+  color: #444444;
+  padding: 6px 12px;
+  height: 50px;
+}
+.off-canvas .off-canvas-header h2 {
+  margin: 0;
+  line-height: 50px;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  background: transparent;
+}
+
+.off-canvas .close {
+  margin: 0;
+  height: 55px;
+  line-height: 55px;
+  width: 55px;
+  background: transparent;
+  position: absolute;
+  top: 0;
+  right: 0;
+}

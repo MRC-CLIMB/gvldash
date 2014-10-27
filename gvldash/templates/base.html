@@ -22,53 +22,55 @@
     type="text/css">
 
 <!-- Optional theme -->
-<link rel="stylesheet" href="{% static 'css/templates.purity_iii.less.bootstrap.less.css' %}" type="text/css">
-<link rel="stylesheet" href="{% static 'css/plugins.system.t3.base-bs3.less.t3.less.css' %}" type="text/css">
-<link rel="stylesheet" href="{% static 'css/plugins.system.t3.base-bs3.less.off-canvas.less.css' %}" type="text/css">
-<link rel="stylesheet" href="{% static 'css/templates.purity_iii.less.off-canvas.less.css' %}" type="text/css">
+<link href="{% static 'css/pushy.css' %}" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/bootstrap-theme.css' %}" type="text/css">
+<link rel="stylesheet" href="{% static 'css/off-canvas.css' %}" type="text/css">
 
 <!-- Your stuff: Third-party css libraries go here -->
 
 <!-- This file store project specific CSS -->
-<link href="{% static 'css/project.css' %}" rel="stylesheet">
+<link href="{% static 'css/project.css' %}" rel="stylesheet" type="text/css">
 {% endblock %} {% block angular %}
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular.js"></script>
 {% endblock %}
 
 </head>
 
 <body>
 
-    <div id="t3-off-canvas" class="t3-off-canvas  off-canvas-effect-4 off-canvas-left">
-
-        <div class="t3-off-canvas-header">
-            <h2 class="t3-off-canvas-header-title">{% trans "Menu" %}</h2>
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	<div class="pushy pushy-left off-canvas">
+        <div class="off-canvas-header">
+            <h2 class="off-canvas">{% trans "Menu" %}</h2>
+            <button type="button" class="close" data-dismiss="modal" onclick="$('.site-overlay').click()">×</button>
         </div>
 
-        <div class="t3-off-canvas-body">
+        <div class="off-canvas-body">
             <ul class="nav">
                 <li><a href="{% url 'home' %}">{% trans "Home" %}</a></li>
                 <li><a href="{% url 'about' %}">{% trans "About" %}</a></li>
             </ul>
         </div>
-
     </div>
-    <div class="t3-wrapper features-intro features-intro-1">
+    
+    <!-- Site Overlay -->
+	<div class="site-overlay"></div>
+
+    <div id="container" class="wrapper">
         <!-- Need this wrapper for off-canvas menu. Remove if you don't use of-canvas -->
 
         <!-- MAIN NAVIGATION -->
-        <header id="t3-mainnav" class="wrap navbar navbar-default navbar-fixed-top t3-mainnav">
+        <header id="mainnav" class="wrap navbar navbar-default navbar-fixed-top">
             <!-- OFF-CANVAS -->
-
-            <button class="btn btn-default off-canvas-toggle " type="button" data-pos="left" data-nav="#t3-off-canvas"
-                data-effect="off-canvas-effect-4">
-                <i class="fa fa-bars"></i>
-            </button>
+		    <button type="button" class="navbar-toggle menu-btn" data-target=".navbar-collapse">
+		        <span class="sr-only">Toggle navigation</span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		    </button>
 
             <div class="container">
                 <div class="navbar-header">
-
+					<a class="navbar-brand menu-btn"><i class="fa fa-bars"></i></a>
                     <a class="navbar-brand" href="/"><img src="{% static 'images/gvl_logo.png' %}"
                         style="width: 28px" alt="Home"> {% trans "GVL Dashboard" %}</a>
                     <ul class="nav navbar-nav">
@@ -107,7 +109,7 @@
 
         <!-- Your stuff: Third-party javascript libraries go here -->
         <script src="{% static 'js/jquery.tap.min.js' %}" type="text/javascript"></script>
-        <script src="{% static 'js/off-canvas.js' %}" type="text/javascript"></script>
+        <script src="{% static 'js/pushy.min.js' %}" type="text/javascript"></script>
 
 
         <!-- place project specific Javascript in this file -->
