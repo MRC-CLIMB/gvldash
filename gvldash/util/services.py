@@ -75,7 +75,7 @@ class HttpsService(Service):
 service_list = [Service("galaxy", "Galaxy", "universe_wsgi.ini", "/galaxy", "/mnt/galaxy/galaxy-app"),
                 Service("cloudman", "Cloudman", "cm_wsgi.ini", "/cloud", "/mnt/cm"),
                 Service("vnc", "Lubuntu Desktop", "wsproxy.py", "/vnc", "/opt/novnc"),
-                HttpsService("ipython_notebook", "iPython Notebook", "ipython notebook", "/ipython", "/home/researcher"),
+                HttpsService("ipython_notebook", "IPython Notebook", "ipython notebook", "/ipython", "/home/researcher"),
                 Service("rstudio", "RStudio", "rstudio", "/rstudio", "/home/researcher"),
                 Service("public_html", "Public HTML", "nginx", "/public/researcher/", "/home/researcher"),
                 Service("ssh", "SSH", "sshd", None, "/usr/sbin/sshd"),
