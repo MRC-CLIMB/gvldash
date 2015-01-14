@@ -79,3 +79,23 @@ homeModule.controller("gvlHomePageActionsController", [ "$scope", "gvlAppDataSer
             }
 
         } ]);
+
+homeModule.controller("gvlAdminPageActionsController", [ "$scope", "gvlAppDataService",
+        function($scope, gvlAppDataService) {
+
+            $scope.isServiceInstalled = function() {
+                return gvlAppDataService.isRefreshInProgress();
+            }
+
+            $scope.getServiceList = function(service_name) {
+                return gvlAppDataService.getServiceList();
+            }
+
+            $scope.getServiceURL = function(service_name) {
+                if (service_name == "ssh")
+                    return window.location.hostname;
+                else
+                	return window.location.origin + gvlAppDataService.getServicePath(service_name);
+            }
+
+        } ]);
