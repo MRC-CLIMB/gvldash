@@ -7,12 +7,14 @@ class Service(object):
 
     service_name = None
     display_name = None
+    description = None
     service_process = None
     service_path = None
 
-    def __init__(self, service_name, display_name, service_process, service_path, local_fs_path):
+    def __init__(self, service_name, display_name, description, service_process, service_path, local_fs_path):
         self.service_name = service_name
         self.display_name = display_name
+        self.description = description
         self.service_process = service_process
         self.service_path = service_path
         self.local_fs_path = local_fs_path
@@ -21,6 +23,7 @@ class Service(object):
         data = {}
         data['service_name'] = self.service_name
         data['display_name'] = self.display_name
+        data['description'] = self.description
         data['service_status'] = self.get_service_status()
         data['service_path'] = self.get_service_path()
         return data
@@ -72,15 +75,24 @@ class HttpsService(Service):
         return super(HttpsService, self)._is_service_path_available(secure)
 
 
-service_list = [Service("galaxy", "Galaxy", "universe_wsgi.ini", "/galaxy", "/mnt/galaxy/galaxy-app"),
-                Service("cloudman", "Cloudman", "cm_wsgi.ini", "/cloud", "/mnt/cm"),
-                Service("vnc", "Lubuntu Desktop", "wsproxy.py", "/vnc", "/opt/galaxy/novnc"),
-                Service("ipython_notebook", "IPython Notebook", "ipython notebook", "/ipython", "/home/researcher"),
-                Service("rstudio", "RStudio", "rstudio", "/rstudio", "/etc/rstudio"),
-                Service("public_html", "Public HTML", "nginx", "/public/researcher/", "/home/researcher/public_html"),
-                Service("ssh", "SSH", "sshd", None, "/usr/sbin/sshd"),
-                ]
+def load_service_registry():
+    import yaml
+    stream = open("service_registry.yml", 'r')
+    registry = yaml.load(stream)
+    service_list = [Service(svc['name'], svc['display_name'], svc['description'], svc['process_name'], svc['virtual_path'], svc['installation_path'])
+                   for svc in registry['services']]
+    return service_list
 
+service_list = load_service_registry()
+
+# [Service("galaxy", "Galaxy", "universe_wsgi.ini", "/galaxy", "/mnt/galaxy/galaxy-app"),
+#                 Service("cloudman", "Cloudman", "cm_wsgi.ini", "/cloud", "/mnt/cm"),
+#                 Service("vnc", "Lubuntu Desktop", "wsproxy.py", "/vnc", "/opt/galaxy/novnc"),
+#                 Service("ipython_notebook", "IPython Notebook", "ipython notebook", "/ipython", "/home/researcher"),
+#                 Service("rstudio", "RStudio", "rstudio", "/rstudio", "/etc/rstudio"),
+#                 Service("public_html", "Public HTML", "nginx", "/public/researcher/", "/home/researcher/public_html"),
+#                 Service("ssh", "SSH", "sshd", None, "/usr/sbin/sshd"),
+#                 ]
 
 def get_services():
     data = []

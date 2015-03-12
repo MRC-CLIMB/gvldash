@@ -30,7 +30,7 @@
 	                        <img ng-switch-when="cloudman" src="{% static 'images/cloudman_logo.png' %}"></img>
 	                        <img ng-switch-when="vnc" src="{% static 'images/lubuntu_logo.png' %}"></img>
 	                        <img ng-switch-when="ipython_notebook" src="{% static 'images/ipython_logo.png' %}"></img>
-	                        <img ng-switch-when="rstudio" src="{% static 'images/rstudio_logo.png' %}"></img>                        
+	                        <img ng-switch-when="rstudio" src="{% static 'images/rstudio_logo.png' %}"></img>
 	                        <img ng-switch-when="public_html" src="{% static 'images/public_html_logo.png' %}"></img>
 	                        <img ng-switch-when="ssh" src="{% static 'images/ssh_logo.png' %}"></img>
 	                    </a>
@@ -39,34 +39,7 @@
 	                    </a>
                     </td>
                     <td>{$ service.display_name $}</td>
-                    <td ng-switch on="service.service_name">
-                        <span ng-switch-when="galaxy">
-                        Galaxy is an open, web-based platform for accessible, reproducible, and transparent
-                        computational biomedical research.
-                        </span>
-                        <span ng-switch-when="cloudman">
-                        CloudMan is a cloud manager that orchestrates the steps required to provision and manage
-                        compute clusters on a cloud infrastructure. Use Cloudman to start and manage your Galaxy
-                        service, and to add additional nodes to your compute cluster.
-                        </span>
-                        <span ng-switch-when="vnc">
-                        This is a lightweight desktop environment through which you can run desktop applications on
-                        your virtual machine. You can also access the GVL command line utilities through the desktop.
-                        </span>
-                        <span ng-switch-when="ipython_notebook">
-                        The IPython Notebook is a web-based interactive computational environment where you can
-                        combine code execution, text, mathematics, plots and rich media into a single document.
-                        </span>
-                        <span ng-switch-when="rstudio">
-                        R Studio IDE is a powerful and productive user interface for R.
-                        </span>
-                        <span ng-switch-when="public_html">
-                        This is a shared web-accessible folder. Any files you place in this directory will be publicly accessible.
-                        </span>
-                        <span ng-switch-when="ssh">
-                        You can login to your virtual machine remotely through an SSH client.
-                        </span>
-                    </td>
+                    <td>{$ service.description $}</td>
                     <td>
                         <div ng-switch on="service.service_status">
                             <p ng-switch-when="running" class="text-success text-center">
