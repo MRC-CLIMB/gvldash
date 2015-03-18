@@ -35,9 +35,9 @@ def manage_system_state(request):
     if request.method == "POST":
         data = json.loads(request.body)
         if data["state"] == "shutdown":
-            return package_helpers.get_cloudman_service().terminate()
+            package_helpers.get_cloudman_service().terminate()
         elif data["state"] == "reboot":
-            return package_helpers.get_cloudman_service().reboot()
+            package_helpers.get_cloudman_service().reboot()
         json_data = json.dumps(data)
         return HttpResponse(json_data, content_type='application/json')
     else:
