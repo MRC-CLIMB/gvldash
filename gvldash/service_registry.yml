@@ -15,8 +15,8 @@ services:
       installation_path: "/mnt/cm"
       description: >
         CloudMan is a cloud manager that orchestrates the steps required to provision and manage
-        compute clusters on a cloud infrastructure. Use Cloudman to start and manage your Galaxy
-        service, and to add additional nodes to your compute cluster.
+        compute clusters on cloud infrastructure. Use Cloudman to start and manage your Galaxy
+        service and to add additional nodes to your compute cluster.
 
     - name: vnc
       display_name: Lubuntu Desktop
@@ -25,7 +25,7 @@ services:
       installation_path: "/opt/galaxy/novnc"
       description: >
         This is a lightweight desktop environment through which you can run desktop applications on
-        your virtual machine. You can also access the GVL command line utilities through the desktop.
+        your virtual machine. You can also access the GVL commandline utilities through the desktop.
 
     - name: ipython_notebook
       display_name: IPython Notebook

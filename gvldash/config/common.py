@@ -23,24 +23,24 @@ class Common(Configuration):
     # APP CONFIGURATION
     DJANGO_APPS = (
         # Default Django apps:
-#         'django.contrib.auth',
+        'django.contrib.auth',
         'django.contrib.contenttypes',
 #         'django.contrib.sessions',
 #         'django.contrib.sites',
         'django.contrib.messages',
         'django.contrib.staticfiles',
-
         # Useful template tags:
         # 'django.contrib.humanize',
 
         # Admin
 #         'django.contrib.admin',
+
     )
 
     SESSION_ENGINE = ('django.contrib.sessions.backends.signed_cookies')
 
     THIRD_PARTY_APPS = (
-        'crispy_forms',  # Form layouts
+#         'crispy_forms',  # Form layouts
 #         'avatar',  # for user avatars
 #         'allauth',  # registration
 #         'allauth.account',  # registration
@@ -49,6 +49,7 @@ class Common(Configuration):
 
     # Apps specific for this project go here.
     LOCAL_APPS = (
+        'customauth',
 #         'users',  # custom users app
         # Your stuff: custom apps go here
     )
@@ -177,7 +178,7 @@ class Common(Configuration):
     )
 
     # See: http://django-crispy-forms.readthedocs.org/en/latest/install.html#template-packs
-    CRISPY_TEMPLATE_PACK = 'bootstrap3'
+#     CRISPY_TEMPLATE_PACK = 'bootstrap3'
     # END TEMPLATE CONFIGURATION
 
     # STATIC FILE CONFIGURATION
@@ -218,6 +219,7 @@ class Common(Configuration):
     AUTHENTICATION_BACKENDS = (
         # "django.contrib.auth.backends.ModelBackend",
         # "allauth.account.auth_backends.AuthenticationBackend",
+        'dpam.backends.PAMBackend',
     )
 
     # Some really nice defaults
@@ -228,7 +230,7 @@ class Common(Configuration):
 
     # Custom user app defaults
     # Select the correct user model
-    # AUTH_USER_MODEL = "users.User"
+    AUTH_USER_MODEL = "customauth.GVLUser"
     LOGIN_REDIRECT_URL = "users:redirect"
     LOGIN_URL = "account_login"
     # END Custom user app defaults

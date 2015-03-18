@@ -35,3 +35,4 @@ django-autoslug>=1.7.2
 
 # Your custom requirements go here
 pyyaml
+bioblend

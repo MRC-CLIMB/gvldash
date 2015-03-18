@@ -1,7 +1,7 @@
 import os
 import urllib2
 import util
-
+import yaml
 
 class Service(object):
 
@@ -76,7 +76,6 @@ class HttpsService(Service):
 
 
 def load_service_registry():
-    import yaml
     stream = open("service_registry.yml", 'r')
     registry = yaml.load(stream)
     service_list = [Service(svc['name'], svc['display_name'], svc['description'], svc['process_name'], svc['virtual_path'], svc['installation_path'])

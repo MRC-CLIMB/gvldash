@@ -1,0 +1,47 @@
+packages:
+    - name: gvl_cmdline_utilities
+      display_name: Commandline Utilities
+      description: >
+            Install this package to set up the GVL commandline utilities. These include rstudio,
+            ipython notebook, the public html folder, galaxy-fuse.py and it will also provide commandline
+            access to Galaxy modules. A new user account named "researcher" will be created, with the same
+            password as your ubuntu user, which you can use to access these utilities.
+      services:
+        - name: ipython_notebook
+          display_name: IPython Notebook
+          process_name: ipython notebook
+          virtual_path: "/ipython"
+          installation_path: "/home/researcher"
+          description: >
+            The IPython Notebook is a web-based interactive computational environment where you can
+            combine code execution, text, mathematics, plots and rich media into a single document.
+
+        - name: rstudio
+          display_name: RStudio
+          process_name: rstudio
+          virtual_path: "/rstudio"
+          installation_path: "/etc/rstudio"
+          description: >
+            R Studio IDE is a powerful and productive user interface for R.
+
+        - name: public_html
+          display_name: "Public HTML"
+          process_name: nginx
+          virtual_path: "/public/researcher/"
+          installation_path: "/home/researcher/public_html"
+          description: >
+            This is a shared web-accessible folder. Any files you place in this directory will be publicly accessible.
+
+    - name: galaxy_cloudman
+      display_name: Galaxy/Cloudman
+      description: >
+        This package can be used to install or configure Galaxy through CloudMan.
+      services:
+        - name: galaxy
+          display_name: Galaxy
+          process_name: universe_wsgi.ini
+          virtual_path: "/galaxy"
+          installation_path: "/mnt/galaxy/galaxy-app"
+          description: >
+                Galaxy is an open, web-based platform for accessible, reproducible, and transparent
+                computational biomedical research.
