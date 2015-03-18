@@ -94,6 +94,10 @@ homeModule.service('gvlAdminDataService', function($http, $timeout, $resource) {
         'update': { method:'PUT' },
     });
 
+	var System = $resource('/api/v1/system/status/', null, {
+        'save': { method:'POST' },
+    });
+
     var poll_data = function() {
         // Poll gvl status
         _refresh_in_progress = true;
@@ -126,6 +130,16 @@ homeModule.service('gvlAdminDataService', function($http, $timeout, $resource) {
     	Package.update({ packageName : pkg.package_name }, pkg);
     };
 
+    var rebootCluster = function() {
+    	system = new System({ state : "reboot" });
+    	system.update();
+    };
+
+    var terminateCluster = function() {
+    	system = new System({ state : "shutdown" });
+    	system.$save();
+    };
+
     // Public interface
     return {
         pauseDataService : function() {
@@ -136,6 +150,8 @@ homeModule.service('gvlAdminDataService', function($http, $timeout, $resource) {
             return _package_list;
         },
         installPackage : installPackage,
+        terminateCluster : terminateCluster,
+        rebootCluster : rebootCluster,
         isRefreshInProgress : function() {
             return _refresh_in_progress;
         }
@@ -155,8 +171,13 @@ homeModule.controller("gvlAdminPageActionsController", [ "$scope", "gvlAdminData
                 gvlAdminDataService.installPackage(pkg);
             }
 
-            $scope.getPackageActions = function(service_name) {
-                	return window.location.origin + gvlAdminDataService.getServicePath(service_name);
+            $scope.terminate_cluster = function() {
+                gvlAdminDataService.terminateCluster();
             }
+
+            $scope.reboot_cluster = function() {
+                gvlAdminDataService.rebootCluster();
+            }
+
 
         } ]);

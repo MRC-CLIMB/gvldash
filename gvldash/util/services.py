@@ -84,15 +84,6 @@ def load_service_registry():
 
 service_list = load_service_registry()
 
-# [Service("galaxy", "Galaxy", "universe_wsgi.ini", "/galaxy", "/mnt/galaxy/galaxy-app"),
-#                 Service("cloudman", "Cloudman", "cm_wsgi.ini", "/cloud", "/mnt/cm"),
-#                 Service("vnc", "Lubuntu Desktop", "wsproxy.py", "/vnc", "/opt/galaxy/novnc"),
-#                 Service("ipython_notebook", "IPython Notebook", "ipython notebook", "/ipython", "/home/researcher"),
-#                 Service("rstudio", "RStudio", "rstudio", "/rstudio", "/etc/rstudio"),
-#                 Service("public_html", "Public HTML", "nginx", "/public/researcher/", "/home/researcher/public_html"),
-#                 Service("ssh", "SSH", "sshd", None, "/usr/sbin/sshd"),
-#                 ]
-
 def get_services():
     data = []
     for service in service_list:

@@ -1,10 +1,20 @@
 import os
 import subprocess
+import yaml
 from bioblend.cloudman import CloudManInstance
 
 
+def get_cluster_password():
+    try:
+        stream = open("/tmp/cm/userData.yaml", "r")
+        with stream:
+            ud = yaml.load(stream)
+            return ud['password']
+    except:
+        return None
+
 class CloudmanService():
-    cm_instance = CloudManInstance("http://127.0.0.1:42284", None)
+    cm_instance = CloudManInstance("http://127.0.0.1:42284", get_cluster_password())
 
     def is_installed(self):
         try:
@@ -27,6 +37,9 @@ class CloudmanService():
 
     def terminate(self):
         self.cm_instance.terminate(terminate_master_instance=True, delete_cluster=True)
+
+    def reboot(self):
+        return None
 
 
 

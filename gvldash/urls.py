@@ -5,7 +5,7 @@ from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
-from api import get_service, get_services, manage_package, get_packages
+from api import get_service, get_services, manage_package, get_packages, manage_system_state
 from django.contrib.auth.decorators import login_required
 
 # Uncomment the next two lines to enable the admin:
@@ -40,6 +40,6 @@ urlpatterns = patterns('',
     url(r'^api/v1/services/(?P<service_name>\w+)/$', get_service, name='get_service'),
     url(r'^api/v1/packages/$', get_packages, name='get_packages'),
     url(r'^api/v1/packages/(?P<package_name>\w+)/$', manage_package, name='manage_package'),
-
+    url(r'^api/v1/system/status/$', manage_system_state, name='set_system_state'),
 
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
