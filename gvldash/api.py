@@ -1,5 +1,5 @@
 import json
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 from util import packages, services, package_helpers
 
 
@@ -21,11 +21,19 @@ def get_packages(request):
     return HttpResponse(json_data, content_type='application/json')
 
 
+def response_not_authenticated():
+    data = { "error": "You must be logged in to execute this action" }
+    json_data = json.dumps(data)
+    return HttpResponse(json_data, content_type='application/json', status=401)
+
 def manage_package(request, package_name):
     if request.method == "PUT":
-        data = packages.install_package(package_name)
-        json_data = json.dumps(data)
-        return HttpResponse(json_data, content_type='application/json')
+        if request.user.is_authenticated():
+            data = packages.install_package(package_name)
+            json_data = json.dumps(data)
+            return HttpResponse(json_data, content_type='application/json')
+        else:
+            return response_not_authenticated()
     else:
         data = packages.get_package_data(package_name)
         json_data = json.dumps(data)
@@ -33,13 +41,16 @@ def manage_package(request, package_name):
 
 def manage_system_state(request):
     if request.method == "POST":
-        data = json.loads(request.body)
-        if data["state"] == "shutdown":
-            package_helpers.get_cloudman_service().terminate()
-        elif data["state"] == "reboot":
-            package_helpers.get_cloudman_service().reboot()
-        json_data = json.dumps(data)
-        return HttpResponse(json_data, content_type='application/json')
+        if request.user.is_authenticated():
+            data = json.loads(request.body)
+            if data["state"] == "shutdown":
+                package_helpers.get_cloudman_service().terminate()
+            elif data["state"] == "reboot":
+                package_helpers.get_cloudman_service().reboot()
+            json_data = json.dumps(data)
+            return HttpResponse(json_data, content_type='application/json')
+        else:
+            return response_not_authenticated()
     else:
         data = { "state": "running" }
         json_data = json.dumps(data)
