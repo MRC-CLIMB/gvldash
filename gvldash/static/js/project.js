@@ -36,6 +36,9 @@ homeModule.service('gvlAppDataService', function($http, $timeout) {
         _data_timeout_id = $timeout(poll_data, 5000, true);
     };
 
+    // Execute first time fetch
+    poll_data();
+
     // Public interface
     return {
         pauseDataService : function() {
@@ -61,7 +64,6 @@ homeModule.service('gvlAppDataService', function($http, $timeout) {
 
 homeModule.controller("gvlHomePageActionsController", [ "$scope", "gvlAppDataService",
         function($scope, gvlAppDataService) {
-			gvlAppDataService.resumeDataService();
 
             $scope.isRefreshInProgress = function() {
                 return gvlAppDataService.isRefreshInProgress();
@@ -116,6 +118,9 @@ homeModule.service('gvlAdminDataService', function($http, $timeout, $resource) {
         _data_timeout_id = $timeout(poll_data, 5000, true);
     };
 
+    // Execute first time fetch
+    poll_data();
+
     var getPackage = function(pkg) {
         for (var index in _package_list) {
             if (_package_list[index].package_name == package_name) {
@@ -161,7 +166,6 @@ homeModule.service('gvlAdminDataService', function($http, $timeout, $resource) {
 
 homeModule.controller("gvlAdminPageActionsController", [ "$scope", "gvlAdminDataService",
         function($scope, gvlAdminDataService) {
-			gvlAdminDataService.resumeDataService();
 
             $scope.getPackageList = function() {
                 return gvlAdminDataService.getPackageList();
