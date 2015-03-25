@@ -4,14 +4,21 @@ import yaml
 from bioblend.cloudman import CloudManInstance
 
 
-def get_cluster_password():
+def load_instance_metadata():
     try:
-        stream = open("/tmp/cm/userData.yaml", "r")
-        with stream:
+        with open("/tmp/cm/userData.yaml", "r") as stream:
             ud = yaml.load(stream)
-            return ud['password']
+            return ud
     except:
-        return None
+        return {}
+
+instance_metadata = load_instance_metadata()
+
+def get_cluster_password():
+    return instance_metadata.get('password', None)
+
+def get_instance_name():
+    return instance_metadata.get('cluster_name', None)
 
 class CloudmanService():
     cm_instance = CloudManInstance("http://127.0.0.1:42284", get_cluster_password())

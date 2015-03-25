@@ -30,6 +30,9 @@ homeModule.service('gvlHomePageDataService', function($http, $timeout) {
 
     // Public interface
     return {
+    	getInstanceName : function() {
+            return _system_data['instance_name'];
+        },
     	getGVLVersion : function() {
             return _system_data['version'];
         },
@@ -98,6 +101,10 @@ homeModule.service('gvlAppDataService', function($http, $timeout) {
 
 homeModule.controller("gvlHomePageActionsController", [ "$scope", "gvlHomePageDataService", "gvlAppDataService",
         function($scope, gvlHomePageDataService, gvlAppDataService) {
+
+			$scope.getInstanceName = function() {
+		        return gvlHomePageDataService.getInstanceName();
+		    }
 
 			$scope.getGVLVersion = function() {
 		        return gvlHomePageDataService.getGVLVersion();

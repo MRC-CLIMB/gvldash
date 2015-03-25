@@ -60,6 +60,7 @@ def manage_system_state(request):
             return response_not_authenticated()
     else:
         data = {
+                "instance_name": package_helpers.get_instance_name(),
                 "version": version_info['version'],
                 "flavour": version_info['flavour'],
                 "build_date": version_info['build_date'],
