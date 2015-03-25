@@ -1,4 +1,4 @@
-var homeModule = angular.module('gvldash.home', ['ngResource']);
+var homeModule = angular.module('gvldash.home', ['ngResource', 'ui.bootstrap', 'ui.bootstrap.tpls' , 'ui.bootstrap', 'dialog']);
 
 homeModule.config(function($interpolateProvider, $httpProvider, $resourceProvider, PageConstants) {
     $interpolateProvider.startSymbol('{$');
@@ -164,8 +164,8 @@ homeModule.service('gvlAdminDataService', function($http, $timeout, $resource) {
 });
 
 
-homeModule.controller("gvlAdminPageActionsController", [ "$scope", "gvlAdminDataService",
-        function($scope, gvlAdminDataService) {
+homeModule.controller("gvlAdminPageActionsController", [ "$scope", "$dialog", "gvlAdminDataService",
+        function($scope, $dialog, gvlAdminDataService) {
 
             $scope.getPackageList = function() {
                 return gvlAdminDataService.getPackageList();
@@ -176,12 +176,85 @@ homeModule.controller("gvlAdminPageActionsController", [ "$scope", "gvlAdminData
             }
 
             $scope.terminate_cluster = function() {
-                gvlAdminDataService.terminateCluster();
+            	var title = "Confirm terminate...";
+				var msg = "Are you sure you want to terminate this cluster?";
+				var btns = [{result:'CANCEL', label: 'Cancel'},
+				            {result:'OK', label: 'Ok', cssClass: 'btn-danger'}];
+
+				$dialog.messageBox(title, msg, btns, function(result) {
+					if (result === 'OK') {
+						gvlAdminDataService.terminateCluster();
+					}
+				});
             }
 
             $scope.reboot_cluster = function() {
-                gvlAdminDataService.rebootCluster();
+            	var title = "Confirm reboot...";
+				var msg = "Are you sure you want to reboot the cluster?";
+				var btns = [{result:'CANCEL', label: 'Cancel'},
+				            {result:'OK', label: 'Ok', cssClass: 'btn-warning'}];
+
+				$dialog.messageBox(title, msg, btns, function(result) {
+					if (result === 'OK') {
+		            	gvlAdminDataService.rebootCluster();
+					}
+				});
+
             }
 
 
         } ]);
+
+
+var dialogModule = angular.module("dialog", [ 'ngSanitize', 'ui.bootstrap' ]);
+
+
+dialogModule.factory('$dialog', ['$rootScope', '$modal', function($rootScope, $modal) {
+
+  function dialog(modalOptions, resultFn) {
+    var dialog = $modal.open(modalOptions);
+    if (resultFn) dialog.result.then(resultFn);
+    dialog.values = modalOptions;
+    return dialog;
+  }
+
+  function modalOptions(templateUrl, controller, scope) {
+    return { templateUrl:  templateUrl, controller: controller, scope: scope }; }
+
+  return {
+    /**
+     * Creates and opens dialog.
+     */
+    dialog: dialog,
+
+    /**
+     * Returns 0-parameter function that opens dialog on evaluation.
+     */
+    simpleDialog: function(templateUrl, controller, resultFn) {
+      return function () { return dialog(modalOptions(templateUrl, controller), resultFn); }; },
+
+    /**
+     * Opens simple generic dialog presenting title, message (any html) and provided buttons.
+     */
+    messageBox: function(title, message, buttons, resultFn) {
+      var scope = angular.extend($rootScope.$new(false), { title: title, message: message, buttons: buttons });
+      return dialog(modalOptions("template/messageBox/message.html", 'MessageBoxController', scope), function (result) {
+        var value = resultFn ? resultFn(result) : undefined;
+        scope.$destroy();
+        return value;
+      }); }
+  };
+}]);
+
+
+dialogModule.run(["$templateCache", function($templateCache) {
+  $templateCache.put("template/messageBox/message.html",
+      '<div class="modal-header"><h3>{$ title $}</h3></div>\n' +
+      '<div class="modal-body"><p ng-bind-html="message"></p></div>\n' +
+      '<div class="modal-footer"><button ng-repeat="btn in buttons" ng-click="close(btn.result)" class="btn" ng-class="btn.cssClass">{$ btn.label $}</button></div>\n');
+}]);
+
+
+dialogModule.controller('MessageBoxController', ['$scope', '$modalInstance', function ($scope, $modalInstance) {
+  $scope.close = function (result) { $modalInstance.close(result); }
+}]);
