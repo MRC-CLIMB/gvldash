@@ -1,19 +1,15 @@
 {% extends "base.html" %}
 {% load staticfiles %}
-
 {% block content %}
 <div ng-app="gvldash.home" ng-controller="gvlAdminPageActionsController">
     <h1>
         Administration
     </h1>
-
-    <hr />
-
+    <hr>
     <h3>
         Packages
     </h3>
-    <hr />
-
+    <hr>
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
@@ -27,28 +23,30 @@
                 <tr ng-repeat="package in getPackageList()">
                     <td style="vertical-align:top;">{$ package.display_name $}</td>
                     <td>
-                    	<div>{$ package.description $}</div>
-                    	<div>
-                    		<br />
-							<b>Services in this package:</b>
-							<br />
-							<table>
-								<tr>
-									<td ng-repeat="service in package.services" style="width=10px">
-										<span ng-switch on="service.name">
-											{$ service.service_name $}
-					                        <img ng-switch-when="galaxy" src="{% static 'images/galaxy_logo.png' %}" style="width=50%"></img>
-					                        <img ng-switch-when="cloudman" src="{% static 'images/cloudman_logo.png' %}"  style="width=50%"></img>
-					                        <img ng-switch-when="vnc" src="{% static 'images/lubuntu_logo.png' %}" style="width=50%"></img>
-					                        <img ng-switch-when="ipython_notebook" src="{% static 'images/ipython_logo.png' %}" style="width=50%"></img>
-					                        <img ng-switch-when="rstudio" src="{% static 'images/rstudio_logo.png' %}" style="width=50%"></img>
-					                        <img ng-switch-when="public_html" src="{% static 'images/public_html_logo.png' %}" style="width=50%"></img>
-					                        <img ng-switch-when="ssh" src="{% static 'images/ssh_logo.png' %}" style="width=50%"></img>
-					                    </span>
-									</td>
-								</tr>
-							</table>
-                    	</div>
+                        <div>{$ package.description $}</div>
+                        <div>
+                            <br>
+                            <b>Services in this package:</b>
+                            <br>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td ng-repeat="service in package.services" style="width=10px">
+                                            <span ng-switch on="service.name">
+                                            {$ service.service_name $}
+                                            <img ng-switch-when="galaxy" src="{% static 'images/galaxy_logo.png' %}" style="width=50%">
+                                            <img ng-switch-when="cloudman" src="{% static 'images/cloudman_logo.png' %}" style="width=50%">
+                                            <img ng-switch-when="vnc" src="{% static 'images/lubuntu_logo.png' %}" style="width=50%">
+                                            <img ng-switch-when="ipython_notebook" src="{% static 'images/ipython_logo.png' %}" style="width=50%">
+                                            <img ng-switch-when="rstudio" src="{% static 'images/rstudio_logo.png' %}" style="width=50%">
+                                            <img ng-switch-when="public_html" src="{% static 'images/public_html_logo.png' %}" style="width=50%">
+                                            <img ng-switch-when="ssh" src="{% static 'images/ssh_logo.png' %}" style="width=50%">
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </td>
                     <td style="vertical-align:top;">
                         <div ng-switch on="package.status">
@@ -67,15 +65,14 @@
             </tbody>
         </table>
     </div>
-
-	<br />
+    <br>
     <h3>
         System
     </h3>
-    <hr />
+    <hr>
     <div class="table-responsive">
         <button class="btn btn-danger" ng-click="terminate_cluster()"><i class="fa fa-trash-o" title="Terminate"></i> Terminate Cluster</button>
         <button class="btn btn-warning" ng-click="reboot_cluster()"><i class="fa fa-power-off" title="Reboot"></i> Reboot Cluster</button>
-	<div>
+    </div>
 </div>
 {% endblock content %}
