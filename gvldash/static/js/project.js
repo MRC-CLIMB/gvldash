@@ -7,10 +7,44 @@ homeModule.config(function($interpolateProvider, $httpProvider, $resourceProvide
     $httpProvider.defaults.headers.common['X-CSRFToken'] = PageConstants.csrfToken;
 });
 
+homeModule.service('gvlHomePageDataService', function($http, $timeout) {
+    // Server Status Cache
+    var _system_data = [];
+    var _messages;
+
+    // Local vars
+    var _data_timeout_id;
+
+    var get_data = function() {
+        // Poll gvl status
+        $http.get('/api/v1/system/status', {
+            params : {}
+        }).success(function(data) {
+        	_system_data = data;
+        }).error(function(data) {
+        });
+    };
+
+    // Execute first time fetch
+    get_data();
+
+    // Public interface
+    return {
+    	getGVLVersion : function() {
+            return _system_data['version'];
+        },
+    	getGVLFlavour : function() {
+            return _system_data['flavour'];
+        },
+        getGVLBuildDate : function() {
+            return _system_data['build_date'];
+        }
+    };
+});
+
 homeModule.service('gvlAppDataService', function($http, $timeout) {
     // Server Status Cache
     var _service_list = [];
-    var _messages;
 
     // Local vars
     var _data_timeout_id;
@@ -62,8 +96,16 @@ homeModule.service('gvlAppDataService', function($http, $timeout) {
     };
 });
 
-homeModule.controller("gvlHomePageActionsController", [ "$scope", "gvlAppDataService",
-        function($scope, gvlAppDataService) {
+homeModule.controller("gvlHomePageActionsController", [ "$scope", "gvlHomePageDataService", "gvlAppDataService",
+        function($scope, gvlHomePageDataService, gvlAppDataService) {
+
+			$scope.getGVLVersion = function() {
+		        return gvlHomePageDataService.getGVLVersion();
+		    }
+
+			$scope.getGVLFlavour = function() {
+		        return gvlHomePageDataService.getGVLFlavour();
+		    }
 
             $scope.isRefreshInProgress = function() {
                 return gvlAppDataService.isRefreshInProgress();
@@ -86,7 +128,6 @@ homeModule.controller("gvlHomePageActionsController", [ "$scope", "gvlAppDataSer
 homeModule.service('gvlAdminDataService', function($http, $timeout, $resource) {
     // Server Status Cache
     var _package_list = [];
-    var _messages;
 
     // Local vars
     var _data_timeout_id;
@@ -202,6 +243,24 @@ homeModule.controller("gvlAdminPageActionsController", [ "$scope", "$dialog", "g
 
             }
 
+
+        } ]);
+
+
+homeModule.controller("gvlAboutPageActionsController", [ "$scope", "gvlHomePageDataService",
+        function($scope, gvlHomePageDataService) {
+
+			$scope.getGVLVersion = function() {
+		        return gvlHomePageDataService.getGVLVersion();
+		    }
+
+			$scope.getGVLFlavour = function() {
+		        return gvlHomePageDataService.getGVLFlavour();
+		    }
+
+			$scope.getGVLBuildDate = function() {
+		        return gvlHomePageDataService.getGVLBuildDate();
+		    }
 
         } ]);
 

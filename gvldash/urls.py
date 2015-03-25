@@ -40,6 +40,6 @@ urlpatterns = patterns('',
     url(r'^api/v1/services/(?P<service_name>\w+)/$', get_service, name='get_service'),
     url(r'^api/v1/packages/$', get_packages, name='get_packages'),
     url(r'^api/v1/packages/(?P<package_name>\w+)/$', manage_package, name='manage_package'),
-    url(r'^api/v1/system/status/$', manage_system_state, name='set_system_state'),
+    url(r'^api/v1/system/status/$', manage_system_state, name='manage_system_state'),
 
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

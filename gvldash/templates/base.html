@@ -39,11 +39,11 @@
 
 </head>
 
-<body>
+<body ng-app="gvldash.home">
 
-	<div class="pushy pushy-left off-canvas">
+	<div class="pushy pushy-left off-canvas" ng-controller="gvlHomePageActionsController">
         <div class="off-canvas-header">
-            <h2 class="off-canvas">{% trans "Menu" %}</h2>
+            <h2 class="off-canvas">GVL {$ getGVLVersion() $}</h2>
             <button type="button" class="close" data-dismiss="modal" onclick="$('.site-overlay').click()">×</button>
         </div>
 

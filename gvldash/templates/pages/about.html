@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div>
+<div ng-controller="gvlAboutPageActionsController">
     <h1>
         About the GVL
     </h1>
@@ -12,13 +12,23 @@
 	</p>
 	<br /><br />
 	<h2>
+        Version Info
+    </h2>
+    <hr />
+    <p>
+	<label>Version:</label> {$ getGVLVersion() $}<br />
+	<label>Flavour:</label> {$ getGVLFlavour() $}<br />
+	<label>Build date: </label> {$ getGVLBuildDate() $}
+	</p>
+	<br />
+	<h2>
         Website
     </h2>
     <hr />
     <p>
 	<a href="https://genome.edu.au/">https://genome.edu.au/</a>
 	</p>
-	
+
 	<br /><br />
 	<h2>
         FAQ
@@ -27,7 +37,7 @@
     <p>
 	<a href="https://genome.edu.au/wiki/GVL_FAQ">https://genome.edu.au/wiki/GVL_FAQ</a>
 	</p>
-	
+
 	<br /><br />
     <h2>
         Help / Feedback

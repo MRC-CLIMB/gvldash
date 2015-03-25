@@ -76,11 +76,11 @@ class HttpsService(Service):
 
 
 def load_service_registry():
-    stream = open("service_registry.yml", 'r')
-    registry = yaml.load(stream)
-    service_list = [Service(svc['name'], svc['display_name'], svc['description'], svc['process_name'], svc['virtual_path'], svc['installation_path'])
-                   for svc in registry['services']]
-    return service_list
+    with open("service_registry.yml", 'r') as stream:
+        registry = yaml.load(stream)
+        service_list = [Service(svc['name'], svc['display_name'], svc['description'], svc['process_name'], svc['virtual_path'], svc['installation_path'])
+                       for svc in registry['services']]
+        return service_list
 
 service_list = load_service_registry()
 

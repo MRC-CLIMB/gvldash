@@ -1,4 +1,5 @@
 import json
+import yaml
 from django.http import HttpResponse, HttpResponseForbidden
 from util import packages, services, package_helpers
 
@@ -39,6 +40,12 @@ def manage_package(request, package_name):
         json_data = json.dumps(data)
         return HttpResponse(json_data, content_type='application/json')
 
+def get_version_info():
+    with open("../version_info.yml", 'r') as stream:
+        return yaml.load(stream)
+
+version_info = get_version_info()
+
 def manage_system_state(request):
     if request.method == "POST":
         if request.user.is_authenticated():
@@ -52,7 +59,13 @@ def manage_system_state(request):
         else:
             return response_not_authenticated()
     else:
-        data = { "state": "running" }
+        data = {
+                "version": version_info['version'],
+                "flavour": version_info['flavour'],
+                "build_date": version_info['build_date'],
+                "state": "running"
+                }
+
         json_data = json.dumps(data)
         return HttpResponse(json_data, content_type='application/json')
 

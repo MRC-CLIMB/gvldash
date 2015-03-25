@@ -76,11 +76,11 @@ class Package(object):
 
 
 def load_package_registry():
-    stream = open("package_registry.yml", 'r')
-    registry = yaml.load(stream)
-    package_list = [Package(pkg['name'], pkg['display_name'], pkg['description'], pkg['services'])
-                   for pkg in registry['packages']]
-    return package_list
+    with open("package_registry.yml", 'r') as stream:
+        registry = yaml.load(stream)
+        package_list = [Package(pkg['name'], pkg['display_name'], pkg['description'], pkg['services'])
+                       for pkg in registry['packages']]
+        return package_list
 
 package_list = load_package_registry()
 

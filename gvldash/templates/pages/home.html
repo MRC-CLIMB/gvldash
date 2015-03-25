@@ -2,7 +2,8 @@
 {% load staticfiles %}
 
 {% block content %}
-<div ng-app="gvldash.home" ng-controller="gvlHomePageActionsController">
+<div ng-controller="gvlHomePageActionsController">
+	<h1 ng-cloak>GVL {$ getGVLFlavour() ? getGVLVersion() + " - " + getGVLFlavour() : getGVLVersion() $}</h1>
     <p>Welcome to the GVL Dashboard! The GVL Dashboard is a portal through which you can access all services on your
         GVL instance.</p>
     <h1>
