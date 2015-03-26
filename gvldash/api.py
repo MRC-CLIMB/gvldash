@@ -63,7 +63,7 @@ def manage_system_state(request):
                 "instance_name": package_helpers.get_instance_name(),
                 "version": version_info['version'],
                 "flavour": version_info['flavour'],
-                "build_date": version_info['build_date'],
+                "build_date": str(version_info['build_date']),
                 "state": "running"
                 }
 
