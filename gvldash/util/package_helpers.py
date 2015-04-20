@@ -25,7 +25,7 @@ class CloudmanService():
 
     def is_installed(self):
         try:
-            if self.cm_instance.get_cluster_type() and self.cm_instance.get_galaxy_state() not in ("Unstarted", "Starting"):
+            if self.cm_instance.get_cluster_type():
                 return True
         except Exception:
             pass
