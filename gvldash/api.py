@@ -4,6 +4,14 @@ from django.http import HttpResponse, HttpResponseForbidden
 from util import packages, services, package_helpers
 
 
+def is_authorised(request, action):
+    # TODO: This is a temporary hack to allow the post start script to install
+    # packages.
+    if 'package.install' in action and request.META.get('HTTP_X_FORWARDED_FOR', None) in ['127.0.0.1', '::1']:
+        return True
+    else:
+        return request.user.is_authenticated()
+
 def get_services(request):
     data = services.get_services()
     json_data = json.dumps(data)
@@ -29,7 +37,7 @@ def response_not_authenticated():
 
 def manage_package(request, package_name):
     if request.method == "PUT":
-        if request.user.is_authenticated():
+        if is_authorised(request, 'package.install'):
             data = packages.install_package(package_name)
             json_data = json.dumps(data)
             return HttpResponse(json_data, content_type='application/json')
@@ -48,7 +56,7 @@ version_info = get_version_info()
 
 def manage_system_state(request):
     if request.method == "POST":
-        if request.user.is_authenticated():
+        if is_authorised(request, 'system.reboot'):
             data = json.loads(request.body)
             if data["state"] == "shutdown":
                 package_helpers.get_cloudman_service().terminate()

@@ -54,13 +54,13 @@ class CmdlineUtilService():
     install_process = None
 
     def is_installed(self):
-        return os.path.exists("/home/ubuntu/gvl_commandline_utilities")
+        return os.path.exists("/opt/gvl/gvl_commandline_utilities")
 
     def is_installing(self):
         return self.install_process and self.install_process.poll() is None
 
     def install(self):
-        self.install_process = subprocess.Popen("/home/ubuntu/setup_utils_silent.sh", stdout=subprocess.PIPE)
+        self.install_process = subprocess.Popen("/opt/gvl/scripts/cmdlineutils/setup_utils_silent.sh", stdout=subprocess.PIPE)
 
 
 cloudman_service = CloudmanService()
