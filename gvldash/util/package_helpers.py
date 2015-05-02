@@ -55,7 +55,7 @@ class CmdlineUtilService():
     install_process = None
 
     def is_installed(self):
-        return os.path.exists("/opt/gvl/home/galaxy-fuse.py")
+        return os.path.exists("/mnt/gvl/home/researcher/galaxy-fuse.py")
 
     def is_installing(self):
         return self.install_process and self.install_process.poll() is None
