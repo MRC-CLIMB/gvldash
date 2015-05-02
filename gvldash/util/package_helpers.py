@@ -25,7 +25,8 @@ class CloudmanService():
 
     def is_installed(self):
         try:
-            if self.cm_instance.get_cluster_type():
+            cluster_info = self.cm_instance.get_cluster_type()
+            if cluster_info and cluster_info['cluster_type'] == "Galaxy":
                 return True
         except Exception:
             pass
@@ -54,7 +55,7 @@ class CmdlineUtilService():
     install_process = None
 
     def is_installed(self):
-        return os.path.exists("/opt/gvl/gvl_commandline_utilities")
+        return os.path.exists("/opt/gvl/home/galaxy-fuse.py")
 
     def is_installing(self):
         return self.install_process and self.install_process.poll() is None

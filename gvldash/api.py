@@ -49,7 +49,7 @@ def manage_package(request, package_name):
         return HttpResponse(json_data, content_type='application/json')
 
 def get_version_info():
-    with open("../version_info.yml", 'r') as stream:
+    with open("/opt/gvl/info/image.yml", 'r') as stream:
         return yaml.load(stream)
 
 version_info = get_version_info()
