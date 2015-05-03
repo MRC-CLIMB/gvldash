@@ -61,7 +61,8 @@ class CmdlineUtilService():
         return self.install_process and self.install_process.poll() is None
 
     def install(self):
-        self.install_process = subprocess.Popen("/opt/gvl/scripts/cmdlineutils/setup_utils_silent.sh", stdout=subprocess.PIPE)
+        self.install_process = subprocess.Popen("/opt/gvl/scripts/cmdlineutils/setup_utils_silent.sh", stdout=subprocess.PIPE, shell=True)
+        return True
 
 
 cloudman_service = CloudmanService()

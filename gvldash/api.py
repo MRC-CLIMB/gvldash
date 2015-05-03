@@ -38,7 +38,8 @@ def response_not_authenticated():
 def manage_package(request, package_name):
     if request.method == "PUT":
         if is_authorised(request, 'package.install'):
-            data = packages.install_package(package_name)
+            result = packages.install_package(package_name)
+            data = { "status" : "installing" if result else "not_installed" }
             json_data = json.dumps(data)
             return HttpResponse(json_data, content_type='application/json')
         else:
