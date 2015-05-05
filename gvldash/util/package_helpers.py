@@ -1,6 +1,7 @@
 import os
 import subprocess
 import yaml
+import util
 from bioblend.cloudman import CloudManInstance
 
 
@@ -52,17 +53,15 @@ class CloudmanService():
 
 
 class CmdlineUtilService():
-    install_process = None
 
     def is_installed(self):
         return os.path.exists("/mnt/gvl/home/researcher/galaxy-fuse.py")
 
     def is_installing(self):
-        return self.install_process and self.install_process.poll() is None
+        return util.is_process_running("setup_utils_silent.sh")
 
     def install(self):
-        self.install_process = subprocess.Popen("/opt/gvl/scripts/cmdlineutils/setup_utils_silent.sh", stdout=subprocess.PIPE, shell=True)
-        return True
+        return util.run("sudo su - ubuntu -c '/opt/gvl/scripts/cmdlineutils/setup_utils_silent.sh'")
 
 
 cloudman_service = CloudmanService()
