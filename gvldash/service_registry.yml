@@ -1,7 +1,7 @@
 services:
     - name: galaxy
       display_name: Galaxy
-      process_name: universe_wsgi.ini
+      process_name: galaxy.ini
       virtual_path: "/galaxy"
       installation_path: "/mnt/galaxy/galaxy-app"
       description: >
