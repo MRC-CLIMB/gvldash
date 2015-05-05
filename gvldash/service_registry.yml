@@ -20,7 +20,7 @@ services:
 
     - name: vnc
       display_name: Lubuntu Desktop
-      process_name: wsproxy.py
+      process_name: novnc
       virtual_path: "/vnc"
       installation_path: "/opt/galaxy/novnc"
       description: >
