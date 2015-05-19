@@ -12,6 +12,8 @@ def run(cmd):
     else:
         return False
 
+def run_async(cmd):
+    return subprocess.Popen(cmd, shell=True)
 
 def is_process_running(process_name):
     """

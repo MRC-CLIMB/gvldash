@@ -61,7 +61,7 @@ class CmdlineUtilService():
         return util.is_process_running("setup_utils_silent.sh")
 
     def install(self):
-        return util.run("sudo su - ubuntu -c '/opt/gvl/scripts/cmdlineutils/setup_utils_silent.sh'")
+        return util.run_async("sudo su - ubuntu -c '/opt/gvl/scripts/cmdlineutils/setup_utils_silent.sh'")
 
 
 cloudman_service = CloudmanService()
