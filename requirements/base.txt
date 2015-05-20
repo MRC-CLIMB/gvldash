@@ -6,5 +6,5 @@ django-configurations>=0.8
 django-secure>=1.0
 
 # Your custom requirements go here
-pyyaml
+pyyaml<3.11
 bioblend
