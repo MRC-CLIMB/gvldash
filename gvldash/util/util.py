@@ -13,7 +13,7 @@ def run(cmd):
         return False
 
 def run_async(cmd):
-    return subprocess.Popen(cmd, shell=True)
+    return subprocess.Popen(cmd, shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
 
 def is_process_running(process_name):
     """
