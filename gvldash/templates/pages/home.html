@@ -36,6 +36,8 @@
 	                        <img ng-switch-when="rstudio" src="{% static 'images/rstudio_logo.png' %}"></img>
 	                        <img ng-switch-when="public_html" src="{% static 'images/public_html_logo.png' %}"></img>
 	                        <img ng-switch-when="ssh" src="{% static 'images/ssh_logo.png' %}"></img>
+	                        <img ng-switch-when="lovd" src="{% static 'images/lovd_logo.jpg' %}"></img>
+	                        <img ng-switch-when="cpipe" src="{% static 'images/cpipe_logo.png' %}"></img>
 	                    </a>
 	                    <a ng-if="service.service_name == 'ssh'" class="btn btn-link" ng-class="{ 'application-disabled': service.service_status!='running', 'application-enabled': service.service_status=='running' }" href="#">
 	                        <img ng-switch-when="ssh" src="{% static 'images/ssh_logo.png' %}"></img>

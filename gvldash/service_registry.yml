@@ -59,3 +59,25 @@ services:
       installation_path: "/usr/sbin/sshd"
       description: >
         You can login to your virtual machine remotely through an SSH client.
+
+    - name: lovd
+      display_name: LOVD
+      process_name: php-fpm
+      virtual_path: "/lovd"
+      installation_path: "/mnt/gvl/apps/lovd"
+      description: >
+            LOVD stands for Leiden Open (source) Variation Database. LOVD's purpose is to provide a flexible,
+            freely available tool for Gene-centered collection and display of DNA variations.
+            LOVD 3.0 extends this idea to also provide patient-centered data storage and storage
+            of NGS data, even of variants outside of genes. LOVD is open source, released under the GPL
+            license, and is actively being improved, currently we have releases every month.
+
+    - name: cpipe
+      display_name: Cpipe
+      process_name:
+      virtual_path:
+      installation_path: "/mnt/gvl/apps/cpipe"
+      description: >
+            Cpipe is a variant detection pipeline designed to process high-throughput sequencing data
+            (sometimes called "next generation sequencing" data), with the purpose of identifying
+            potentially pathogenic mutations.

@@ -1,5 +1,19 @@
 import yaml
-from package_helpers import get_cloudman_service, get_gvlcmdlineutil_service
+from package_helpers import get_cluster_password
+import util
+from bioblend.cloudman import CloudManInstance
+import importlib
+import os
+from abc import abstractmethod
+
+def str_to_class(fq_class_name):
+    parts = fq_class_name.rsplit('.', 1)
+    module_name = parts[0]
+    class_name = parts[1]
+
+    module_ = importlib.import_module(module_name)
+    class_ = getattr(module_, class_name)
+    return class_
 
 class Package(object):
 
@@ -25,60 +39,106 @@ class Package(object):
         return data
 
     def get_package_status(self):
-        if self._is_package_installed():
+        if self.is_installed():
             return "installed"
-        elif self._is_package_installing():
+        elif self.is_installing():
             return "installing"
         else:
             return "not_installed"
 
     def set_package_status(self, new_status):
         if new_status == "installed":
-            if self._is_package_installed():
+            if self.is_installed():
                 raise Exception("Package already installed")
-            elif self._is_package_installing():
+            elif self.is_installing():
                 raise Exception("Package currently being installed")
             else:
                 return self._install_package()
         elif new_status == "not_installed":
-            if self._is_package_installed():
+            if self.is_installed():
                 raise Exception("Uninstallation is currently not supported")
-            elif self._is_package_installing():
+            elif self.is_installing():
                 raise Exception("Package is currently being installed. Cancellation not supported.")
             else:
                 raise Exception("Cannot uninstall. Package is not installed.")
         else:
             raise Exception("Unsupported operation: {0}", new_status)
 
-    def _is_package_installed(self):
-        if self.package_name == "gvl_cmdline_utilities":
-            return get_gvlcmdlineutil_service().is_installed()
-        elif self.package_name == "galaxy_cloudman":
-            return get_cloudman_service().is_installed()
-        else:
-            return False
+    @abstractmethod
+    def is_installed(self):
+        raise Exception("Not implemented")
 
-    def _is_package_installing(self):
-        if self.package_name == "gvl_cmdline_utilities":
-            return get_gvlcmdlineutil_service().is_installing()
-        elif self.package_name == "galaxy_cloudman":
-            return get_cloudman_service().is_installing()
-        else:
-            return False
+    @abstractmethod
+    def is_installing(self):
+        raise Exception("Not implemented")
 
-    def install_package(self):
-        if self.package_name == "gvl_cmdline_utilities":
-            return get_gvlcmdlineutil_service().install()
-        elif self.package_name == "galaxy_cloudman":
-            return get_cloudman_service().install()
-        else:
-            return False
+    @abstractmethod
+    def install(self):
+        raise Exception("Not implemented")
 
+
+
+class GalaxyPackage(Package):
+    cm_instance = CloudManInstance("http://127.0.0.1:42284", get_cluster_password())
+
+    def is_installed(self):
+        try:
+            cluster_info = self.cm_instance.get_cluster_type()
+            if cluster_info and cluster_info['cluster_type'] == "Galaxy":
+                return True
+        except Exception:
+            pass
+        return False
+
+    def is_installing(self):
+        try:
+            if self.cm_instance.get_cluster_type() and self.cm_instance.get_galaxy_state() in ("Unstarted", "Starting"):
+                return True
+        except Exception:
+            pass
+        return False
+
+    def install(self):
+        return self.cm_instance.initialize("Galaxy", galaxy_data_option="transient")
+
+class CmdlineUtilPackage(Package):
+
+    def is_installed(self):
+        return os.path.exists("/mnt/gvl/home/researcher/galaxy-fuse.py")
+
+    def is_installing(self):
+        return util.is_process_running("setup_utils_silent.sh")
+
+    def install(self):
+        return util.run_async("sudo su - ubuntu -c '/opt/gvl/scripts/cmdlineutils/setup_utils_silent.sh'")
+
+class LovdPackage(Package):
+
+    def is_installed(self):
+        return os.path.exists("/mnt/gvl/apps/lovd")
+
+    def is_installing(self):
+        return util.is_process_running("configure-lovd.sh")
+
+    def install(self):
+        return util.run_async("sudo su - ubuntu -c '/mnt/gvl/apps/lovd/config/configure-lovd.sh'")
+
+
+class CpipePackage(Package):
+
+    def is_installed(self):
+        return os.path.exists("/mnt/gvl/apps/cpipe")
+
+    def is_installing(self):
+        return util.is_process_running("configure-cpipe.sh")
+
+    def install(self):
+        return util.run_async("sudo su - ubuntu -c '/mnt/gvl/apps/cpipe/config/configure-cpipe.sh'")
 
 def load_package_registry():
     with open("package_registry.yml", 'r') as stream:
         registry = yaml.load(stream)
-        package_list = [Package(pkg['name'], pkg['display_name'], pkg['description'], pkg['services'])
+        package_list = [str_to_class(pkg['implementation_class'])(pkg['name'], pkg['display_name'], pkg['description'], pkg['services'])
                        for pkg in registry['packages']]
         return package_list
 
