@@ -50,8 +50,12 @@ def manage_package(request, package_name):
         return HttpResponse(json_data, content_type='application/json')
 
 def get_version_info():
-    with open("/opt/gvl/info/image.yml", 'r') as stream:
-        return yaml.load(stream)
+    try:
+        with open("/opt/gvl/info/image.yml", 'r') as stream:
+            return yaml.load(stream)
+    except IOError as e:
+        print "Couldn't load file due to error: {0}".format(e)
+        return None
 
 version_info = get_version_info()
 
