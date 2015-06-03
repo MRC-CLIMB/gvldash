@@ -5,6 +5,7 @@ from bioblend.cloudman import CloudManInstance
 import importlib
 import os
 from abc import abstractmethod
+import services
 
 def str_to_class(fq_class_name):
     parts = fq_class_name.rsplit('.', 1)
@@ -53,7 +54,7 @@ class Package(object):
             elif self.is_installing():
                 raise Exception("Package currently being installed")
             else:
-                return self._install_package()
+                return self.install_package()
         elif new_status == "not_installed":
             if self.is_installed():
                 raise Exception("Uninstallation is currently not supported")
@@ -63,6 +64,11 @@ class Package(object):
                 raise Exception("Cannot uninstall. Package is not installed.")
         else:
             raise Exception("Unsupported operation: {0}", new_status)
+
+    def install_package(self):
+        self.install()
+        for service in self.services:
+            services.add_service(services.dict_to_service(service))
 
     @abstractmethod
     def is_installed(self):

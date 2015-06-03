@@ -123,7 +123,7 @@ homeModule.controller("gvlHomePageActionsController", [ "$scope", "gvlHomePageDa
             }
 
             $scope.getServiceURL = function(service_name) {
-                if (service_name == "ssh")
+                if (service_name == "ssh" || service_name == "cpipe")
                     return window.location.hostname;
                 else
                 	return window.location.origin + gvlAppDataService.getServicePath(service_name);

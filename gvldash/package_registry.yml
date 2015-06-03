@@ -63,8 +63,7 @@ packages:
                 LOVD stands for Leiden Open (source) Variation Database. LOVD's purpose is to provide a flexible,
                 freely available tool for Gene-centered collection and display of DNA variations.
                 LOVD 3.0 extends this idea to also provide patient-centered data storage and storage
-                of NGS data, even of variants outside of genes. LOVD is open source, released under the GPL
-                license, and is actively being improved, currently we have releases every month.
+                of NGS data, even of variants outside of genes.
 
     - name: cpipe
       implementation_class: util.packages.CpipePackage

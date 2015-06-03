@@ -60,8 +60,9 @@
                     </td>
 
                     <td>
-                        <a ng-if="service.service_name != 'ssh'" href="{$ getServiceURL(service.service_name) $}" class="btn btn-link" target="_blank" ng-class="{ disabled: service.service_status!='running' }">{$ getServiceURL(service.service_name) $}</a>
+                        <a ng-if="service.service_name != 'ssh' && service.service_name != 'cpipe'" href="{$ getServiceURL(service.service_name) $}" class="btn btn-link" target="_blank" ng-class="{ disabled: service.service_status!='running' }">{$ getServiceURL(service.service_name) $}</a>
                         <span ng-if="service.service_name == 'ssh'">&nbsp;&nbsp;&nbsp;<kbd>ssh ubuntu@{$ getServiceURL(service.service_name) $}</kbd></span>
+                        <span ng-if="service.service_name == 'cpipe'">&nbsp;&nbsp;&nbsp;<kbd>ssh ubuntu@{$ getServiceURL(service.service_name) $}</kbd></span>
                     </td>
                 </tr>
             </tbody>

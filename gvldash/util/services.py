@@ -64,6 +64,14 @@ class Service(object):
     def get_service_path(self):
         return self.service_path
 
+    def yaml(self):
+        return { 'name' : self.service_name,
+                 'display_name' : self.display_name,
+                 'description' : self.description,
+                 'process_name' : self.service_process,
+                 'virtual_path' : self.service_path,
+                 'installation_path' : self.local_fs_path}
+
 
 class HttpsService(Service):
 
@@ -78,9 +86,15 @@ class HttpsService(Service):
 def load_service_registry():
     with open("service_registry.yml", 'r') as stream:
         registry = yaml.load(stream)
-        service_list = [Service(svc['name'], svc['display_name'], svc['description'], svc['process_name'], svc['virtual_path'], svc['installation_path'])
-                       for svc in registry['services']]
+        service_list = [dict_to_service(svc) for svc in registry['services']]
         return service_list
+
+def dict_to_service(svc_dict):
+    return Service(svc_dict['name'], svc_dict['display_name'], svc_dict['description'], svc_dict['process_name'], svc_dict['virtual_path'], svc_dict['installation_path'])
+
+def save_service_registry():
+    with open("service_registry.yml", 'w') as stream:
+        stream.write(yaml.dump({ 'services' : [service.yaml() for service in service_list] }, default_flow_style=False))
 
 service_list = load_service_registry()
 
@@ -95,5 +109,13 @@ def get_service_data(service_name):
     for service in service_list:
         if service.service_name == service_name:
             return service.get_service_data()
+
+def add_service(service):
+    needs_save = False
+    if service and service.service_name not in [svc.service_name for svc in service_list]:
+        service_list.append(service)
+        needs_save = True
+    if needs_save:
+        save_service_registry()
 
 
