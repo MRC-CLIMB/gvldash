@@ -15,11 +15,30 @@
         Version Info
     </h2>
     <hr />
-    <p>
-	<label>Version:</label> {$ getGVLVersion() $}<br />
-	<label>Flavour:</label> {$ getGVLFlavour() $}<br />
-	<label>Build date: </label> {$ getGVLBuildDate() $}
-	</p>
+    <div>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Component Name</th>
+					<th class="align-right">Version</th>
+					<th>Build date</th>
+					<th>Extra data</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="app in getInstalledApps()">
+					<td>{$ app.name $}</td>
+					<td>{$ app.version $}</td>
+					<td>{$ app.build_date $}</td>
+					<td>
+						<p ng-repeat="(item, value) in app" ng-if="item != 'name' && item != 'version' && item != 'build_date'">
+							<strong>{$ item $} :</strong> {$ value $}
+						</p>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 	<br />
 	<h2>
         Website

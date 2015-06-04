@@ -1,5 +1,7 @@
 import json
 import yaml
+import os
+import logging as log
 from django.http import HttpResponse, HttpResponseForbidden
 from util import packages, services, package_helpers
 
@@ -54,7 +56,7 @@ def get_version_info():
         with open("/opt/gvl/info/image.yml", 'r') as stream:
             return yaml.load(stream)
     except IOError as e:
-        print "Couldn't load file due to error: {0}".format(e)
+        log.error("Couldn't load file due to error: {0}".format(e))
         return None
 
 version_info = get_version_info()
@@ -75,7 +77,7 @@ def manage_system_state(request):
         data = {
                 "instance_name": package_helpers.get_instance_name(),
                 "version": version_info['version'],
-                "flavour": version_info['flavour'],
+                "flavour": version_info.get('flavour', None),
                 "build_date": str(version_info['build_date']),
                 "state": "running"
                 }
@@ -83,3 +85,20 @@ def manage_system_state(request):
         json_data = json.dumps(data)
         return HttpResponse(json_data, content_type='application/json')
 
+def get_app_list():
+    app_list = []
+    try:
+        for path in [f for f in os.listdir("/opt/gvl/info/") if f.endswith("yml")]:
+            with open(os.path.join("/opt/gvl/info/", path), 'r') as stream:
+                app_list.append(yaml.load(stream))
+    except Exception as e:
+        log.error("Couldn't load file due to error: {0}".format(e))
+    return app_list
+
+def get_app_state(request):
+    data = {
+            "installed_apps": get_app_list()
+           }
+
+    json_data = json.dumps(data)
+    return HttpResponse(json_data, content_type='application/json')

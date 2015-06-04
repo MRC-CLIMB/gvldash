@@ -5,7 +5,7 @@ from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
-from api import get_service, get_services, manage_package, get_packages, manage_system_state
+from api import get_service, get_services, manage_package, get_packages, manage_system_state, get_app_state
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
@@ -42,5 +42,6 @@ urlpatterns = patterns('',
     url(r'^api/v1/packages/$', csrf_exempt(get_packages), name='get_packages'),
     url(r'^api/v1/packages/(?P<package_name>\w+)/$', csrf_exempt(manage_package), name='manage_package'),
     url(r'^api/v1/system/status/$', csrf_exempt(manage_system_state), name='manage_system_state'),
+    url(r'^api/v1/system/status/apps$', csrf_exempt(get_app_state), name='get_app_state'),
 
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -254,19 +254,40 @@ homeModule.controller("gvlAdminPageActionsController", [ "$scope", "$dialog", "g
         } ]);
 
 
-homeModule.controller("gvlAboutPageActionsController", [ "$scope", "gvlHomePageDataService",
-        function($scope, gvlHomePageDataService) {
+homeModule.service('gvlAboutPageDataService', function($http, $timeout) {
+    // Server Status Cache
+    var _app_data = [];
+    var _messages;
 
-			$scope.getGVLVersion = function() {
-		        return gvlHomePageDataService.getGVLVersion();
-		    }
+    // Local vars
+    var _data_timeout_id;
 
-			$scope.getGVLFlavour = function() {
-		        return gvlHomePageDataService.getGVLFlavour();
-		    }
+    var get_data = function() {
+        // Poll gvl status
+        $http.get('/api/v1/system/status/apps', {
+            params : {}
+        }).success(function(data) {
+        	_app_data = data;
+        }).error(function(data) {
+        });
+    };
 
-			$scope.getGVLBuildDate = function() {
-		        return gvlHomePageDataService.getGVLBuildDate();
+    // Execute first time fetch
+    get_data();
+
+    // Public interface
+    return {
+    	getInstalledApps : function() {
+            return _app_data['installed_apps'];
+        }
+    };
+});
+
+homeModule.controller("gvlAboutPageActionsController", [ "$scope", "gvlAboutPageDataService",
+        function($scope, gvlAboutPageDataService) {
+
+			$scope.getInstalledApps = function() {
+		        return gvlAboutPageDataService.getInstalledApps();
 		    }
 
         } ]);
