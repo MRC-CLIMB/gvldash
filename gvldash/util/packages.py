@@ -105,6 +105,8 @@ class GalaxyPackage(Package):
         return False
 
     def install(self):
+        return self.cm_instance.initialize("Galaxy", galaxy_data_option="transient")
+
 class CmdlineUtilPackage(Package):
 
     def is_installed(self):
