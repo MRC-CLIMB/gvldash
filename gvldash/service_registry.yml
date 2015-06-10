@@ -27,31 +27,6 @@ services:
         This is a lightweight desktop environment through which you can run desktop applications on
         your virtual machine. You can also access the GVL commandline utilities through the desktop.
 
-    - name: ipython_notebook
-      display_name: IPython Notebook
-      process_name: ipython notebook
-      virtual_path: "/ipython"
-      installation_path: "/home/researcher"
-      description: >
-        The IPython Notebook is a web-based interactive computational environment where you can
-        combine code execution, text, mathematics, plots and rich media into a single document.
-
-    - name: rstudio
-      display_name: RStudio
-      process_name: rstudio
-      virtual_path: "/rstudio"
-      installation_path: "/etc/rstudio"
-      description: >
-        R Studio IDE is a powerful and productive user interface for R.
-
-    - name: public_html
-      display_name: "Public HTML"
-      process_name: nginx
-      virtual_path: "/public/researcher/"
-      installation_path: "/home/researcher/public_html"
-      description: >
-        This is a shared web-accessible folder. Any files you place in this directory will be publicly accessible.
-
     - name: ssh
       display_name: "SSH"
       process_name: sshd
