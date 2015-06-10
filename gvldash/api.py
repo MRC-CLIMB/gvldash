@@ -3,13 +3,13 @@ import yaml
 import os
 import logging as log
 from django.http import HttpResponse, HttpResponseForbidden
-from util import packages, services, package_helpers
+from util import packages, services, package_helpers, events
 
 
 def is_authorised(request, action):
     # TODO: This is a temporary hack to allow the post start script to install
     # packages.
-    if 'package.install' in action and request.META.get('HTTP_X_FORWARDED_FOR', None) in ['127.0.0.1', '::1']:
+    if action in ['package.install', 'system.event.create'] and request.META.get('HTTP_X_FORWARDED_FOR', None) in ['127.0.0.1', '::1']:
         return True
     else:
         return request.user.is_authenticated()
@@ -84,6 +84,26 @@ def manage_system_state(request):
 
         json_data = json.dumps(data)
         return HttpResponse(json_data, content_type='application/json')
+
+def manage_system_event(request):
+    if request.method == "PUT":
+        if is_authorised(request, 'system.event.create'):
+            data = json.loads(request.body)
+            if data["event"] == "post_start_event":
+                result = events.post_start_event()
+            if result:
+                data['status'] = 'fired'
+            else:
+                data['status'] = 'not_fired'
+            json_data = json.dumps(data)
+            return HttpResponse(json_data, content_type='application/json')
+        else:
+            return response_not_authenticated()
+    else:
+        data = { "events" : [ "post_start_event" ] }
+        json_data = json.dumps(data)
+        return HttpResponse(json_data, content_type='application/json')
+
 
 def get_app_list():
     app_list = []

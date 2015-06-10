@@ -21,6 +21,11 @@ def get_cluster_password():
 def get_instance_name():
     return instance_metadata.get('cluster_name', None)
 
+def get_packages_to_install():
+    gvl_config = instance_metadata.get('gvl_config', None)
+    if gvl_config:
+        return gvl_config.get('install', None)
+
 class CloudmanService():
     cm_instance = CloudManInstance("http://127.0.0.1:42284", get_cluster_password())
 
