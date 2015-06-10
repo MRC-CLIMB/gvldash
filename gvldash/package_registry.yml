@@ -70,8 +70,7 @@ packages:
       display_name: Cpipe
       description: >
         This package can be used to install Cpipe, a variant detection pipeline designed to process
-        high-throughput sequencing data (sometimes called "next generation sequencing" data), with the purpose
-        of identifying potentially pathogenic mutations.
+        high-throughput sequencing data, with the purpose of identifying potentially pathogenic mutations.
       services:
         - name: cpipe
           display_name: Cpipe
@@ -79,6 +78,5 @@ packages:
           virtual_path:
           installation_path: "/mnt/gvl/apps/cpipe"
           description: >
-                Cpipe is a variant detection pipeline designed to process high-throughput sequencing data
-                (sometimes called "next generation sequencing" data), with the purpose of identifying
-                potentially pathogenic mutations.
+                Cpipe is a variant detection pipeline designed to process high-throughput sequencing data,
+                with the purpose of identifying potentially pathogenic mutations.

@@ -121,25 +121,25 @@ class CmdlineUtilPackage(Package):
 class LovdPackage(Package):
 
     def is_installed(self):
-        return os.path.exists("/mnt/gvl/apps/lovd")
+        return os.path.exists("/opt/gvl/info/lovd.yml") # last step of installer
 
     def is_installing(self):
-        return util.is_process_running("configure-lovd.sh")
+        return util.is_process_running("configure-lovd")
 
     def install(self):
-        return util.run_async("sudo su - ubuntu -c '/mnt/gvl/apps/lovd/config/configure-lovd.sh'")
+        return util.run_async("sudo sh -c 'wget --output-document=/tmp/lovd_installer https://swift.rc.nectar.org.au:8888/v1/AUTH_7ea859948c3a451c9baced6fee813ed1/install-lovd-150609/install-lovd-flavour.sh && sh /tmp/lovd_installer'")
 
 
 class CpipePackage(Package):
 
     def is_installed(self):
-        return os.path.exists("/mnt/gvl/apps/cpipe")
+        return os.path.exists("/opt/gvl/info/cpipe.yml") # last step of installer
 
     def is_installing(self):
-        return util.is_process_running("configure-cpipe.sh")
+        return util.is_process_running("cpipe-archive") # download and tar take all the time
 
     def install(self):
-        return util.run_async("sudo su - ubuntu -c '/mnt/gvl/apps/cpipe/config/configure-cpipe.sh'")
+        return util.run_async("sudo sh -c 'wget --output-document=/tmp/cpipe_installer https://swift.rc.nectar.org.au:8888/v1/AUTH_7ea859948c3a451c9baced6fee813ed1/install-cpipe-150609/install-cpipe-flavour.sh && sh /tmp/cpipe_installer'")
 
 def load_package_registry():
     with open("package_registry.yml", 'r') as stream:
