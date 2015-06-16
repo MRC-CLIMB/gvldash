@@ -125,10 +125,10 @@ class LovdPackage(Package):
         return os.path.exists("/opt/gvl/info/lovd.yml") # last step of installer
 
     def is_installing(self):
-        return util.is_process_running("configure-lovd")
+        return util.is_process_running("install_lovd_package")
 
     def install(self):
-        return util.run_async("sudo sh -c 'wget -O - https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-400/packages/install_lovd_package.sh | bash'")
+        return util.run_async("sudo sh -c 'wget --output-document=/tmp/install_lovd_package https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-400/packages/install_lovd_package.sh && sh /tmp/install_lovd_package'")
 
 
 class CpipePackage(Package):
@@ -137,10 +137,10 @@ class CpipePackage(Package):
         return os.path.exists("/opt/gvl/info/cpipe.yml") # last step of installer
 
     def is_installing(self):
-        return util.is_process_running("cpipe-archive") # download and tar take all the time
+        return util.is_process_running("install_cpipe_package") # download and tar take all the time
 
     def install(self):
-        return util.run_async("sudo sh -c 'wget -O - https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-400/packages/install_cpipe_package.sh | bash'")
+        return util.run_async("sudo sh -c 'wget --output-document=/tmp/install_cpipe_package https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-400/packages/install_cpipe_package.sh && sh /tmp/install_cpipe_package'")
 
 
 class SMRTAnalysisPackage(Package):
@@ -149,10 +149,10 @@ class SMRTAnalysisPackage(Package):
         return os.path.exists("/opt/gvl/info/smrt_analysis.yml") # last step of installer
 
     def is_installing(self):
-        return util.is_process_running("smrt_analysis_installer") # download and tar take all the time
+        return util.is_process_running("install_smrt_analysis_package") # download and tar take all the time
 
     def install(self):
-        return util.run_async("sudo sh -c 'wget -O - https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-400/packages/install_smrt_analysis_package.sh | bash'")
+        return util.run_async("sudo sh -c 'wget --output-document=/tmp/install_smrt_analysis_package https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-400/packages/install_smrt_analysis_package.sh && sh /tmp/install_smrt_analysis_package'")
 
 
 def load_package_registry():
