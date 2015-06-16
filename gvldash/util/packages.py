@@ -66,9 +66,10 @@ class Package(object):
             raise Exception("Unsupported operation: {0}", new_status)
 
     def install_package(self):
-        self.install()
-        for service in self.services:
-            services.add_service(services.dict_to_service(service))
+        if not self.is_installing():
+            self.install()
+            for service in self.services:
+                services.add_service(services.dict_to_service(service))
 
     @abstractmethod
     def is_installed(self):
@@ -140,6 +141,19 @@ class CpipePackage(Package):
 
     def install(self):
         return util.run_async("sudo sh -c 'wget --output-document=/tmp/cpipe_installer https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-400/install-cpipe-package.sh && sh /tmp/cpipe_installer'")
+
+
+class SMRTAnalysisPackage(Package):
+
+    def is_installed(self):
+        return os.path.exists("/opt/gvl/info/smrt_analysis.yml") # last step of installer
+
+    def is_installing(self):
+        return util.is_process_running("smrt_analysis_installer") # download and tar take all the time
+
+    def install(self):
+        return util.run_async("sudo sh -c 'wget --output-document=/tmp/smrt_analysis_installer https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-400/smrt_analysis_installer.sh && sh /tmp/smrt_analysis_installer'")
+
 
 def load_package_registry():
     with open("package_registry.yml", 'r') as stream:

@@ -78,3 +78,17 @@ packages:
           description: >
                 Cpipe is a variant detection pipeline designed to process high-throughput sequencing data,
                 with the purpose of identifying potentially pathogenic mutations.
+
+    - name: smrt_portal
+      implementation_class: util.packages.SMRTAnalysisPackage
+      display_name: SMRT Analysis
+      description: >
+        This package can be used to install PacBio's open source software suite for single molecule, real-time sequencing.
+      services:
+        - name: smrt_portal
+          display_name: "SMRT Portal"
+          process_name: "smrtanalysis/current/redist/java/bin/java"
+          virtual_path: "/smrtportal"
+          installation_path: "/mnt/gvl/apps/smrt_analysis"
+          description: >
+                SMRT Portal is PacBio's open source software suite for single molecule, real-time sequencing.
