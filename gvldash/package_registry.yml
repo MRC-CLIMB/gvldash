@@ -89,6 +89,6 @@ packages:
           display_name: "SMRT Portal"
           process_name: "smrtanalysis/current/redist/java/bin/java"
           virtual_path: "/smrtportal"
-          installation_path: "/mnt/gvl/apps/smrt_analysis"
+          installation_path: "/mnt/gvl/apps/smrtanalysis"
           description: >
                 SMRT Portal is PacBio's open source software suite for single molecule, real-time sequencing.
