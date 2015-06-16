@@ -128,7 +128,7 @@ class LovdPackage(Package):
         return util.is_process_running("configure-lovd")
 
     def install(self):
-        return util.run_async("sudo sh -c 'wget --output-document=/tmp/lovd_installer https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-400/install-lovd-package.sh && sh /tmp/lovd_installer'")
+        return util.run_async("sudo sh -c 'wget --output-document=/tmp/install_lovd_package https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-400/packages/install_lovd_package.sh && sh /tmp/install_lovd_package'")
 
 
 class CpipePackage(Package):
@@ -140,7 +140,7 @@ class CpipePackage(Package):
         return util.is_process_running("cpipe-archive") # download and tar take all the time
 
     def install(self):
-        return util.run_async("sudo sh -c 'wget --output-document=/tmp/cpipe_installer https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-400/install-cpipe-package.sh && sh /tmp/cpipe_installer'")
+        return util.run_async("sudo sh -c 'wget --output-document=/tmp/install_cpipe_package https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-400/packages/install_cpipe_package.sh && sh /tmp/install_cpipe_package'")
 
 
 class SMRTAnalysisPackage(Package):
@@ -152,7 +152,7 @@ class SMRTAnalysisPackage(Package):
         return util.is_process_running("smrt_analysis_installer") # download and tar take all the time
 
     def install(self):
-        return util.run_async("sudo sh -c 'wget --output-document=/tmp/smrt_analysis_installer https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-400/smrt_analysis_installer.sh && sh /tmp/smrt_analysis_installer'")
+        return util.run_async("sudo sh -c 'wget --output-document=/tmp/install_smrt_analysis_package https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-400/packages/install_smrt_analysis_package.sh && sh /tmp/install_smrt_analysis_package'")
 
 
 def load_package_registry():
