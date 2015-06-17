@@ -92,30 +92,29 @@ def load_service_registry():
 def dict_to_service(svc_dict):
     return Service(svc_dict['name'], svc_dict['display_name'], svc_dict['description'], svc_dict['process_name'], svc_dict['virtual_path'], svc_dict['installation_path'])
 
-def save_service_registry():
+def save_service_registry(service_list):
     with open("service_registry.yml", 'w') as stream:
         stream.write(yaml.dump({ 'services' : [service.yaml() for service in service_list] }, default_flow_style=False))
 
-service_list = load_service_registry()
-
 def get_services():
     data = []
-    for service in service_list:
+    for service in load_service_registry():
         data.append(service.get_service_data())
     return data
 
 
 def get_service_data(service_name):
-    for service in service_list:
+    for service in load_service_registry():
         if service.service_name == service_name:
             return service.get_service_data()
 
 def add_service(service):
     needs_save = False
+    service_list = load_service_registry()
     if service and service.service_name not in [svc.service_name for svc in service_list]:
         service_list.append(service)
         needs_save = True
     if needs_save:
-        save_service_registry()
+        save_service_registry(service_list)
 
 
