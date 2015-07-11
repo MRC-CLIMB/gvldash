@@ -4,6 +4,9 @@ services:
       process_name: galaxy.ini
       virtual_path: "/galaxy"
       installation_path: "/mnt/galaxy/galaxy-app"
+      access_instructions:
+         username: "manual sign up"
+         password_hint: "<custom password>"
       description: >
             Galaxy is an open, web-based platform for accessible, reproducible, and transparent
             computational biomedical research.
@@ -13,6 +16,9 @@ services:
       process_name: cm_wsgi.ini
       virtual_path: "/cloud"
       installation_path: "/mnt/cm"
+      access_instructions:
+         username: "ubuntu"
+         password_hint: "<cluster password>"
       description: >
         CloudMan is a cloud manager that orchestrates the steps required to provision and manage
         compute clusters on cloud infrastructure. Use Cloudman to start and manage your Galaxy
@@ -23,6 +29,9 @@ services:
       process_name: novnc
       virtual_path: "/vnc"
       installation_path: "/opt/galaxy/novnc"
+      access_instructions:
+         username: "ubuntu"
+         password_hint: "<cluster password>"
       description: >
         This is a lightweight desktop environment through which you can run desktop applications on
         your virtual machine. You can also access the GVL commandline utilities through the desktop.
@@ -32,6 +41,9 @@ services:
       process_name: sshd
       virtual_path:
       installation_path: "/usr/sbin/sshd"
+      access_instructions:
+         username: "ubuntu"
+         password_hint: "<cluster password>"
       description: >
         You can login to your virtual machine remotely through an SSH client.
 

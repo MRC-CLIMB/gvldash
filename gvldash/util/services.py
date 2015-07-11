@@ -10,14 +10,16 @@ class Service(object):
     description = None
     service_process = None
     service_path = None
+    access_instructions = None
 
-    def __init__(self, service_name, display_name, description, service_process, service_path, local_fs_path):
+    def __init__(self, service_name, display_name, description, service_process, service_path, local_fs_path, access_instructions):
         self.service_name = service_name
         self.display_name = display_name
         self.description = description
         self.service_process = service_process
         self.service_path = service_path
         self.local_fs_path = local_fs_path
+        self.access_instructions = access_instructions
 
     def get_service_data(self):
         data = {}
@@ -26,6 +28,7 @@ class Service(object):
         data['description'] = self.description
         data['service_status'] = self.get_service_status()
         data['service_path'] = self.get_service_path()
+        data['access_instructions'] = self.get_access_instructions()
         return data
 
     def get_service_status(self):
@@ -64,13 +67,17 @@ class Service(object):
     def get_service_path(self):
         return self.service_path
 
+    def get_access_instructions(self):
+        return self.access_instructions
+
     def yaml(self):
         return { 'name' : self.service_name,
                  'display_name' : self.display_name,
                  'description' : self.description,
                  'process_name' : self.service_process,
                  'virtual_path' : self.service_path,
-                 'installation_path' : self.local_fs_path}
+                 'installation_path' : self.local_fs_path,
+                 'access_instructions' : self.access_instructions}
 
 
 class HttpsService(Service):
@@ -90,7 +97,7 @@ def load_service_registry():
         return service_list
 
 def dict_to_service(svc_dict):
-    return Service(svc_dict['name'], svc_dict['display_name'], svc_dict['description'], svc_dict['process_name'], svc_dict['virtual_path'], svc_dict['installation_path'])
+    return Service(svc_dict['name'], svc_dict['display_name'], svc_dict['description'], svc_dict['process_name'], svc_dict['virtual_path'], svc_dict['installation_path'], svc_dict['access_instructions'])
 
 def save_service_registry(service_list):
     with open("service_registry.yml", 'w') as stream:

@@ -13,6 +13,9 @@ packages:
           process_name: ipython notebook
           virtual_path: "/ipython"
           installation_path: "/home/researcher"
+          access_instructions:
+             username: researcher
+             password_hint: "<cluster password>"
           description: >
             The IPython Notebook is a web-based interactive computational environment where you can
             combine code execution, text, mathematics, plots and rich media into a single document.
@@ -21,6 +24,9 @@ packages:
           process_name: rstudio
           virtual_path: "/rstudio"
           installation_path: "/etc/rstudio"
+          access_instructions:
+             username: researcher
+             password_hint: "<cluster password>"
           description: >
             R Studio IDE is a powerful and productive user interface for R.
         - name: public_html
@@ -42,6 +48,9 @@ packages:
           process_name: galaxy.ini
           virtual_path: "/galaxy"
           installation_path: "/mnt/galaxy/galaxy-app"
+          access_instructions:
+             username: "manual sign up"
+             password_hint: "<custom password>"
           description: >
                 Galaxy is an open, web-based platform for accessible, reproducible, and transparent
                 computational biomedical research.
@@ -57,6 +66,9 @@ packages:
           process_name: php-fpm
           virtual_path: "/lovd"
           installation_path: "/mnt/gvl/apps/lovd"
+          access_instructions:
+             username: "manual sign up"
+             password_hint: "<custom password>"
           description: >
                 LOVD stands for Leiden Open (source) Variation Database. LOVD's purpose is to provide a flexible,
                 freely available tool for Gene-centered collection and display of DNA variations.
@@ -74,6 +86,9 @@ packages:
           display_name: Cpipe
           process_name:
           virtual_path:
+          access_instructions:
+             username: "ubuntu"
+             password_hint: "<cluster password>"
           installation_path: "/mnt/gvl/apps/cpipe"
           description: >
                 Cpipe is a variant detection pipeline designed to process high-throughput sequencing data,
@@ -90,5 +105,8 @@ packages:
           process_name: "smrtanalysis/current/redist/java/bin/java"
           virtual_path: "/smrtportal"
           installation_path: "/mnt/gvl/apps/smrtanalysis"
+          access_instructions:
+             username: "manual sign up"
+             password_hint: "<custom password>"
           description: >
                 SMRT Portal is PacBio's open source software suite for single molecule, real-time sequencing.

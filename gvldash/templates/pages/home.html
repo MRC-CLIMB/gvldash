@@ -22,7 +22,7 @@
                     <th>Service Name</th>
                     <th>Description</th>
                     <th class="text-center">Status</th>
-                    <th>Access Link</th>
+                    <th style="min-width: 230px">Access Link</th>
                 </tr>
             </thead>
             <tbody>
@@ -61,9 +61,13 @@
                     </td>
 
                     <td>
-                        <a ng-if="service.service_name != 'ssh' && service.service_name != 'cpipe'" href="{$ getServiceURL(service.service_name) $}" class="btn btn-link" target="_blank" ng-class="{ disabled: service.service_status!='running' }">{$ getServiceURL(service.service_name) $}</a>
-                        <span ng-if="service.service_name == 'ssh'">&nbsp;&nbsp;&nbsp;<kbd>ssh ubuntu@{$ getServiceURL(service.service_name) $}</kbd></span>
-                        <span ng-if="service.service_name == 'cpipe'">&nbsp;&nbsp;&nbsp;<kbd>ssh ubuntu@{$ getServiceURL(service.service_name) $}</kbd></span>
+                        <a class="link" ng-if="service.service_name != 'ssh' && service.service_name != 'cpipe'" href="{$ getServiceURL(service.service_name) $}" class="btn btn-link" target="_blank" ng-class="{ disabled: service.service_status!='running' }">{$ getServiceURL(service.service_name) $}</a>
+                        <span style="margin-left:-12px" ng-if="service.service_name == 'ssh'">&nbsp;&nbsp;&nbsp;<kbd>ssh ubuntu@{$ getServiceURL(service.service_name) $}</kbd></span>
+                        <span style="margin-left:-12px" ng-if="service.service_name == 'cpipe'">&nbsp;&nbsp;&nbsp;<kbd>ssh ubuntu@{$ getServiceURL(service.service_name) $}</kbd></span>
+                        <br />
+                        <strong>Username:</strong><span> {$ service.access_instructions.username $}</span>
+                        <br />
+                        <strong>Password:</strong><span> {$ service.access_instructions.password_hint $}</span>
                     </td>
                 </tr>
             </tbody>
