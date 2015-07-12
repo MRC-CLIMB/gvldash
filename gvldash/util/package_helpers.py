@@ -7,7 +7,7 @@ from bioblend.cloudman import CloudManInstance
 
 def load_instance_metadata():
     try:
-        with open("/tmp/cm/userData.yaml", "r") as stream:
+        with open("/opt/cloudman/boot/userData.yaml", "r") as stream:
             ud = yaml.load(stream)
             return ud
     except:

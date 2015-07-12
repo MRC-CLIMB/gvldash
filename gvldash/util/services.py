@@ -97,7 +97,7 @@ def load_service_registry():
         return service_list
 
 def dict_to_service(svc_dict):
-    return Service(svc_dict['name'], svc_dict['display_name'], svc_dict['description'], svc_dict['process_name'], svc_dict['virtual_path'], svc_dict['installation_path'], svc_dict['access_instructions'])
+    return Service(svc_dict['name'], svc_dict['display_name'], svc_dict['description'], svc_dict['process_name'], svc_dict['virtual_path'], svc_dict['installation_path'], svc_dict.get('access_instructions', None))
 
 def save_service_registry(service_list):
     with open("service_registry.yml", 'w') as stream:
