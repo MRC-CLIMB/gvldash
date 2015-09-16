@@ -111,7 +111,7 @@ class GalaxyPackage(Package):
 class CmdlineUtilPackage(Package):
 
     def is_installed(self):
-        return os.path.exists("/mnt/gvl/home/researcher/galaxy-fuse.py")
+        return os.path.exists("/opt/gvl/info/gvl_commandline_utilities.yml")
 
     def is_installing(self):
         return util.is_process_running("setup_utils_silent.sh")
