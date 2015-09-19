@@ -23,7 +23,7 @@
                 <tr ng-repeat="package in getPackageList()">
                     <td style="vertical-align:top;">{$ package.display_name $}</td>
                     <td>
-                        <div>{$ package.description $}</div>
+                        <div ng-bind-html="package.description"></div>
                         <div>
                             <br>
                             <b>Services in this package:</b>

@@ -3,9 +3,9 @@ packages:
       implementation_class: util.packages.CmdlineUtilPackage
       display_name: Commandline Utilities
       description: >
-            Install this package to set up the GVL commandline utilities. These include rstudio,
-            JupyterHub (a multi-user IPython notebook server), the public html folder, galaxy-fuse.py and it will also provide commandline
-            access to Galaxy modules. A new user account named "researcher" will be created, with the same
+            Install this package to set up the GVL commandline utilities. These include <a href="https://www.rstudio.com/">RStudio</a>,
+            <a href="https://jupyter.org/">JupyterHub</a> (a multi-user IPython notebook server), the public html folder, galaxy-fuse.py and
+            it will also provide commandline access to Galaxy modules. A new user account named "researcher" will be created, with the same
             password as your ubuntu user, which you can use to access these utilities.
       services:
         - name: jupyterhub
@@ -17,7 +17,8 @@ packages:
              username: researcher
              password_hint: "<cluster password>"
           description: >
-            JupyterHub can be used to access your personal IPython Notebook. IPython Notebook is a web-based interactive computational environment where you can
+            <a href="https://jupyter.org/">JupyterHub</a> can be used to access your personal <a href="http://ipython.org/notebook.html">IPython Notebook</a>.
+            IPython Notebook is a web-based interactive computational environment where you can
             combine code execution, text, mathematics, plots and rich media into a single document.
         - name: rstudio
           display_name: RStudio
@@ -28,7 +29,7 @@ packages:
              username: researcher
              password_hint: "<cluster password>"
           description: >
-            R Studio IDE is a powerful and productive user interface for R.
+            <a href="https://www.rstudio.com/">RStudio</a> IDE is a powerful and productive user interface for R.
         - name: public_html
           display_name: "Public HTML"
           process_name: nginx
@@ -41,7 +42,8 @@ packages:
       implementation_class: util.packages.GalaxyPackage
       display_name: Galaxy/Cloudman
       description: >
-        This package can be used to install or configure Galaxy through CloudMan.
+        This package can be used to install or configure <a href="https://galaxyproject.org/">Galaxy</a>
+        through <a href="http://cloudman.irb.hr/">CloudMan</a>.
       services:
         - name: galaxy
           display_name: Galaxy
@@ -52,14 +54,14 @@ packages:
              username: "manual sign up"
              password_hint: "<custom password>"
           description: >
-                Galaxy is an open, web-based platform for accessible, reproducible, and transparent
+                <a href="https://galaxyproject.org/">Galaxy</a> is an open, web-based platform for accessible, reproducible, and transparent
                 computational biomedical research.
 
     - name: lovd
       implementation_class: util.packages.LovdPackage
       display_name: LOVD
       description: >
-        This package can be used to install the Leiden Open Variant Database (LOVD).
+        This package can be used to install the Leiden Open Variant Database (<a href="http://www.lovd.nl/">LOVD</a>).
       services:
         - name: lovd
           display_name: LOVD
@@ -70,7 +72,7 @@ packages:
              username: "manual sign up"
              password_hint: "<custom password>"
           description: >
-                LOVD stands for Leiden Open (source) Variation Database. LOVD's purpose is to provide a flexible,
+                <a href="http://www.lovd.nl/">LOVD</a> stands for Leiden Open (source) Variation Database. LOVD's purpose is to provide a flexible,
                 freely available tool for Gene-centered collection and display of DNA variations.
                 LOVD 3.0 extends this idea to also provide patient-centered data storage and storage
                 of NGS data, even of variants outside of genes.
@@ -98,7 +100,9 @@ packages:
       implementation_class: util.packages.SMRTAnalysisPackage
       display_name: SMRT Analysis
       description: >
-        This package can be used to install PacBio's open source software suite for single molecule, real-time sequencing.
+        This package can be used to install PacBio's open source software suite for single molecule, real-time sequencing. PacBio
+        <a href="https://github.com/PacificBiosciences/SMRT-Analysis/wiki/SMRT-Analysis-Software-Installation-v2.3.0#system-requirements">recommends</a> the use
+        of a 16 core instance with 64GB of RAM (or higher) for this package.
       services:
         - name: smrt_portal
           display_name: "SMRT Portal"
@@ -109,4 +113,4 @@ packages:
              username: "manual sign up"
              password_hint: "<custom password>"
           description: >
-                SMRT Portal is PacBio's open source software suite for single molecule, real-time sequencing.
+                <a href="http://www.pacificbiosciences.com/products/software/secondary-analysis/">SMRT Portal</a> is PacBio's open source software suite for single molecule, real-time sequencing.

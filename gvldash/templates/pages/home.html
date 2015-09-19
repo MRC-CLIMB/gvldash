@@ -45,7 +45,7 @@
 	                    </a>
                     </td>
                     <td>{$ service.display_name $}</td>
-                    <td>{$ service.description $}</td>
+                    <td ng-bind-html="service.description"></td>
                     <td>
                         <div ng-switch on="service.service_status">
                             <p ng-switch-when="running" class="text-success text-center">

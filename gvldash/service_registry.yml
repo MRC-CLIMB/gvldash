@@ -8,8 +8,8 @@ services:
          username: "manual sign up"
          password_hint: "<custom password>"
       description: >
-            Galaxy is an open, web-based platform for accessible, reproducible, and transparent
-            computational biomedical research.
+            <a href="https://galaxyproject.org/">Galaxy</a> is an open, web-based platform for accessible,
+            reproducible, and transparent computational biomedical research.
 
     - name: cloudman
       display_name: Cloudman
@@ -20,7 +20,7 @@ services:
          username: "ubuntu"
          password_hint: "<cluster password>"
       description: >
-        CloudMan is a cloud manager that orchestrates the steps required to provision and manage
+        <a href="http://cloudman.irb.hr/">CloudMan</a> is a cloud manager that orchestrates the steps required to provision and manage
         compute clusters on cloud infrastructure. Use Cloudman to start and manage your Galaxy
         service and to add additional nodes to your compute cluster.
 
@@ -33,7 +33,7 @@ services:
          username: "ubuntu"
          password_hint: "<cluster password>"
       description: >
-        This is a lightweight desktop environment through which you can run desktop applications on
+        <a href="http://lubuntu.net/">Lubuntu</a> is a lightweight desktop environment through which you can run desktop applications on
         your virtual machine. You can also access the GVL commandline utilities through the desktop.
 
     - name: ssh
