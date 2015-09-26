@@ -6,7 +6,7 @@ from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
 from api import get_service, get_services, manage_package, get_packages, manage_system_state, get_app_state, manage_system_event
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test
 from django.views.decorators.csrf import csrf_exempt
 
 # Uncomment the next two lines to enable the admin:
@@ -21,10 +21,12 @@ urlpatterns = patterns('',
         TemplateView.as_view(template_name='pages/about.html'),
         name="about"),
     url(r'^admin/$',
-        login_required(TemplateView.as_view(template_name='pages/admin.html')),
+        user_passes_test(lambda u: u.is_superuser)(
+            TemplateView.as_view(template_name='pages/admin.html')),
         name="admin"),
     url(r'^', include('django.contrib.auth.urls')),
-    url(r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': 'pages/login.html'}, name="account_login"),
+    url(r'^accounts/login/$', 'django.contrib.auth.views.login',
+        {'template_name': 'pages/login.html'}, name="account_login"),
 
     # Uncomment the next line to enable the admin:
 #     url(r'^admin/', include(admin.site.urls)),
@@ -40,9 +42,11 @@ urlpatterns = patterns('',
     url(r'^api/v1/services/$', csrf_exempt(get_services), name='get_services'),
     url(r'^api/v1/services/(?P<service_name>\w+)/$', csrf_exempt(get_service), name='get_service'),
     url(r'^api/v1/packages/$', csrf_exempt(get_packages), name='get_packages'),
-    url(r'^api/v1/packages/(?P<package_name>\w+)/$', csrf_exempt(manage_package), name='manage_package'),
+    url(r'^api/v1/packages/(?P<package_name>\w+)/$',
+        csrf_exempt(manage_package), name='manage_package'),
     url(r'^api/v1/system/status/$', csrf_exempt(manage_system_state), name='manage_system_state'),
     url(r'^api/v1/system/status/apps$', csrf_exempt(get_app_state), name='get_app_state'),
-    url(r'^api/v1/system/status/events$', csrf_exempt(manage_system_event), name='manage_system_event'),
+    url(r'^api/v1/system/status/events$',
+        csrf_exempt(manage_system_event), name='manage_system_event'),
 
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
