@@ -11,7 +11,7 @@ packages:
         - name: jupyterhub
           display_name: JupyterHub
           process_name: jupyterhub
-          virtual_path: "/jupyterhub"
+          virtual_path: "/jupyter"
           installation_path: "/usr/local/bin/jupyterhub"
           access_instructions:
              username: researcher
