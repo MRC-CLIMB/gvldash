@@ -27,10 +27,10 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="app in getInstalledApps()">
-					<td>{$ app.name $}</td>
-					<td>{$ app.version $}</td>
-					<td>{$ app.build_date $}</td>
-					<td>
+					<td style="vertical-align: top;">{$ app.name $}</td>
+					<td style="vertical-align: top;">{$ app.version $}</td>
+					<td style="vertical-align: top;">{$ app.build_date $}</td>
+					<td style="vertical-align: top;">
 						<p ng-repeat="(item, value) in app" ng-if="item != 'name' && item != 'version' && item != 'build_date'">
 							<strong>{$ item $} :</strong> {$ value $}
 						</p>
