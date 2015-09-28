@@ -7,6 +7,7 @@ import os
 from abc import abstractmethod
 import services
 
+
 def str_to_class(fq_class_name):
     parts = fq_class_name.rsplit('.', 1)
     module_name = parts[0]
@@ -15,6 +16,7 @@ def str_to_class(fq_class_name):
     module_ = importlib.import_module(module_name)
     class_ = getattr(module_, class_name)
     return class_
+
 
 class Package(object):
 
@@ -84,7 +86,6 @@ class Package(object):
         raise Exception("Not implemented")
 
 
-
 class GalaxyPackage(Package):
     cm_instance = CloudManInstance("http://127.0.0.1:42284", get_cluster_password())
 
@@ -99,7 +100,8 @@ class GalaxyPackage(Package):
 
     def is_installing(self):
         try:
-            if self.cm_instance.get_cluster_type() and self.cm_instance.get_galaxy_state() in ("Unstarted", "Starting"):
+            if self.cm_instance.get_cluster_type() and self.cm_instance.get_galaxy_state() in (
+                    "Unstarted", "Starting"):
                 return True
         except Exception:
             pass
@@ -108,61 +110,70 @@ class GalaxyPackage(Package):
     def install(self):
         return self.cm_instance.initialize("Galaxy", galaxy_data_option="transient")
 
+
 class CmdlineUtilPackage(Package):
 
     def is_installed(self):
         return os.path.exists("/opt/gvl/info/gvl_commandline_utilities.yml")
 
     def is_installing(self):
-        return util.is_process_running("setup_utils_silent.sh")
+        return util.is_process_running("install_cmdlineutils_package")
 
     def install(self):
-        return util.run_async("sudo su - ubuntu -c '/opt/gvl/scripts/cmdlineutils/setup_utils_silent.sh'")
+        return util.run_async(
+            "sudo sh -c 'wget --output-document=/tmp/install_cmdlineutils_package https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-400/packages/install_cmdlineutils_package.sh && sh /tmp/install_cmdlineutils_package'")
+
 
 class LovdPackage(Package):
 
     def is_installed(self):
-        return os.path.exists("/opt/gvl/info/lovd.yml") # last step of installer
+        return os.path.exists("/opt/gvl/info/lovd.yml")  # last step of installer
 
     def is_installing(self):
         return util.is_process_running("install_lovd_package")
 
     def install(self):
-        return util.run_async("sudo sh -c 'wget --output-document=/tmp/install_lovd_package https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-400/packages/install_lovd_package.sh && sh /tmp/install_lovd_package'")
+        return util.run_async(
+            "sudo sh -c 'wget --output-document=/tmp/install_lovd_package https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-400/packages/install_lovd_package.sh && sh /tmp/install_lovd_package'")
 
 
 class CpipePackage(Package):
 
     def is_installed(self):
-        return os.path.exists("/opt/gvl/info/cpipe.yml") # last step of installer
+        return os.path.exists("/opt/gvl/info/cpipe.yml")  # last step of installer
 
     def is_installing(self):
-        return util.is_process_running("install_cpipe_package") # download and tar take all the time
+        # download and tar take all the time
+        return util.is_process_running("install_cpipe_package")
 
     def install(self):
-        return util.run_async("sudo sh -c 'wget --output-document=/tmp/install_cpipe_package https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-400/packages/install_cpipe_package.sh && sh /tmp/install_cpipe_package'")
+        return util.run_async(
+            "sudo sh -c 'wget --output-document=/tmp/install_cpipe_package https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-400/packages/install_cpipe_package.sh && sh /tmp/install_cpipe_package'")
 
 
 class SMRTAnalysisPackage(Package):
 
     def is_installed(self):
-        return os.path.exists("/opt/gvl/info/smrt_analysis.yml") # last step of installer
+        return os.path.exists("/opt/gvl/info/smrt_analysis.yml")  # last step of installer
 
     def is_installing(self):
-        return util.is_process_running("install_smrt_analysis_package") # download and tar take all the time
+        # download and tar take all the time
+        return util.is_process_running("install_smrt_analysis_package")
 
     def install(self):
-        return util.run_async("sudo sh -c 'wget --output-document=/tmp/install_smrt_analysis_package https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-400/packages/install_smrt_analysis_package.sh && sh /tmp/install_smrt_analysis_package'")
+        return util.run_async(
+            "sudo sh -c 'wget --output-document=/tmp/install_smrt_analysis_package https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-400/packages/install_smrt_analysis_package.sh && sh /tmp/install_smrt_analysis_package'")
 
 
 def load_package_registry():
     with open("package_registry.yml", 'r') as stream:
         registry = yaml.load(stream)
         package_list = [str_to_class(pkg['implementation_class'])(pkg['name'], pkg['display_name'], pkg['description'], pkg['services'])
-                       for pkg in registry['packages']]
+                        for pkg in registry['packages']]
         return package_list
 
 package_list = load_package_registry()
+
 
 def get_packages():
     data = []
@@ -175,6 +186,7 @@ def get_package_data(package_name):
     for package in package_list:
         if package.package_name == package_name:
             return package.get_package_data()
+
 
 def install_package(package_name):
     for package in package_list:
