@@ -6,6 +6,7 @@ import urllib2
 from urlparse import urlparse
 
 from bioblend.cloudman import CloudManInstance
+from django.conf import settings
 from package_helpers import get_cluster_password
 import services
 import util
@@ -147,10 +148,6 @@ class ShellScriptPackage(Package):
         return util.is_process_running(self._get_script_name())
 
     def install(self):
-        print(
-            "INSTALLING: sudo sh -c 'wget --output-document=/tmp/{0} {1} && sh /tmp/{0}'".format(
-                self._get_script_name(),
-                self.parameters.get('install_script_url')))
         return util.run_async(
             "sudo sh -c 'wget --output-document=/tmp/{0} {1} && sh /tmp/{0}'".format(self._get_script_name(), self.parameters.get('install_script_url')))
 
@@ -159,8 +156,8 @@ def load_package_registry():
     if os.path.isfile("package_registry.yml"):
         package_file = open("package_registry.yml", 'r')
     else:
-        package_file = closing(urllib2.urlopen(
-            'https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-400/packages/package_registry.yml'))
+        package_file = closing(
+            urllib2.urlopen(settings.GVLDASH_PACKAGE_REGISTRY_URL))
     with package_file as stream:
         registry = yaml.load(stream)
         package_list = [str_to_class(pkg['implementation_class'])(pkg['name'], pkg['display_name'], pkg['description'], pkg['services'], pkg.get('parameters', {}))

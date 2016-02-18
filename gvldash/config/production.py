@@ -22,21 +22,23 @@ from .common import Common
 
 class Production(Common):
 
+    GVLDASH_PACKAGE_REGISTRY_URL = 'https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-400/packages/package_registry.yml'
+
 #     # This ensures that Django will be able to detect a secure connection
 #     # properly on Heroku.
 #     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-# 
+#
     # INSTALLED_APPS
     INSTALLED_APPS = Common.INSTALLED_APPS
     # END INSTALLED_APPS
-# 
+#
 #     # SECRET KEY
 #     SECRET_KEY = values.SecretValue()
 #     # END SECRET KEY
-# 
+#
 #     # django-secure
 #     INSTALLED_APPS += ("djangosecure", )
-# 
+#
 #     # set this to 60 seconds and then to 518400 when you can prove it works
 #     SECURE_HSTS_SECONDS = 60
 #     SECURE_HSTS_INCLUDE_SUBDOMAINS = values.BooleanValue(True)
@@ -47,7 +49,7 @@ class Production(Common):
 #     SESSION_COOKIE_HTTPONLY = values.BooleanValue(True)
 # #     SECURE_SSL_REDIRECT = values.BooleanValue(True)
 #     # end django-secure
-# 
+#
     # SITE CONFIGURATION
     # Hosts/domain names that are valid for this site
     # See https://docs.djangoproject.com/en/1.6/ref/settings/#allowed-hosts
@@ -64,29 +66,29 @@ class Production(Common):
 
 #     # See: http://django-storages.readthedocs.org/en/latest/backends/amazon-S3.html#settings
 #     STATICFILES_STORAGE = DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-# 
+#
 #     # See: http://django-storages.readthedocs.org/en/latest/backends/amazon-S3.html#settings
 #     AWS_ACCESS_KEY_ID = values.SecretValue()
 #     AWS_SECRET_ACCESS_KEY = values.SecretValue()
 #     AWS_STORAGE_BUCKET_NAME = values.SecretValue()
 #     AWS_AUTO_CREATE_BUCKET = True
 #     AWS_QUERYSTRING_AUTH = False
-# 
+#
 #     # see: https://github.com/antonagestam/collectfast
 #     AWS_PRELOAD_METADATA = True
 #     INSTALLED_APPS += ("collectfast", )
-# 
+#
 #     # AWS cache settings, don't change unless you know what you're doing:
 #     AWS_EXPIREY = 60 * 60 * 24 * 7
 #     AWS_HEADERS = {
 #         'Cache-Control': 'max-age=%d, s-maxage=%d, must-revalidate' % (
 #             AWS_EXPIREY, AWS_EXPIREY)
 #     }
-# 
+#
 #     # See: https://docs.djangoproject.com/en/dev/ref/settings/#static-url
 #     STATIC_URL = 'https://s3.amazonaws.com/%s/' % AWS_STORAGE_BUCKET_NAME
 #     # END STORAGE CONFIGURATION
-# 
+#
 #     # EMAIL
 #     DEFAULT_FROM_EMAIL = values.Value('gvldash <noreply@genome.edu.au>')
 #     EMAIL_HOST = values.Value('smtp.sendgrid.com')
@@ -97,7 +99,7 @@ class Production(Common):
 #     EMAIL_USE_TLS = True
 #     SERVER_EMAIL = EMAIL_HOST_USER
 #     # END EMAIL
-# 
+#
 #     # TEMPLATE CONFIGURATION
 #     # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-dirs
 #     TEMPLATE_LOADERS = (
@@ -107,7 +109,7 @@ class Production(Common):
 #         )),
 #     )
 #     # END TEMPLATE CONFIGURATION
-# 
+#
 #     # CACHING
 #     # Only do this here because thanks to django-pylibmc-sasl and pylibmc
 #     # memcacheify is painful to install on windows.
@@ -118,5 +120,5 @@ class Production(Common):
 #     except ImportError:
 #         CACHES = values.CacheURLValue(default="memcached://127.0.0.1:11211")
 #     # END CACHING
-# 
+#
 #     # Your production stuff: Below this line define 3rd party libary settings

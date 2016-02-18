@@ -6,7 +6,10 @@ Local Configurations
 - Uses console backend for emails
 - Use Django Debug Toolbar
 '''
+import os
+
 from configurations import values
+
 from .common import Common
 
 
@@ -17,6 +20,10 @@ class Local(Common):
     TEMPLATE_DEBUG = DEBUG
     # END DEBUG
 
+    PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
+    GVLDASH_PACKAGE_REGISTRY_URL = 'file://' + \
+        PROJECT_ROOT + "/../package_registry.yml.sample"
+
     # INSTALLED_APPS
     INSTALLED_APPS = Common.INSTALLED_APPS
     # END INSTALLED_APPS
@@ -24,7 +31,8 @@ class Local(Common):
     # Mail settings
     EMAIL_HOST = "localhost"
     EMAIL_PORT = 1025
-    EMAIL_BACKEND = values.Value('django.core.mail.backends.console.EmailBackend')
+    EMAIL_BACKEND = values.Value(
+        'django.core.mail.backends.console.EmailBackend')
     # End mail settings
 
     # django-debug-toolbar
