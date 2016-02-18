@@ -1,9 +1,10 @@
 import json
-import yaml
 import os
-import logging as log
+
 from django.http import HttpResponse, HttpResponseForbidden
+import logging as log
 from util import packages, services, package_helpers, events
+import yaml
 
 
 def custom_json_serialiser(obj):
@@ -122,7 +123,8 @@ def manage_system_event(request):
 def get_app_list():
     app_list = []
     try:
-        for path in [f for f in os.listdir("/opt/gvl/info/") if f.endswith("yml")]:
+        for path in [
+                f for f in os.listdir("/opt/gvl/info/") if f.endswith("yml")]:
             with open(os.path.join("/opt/gvl/info/", path), 'r') as stream:
                 app_list.append(yaml.load(stream))
     except Exception as e:

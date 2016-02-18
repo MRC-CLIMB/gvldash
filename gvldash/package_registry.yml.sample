@@ -1,6 +1,9 @@
 packages:
     - name: gvl_cmdline_utilities
-      implementation_class: util.packages.CmdlineUtilPackage
+      implementation_class: util.packages.ShellScriptPackage
+      parameters:
+        install_script_url: "https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-400/packages/install_cmdlineutils_package.sh"
+        install_version_data: "gvl_commandline_utilities.yml"
       display_name: Commandline Utilities
       description: >
             Install this package to set up the GVL commandline utilities. These include <a href="https://www.rstudio.com/">RStudio</a>,
@@ -57,8 +60,56 @@ packages:
                 <a href="https://galaxyproject.org/">Galaxy</a> is an open, web-based platform for accessible, reproducible, and transparent
                 computational biomedical research.
 
+    - name: lovd
+      implementation_class: util.packages.ShellScriptPackage
+      parameters:
+        install_script_url: "https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-400/packages/install_lovd_package.sh"
+        install_version_data: "lovd.yml"
+      display_name: LOVD
+      description: >
+        This package can be used to install the Leiden Open Variant Database (<a href="http://www.lovd.nl/">LOVD</a>).
+      services:
+        - name: lovd
+          display_name: LOVD
+          process_name: php-fpm
+          virtual_path: "/lovd"
+          installation_path: "/mnt/gvl/apps/lovd"
+          access_instructions:
+             username: "manual sign up"
+             password_hint: "<custom password>"
+          description: >
+                <a href="http://www.lovd.nl/">LOVD</a> stands for Leiden Open (source) Variation Database. LOVD's purpose is to provide a flexible,
+                freely available tool for Gene-centered collection and display of DNA variations.
+                LOVD 3.0 extends this idea to also provide patient-centered data storage and storage
+                of NGS data, even of variants outside of genes.
+
+    - name: cpipe
+      implementation_class: util.packages.ShellScriptPackage
+      parameters:
+        install_script_url: "https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-400/packages/install_cpipe_package.sh"
+        install_version_data: "cpipe.yml"
+      display_name: Cpipe
+      description: >
+        This package can be used to install Cpipe, a variant detection pipeline designed to process
+        high-throughput sequencing data, with the purpose of identifying potentially pathogenic mutations.
+      services:
+        - name: cpipe
+          display_name: Cpipe
+          process_name:
+          virtual_path:
+          access_instructions:
+             username: "ubuntu"
+             password_hint: "<cluster password>"
+          installation_path: "/mnt/gvl/apps/cpipe"
+          description: >
+                Cpipe is a variant detection pipeline designed to process high-throughput sequencing data,
+                with the purpose of identifying potentially pathogenic mutations.
+
     - name: smrt_portal
-      implementation_class: util.packages.SMRTAnalysisPackage
+      implementation_class: util.packages.ShellScriptPackage
+      parameters:
+        install_script_url: "https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-400/packages/install_smrt_analysis_package.sh"
+        install_version_data: "smrt_analysis.yml"
       display_name: SMRT Analysis
       description: >
         This package can be used to install PacBio's open source software suite for single molecule, real-time sequencing. PacBio

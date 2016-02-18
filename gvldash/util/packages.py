@@ -1,11 +1,15 @@
-import yaml
-from package_helpers import get_cluster_password
-import util
-from bioblend.cloudman import CloudManInstance
+from abc import abstractmethod
+from contextlib import closing
 import importlib
 import os
-from abc import abstractmethod
+import urllib2
+from urlparse import urlparse
+
+from bioblend.cloudman import CloudManInstance
+from package_helpers import get_cluster_password
 import services
+import util
+import yaml
 
 
 def str_to_class(fq_class_name):
@@ -25,12 +29,15 @@ class Package(object):
     description = None
     service_process = None
     service_path = None
+    parameters = None
 
-    def __init__(self, package_name, display_name, description, services):
+    def __init__(
+            self, package_name, display_name, description, services, parameters):
         self.package_name = package_name
         self.display_name = display_name
         self.description = description
         self.services = services
+        self.parameters = parameters or {}
 
     def get_package_data(self):
         data = {}
@@ -38,6 +45,7 @@ class Package(object):
         data['display_name'] = self.display_name
         data['description'] = self.description
         data['services'] = self.services
+        data['parameters'] = self.parameters
         data['status'] = self.get_package_status()
         return data
 
@@ -61,7 +69,8 @@ class Package(object):
             if self.is_installed():
                 raise Exception("Uninstallation is currently not supported")
             elif self.is_installing():
-                raise Exception("Package is currently being installed. Cancellation not supported.")
+                raise Exception(
+                    "Package is currently being installed. Cancellation not supported.")
             else:
                 raise Exception("Cannot uninstall. Package is not installed.")
         else:
@@ -87,7 +96,9 @@ class Package(object):
 
 
 class GalaxyPackage(Package):
-    cm_instance = CloudManInstance("http://127.0.0.1:42284", get_cluster_password())
+    cm_instance = CloudManInstance(
+        "http://127.0.0.1:42284",
+        get_cluster_password())
 
     def is_installed(self):
         try:
@@ -108,67 +119,51 @@ class GalaxyPackage(Package):
         return False
 
     def install(self):
-        return self.cm_instance.initialize("Galaxy", galaxy_data_option="transient")
+        return self.cm_instance.initialize(
+            "Galaxy", galaxy_data_option="transient")
 
 
-class CmdlineUtilPackage(Package):
+class ShellScriptPackage(Package):
 
-    def is_installed(self):
-        return os.path.exists("/opt/gvl/info/gvl_commandline_utilities.yml")
-
-    def is_installing(self):
-        return util.is_process_running("install_cmdlineutils_package")
-
-    def install(self):
-        return util.run_async(
-            "sudo sh -c 'wget --output-document=/tmp/install_cmdlineutils_package https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-400/packages/install_cmdlineutils_package.sh && sh /tmp/install_cmdlineutils_package'")
-
-
-class LovdPackage(Package):
-
-    def is_installed(self):
-        return os.path.exists("/opt/gvl/info/lovd.yml")  # last step of installer
-
-    def is_installing(self):
-        return util.is_process_running("install_lovd_package")
-
-    def install(self):
-        return util.run_async(
-            "sudo sh -c 'wget --output-document=/tmp/install_lovd_package https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-400/packages/install_lovd_package.sh && sh /tmp/install_lovd_package'")
-
-
-class CpipePackage(Package):
+    def _get_script_name(self):
+        """
+        Get the name portion only of the install script.
+        E.g:
+        If install script url is:
+        https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-400/packages/install_cmdlineutils_package.sh
+        returns:
+        install_cmdlineutils_package
+        """
+        parsed_url = urlparse(self.parameters.get('install_script_url'))
+        filename, _ = os.path.splitext(
+            os.path.basename(parsed_url.path))
+        return filename
 
     def is_installed(self):
-        return os.path.exists("/opt/gvl/info/cpipe.yml")  # last step of installer
+        return os.path.exists(
+            "/opt/gvl/info/{}".format(self.parameters.get('install_version_data')))
 
     def is_installing(self):
-        # download and tar take all the time
-        return util.is_process_running("install_cpipe_package")
+        return util.is_process_running(self._get_script_name())
 
     def install(self):
+        print(
+            "INSTALLING: sudo sh -c 'wget --output-document=/tmp/{0} {1} && sh /tmp/{0}'".format(
+                self._get_script_name(),
+                self.parameters.get('install_script_url')))
         return util.run_async(
-            "sudo sh -c 'wget --output-document=/tmp/install_cpipe_package https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-400/packages/install_cpipe_package.sh && sh /tmp/install_cpipe_package'")
-
-
-class SMRTAnalysisPackage(Package):
-
-    def is_installed(self):
-        return os.path.exists("/opt/gvl/info/smrt_analysis.yml")  # last step of installer
-
-    def is_installing(self):
-        # download and tar take all the time
-        return util.is_process_running("install_smrt_analysis_package")
-
-    def install(self):
-        return util.run_async(
-            "sudo sh -c 'wget --output-document=/tmp/install_smrt_analysis_package https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-400/packages/install_smrt_analysis_package.sh && sh /tmp/install_smrt_analysis_package'")
+            "sudo sh -c 'wget --output-document=/tmp/{0} {1} && sh /tmp/{0}'".format(self._get_script_name(), self.parameters.get('install_script_url')))
 
 
 def load_package_registry():
-    with open("package_registry.yml", 'r') as stream:
+    if os.path.isfile("package_registry.yml"):
+        package_file = open("package_registry.yml", 'r')
+    else:
+        package_file = closing(urllib2.urlopen(
+            'https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-400/packages/package_registry.yml'))
+    with package_file as stream:
         registry = yaml.load(stream)
-        package_list = [str_to_class(pkg['implementation_class'])(pkg['name'], pkg['display_name'], pkg['description'], pkg['services'])
+        package_list = [str_to_class(pkg['implementation_class'])(pkg['name'], pkg['display_name'], pkg['description'], pkg['services'], pkg.get('parameters', {}))
                         for pkg in registry['packages']]
         return package_list
 
