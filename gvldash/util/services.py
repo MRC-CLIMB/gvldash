@@ -1,7 +1,9 @@
+import contextlib
 import os
-import urllib2
 import util
 import yaml
+import requests
+
 
 class Service(object):
 
@@ -12,7 +14,8 @@ class Service(object):
     service_path = None
     access_instructions = None
 
-    def __init__(self, service_name, display_name, description, service_process, service_path, local_fs_path, access_instructions):
+    def __init__(self, service_name, display_name, description, service_process,
+                 service_path, local_fs_path, access_instructions):
         self.service_name = service_name
         self.display_name = display_name
         self.description = description
@@ -44,7 +47,8 @@ class Service(object):
 
     def _is_service_running(self):
         if self.service_path:
-            return util.is_process_running(self.service_process) and self._is_service_path_available()
+            return util.is_process_running(
+                self.service_process) and self._is_service_path_available()
         else:
             return util.is_process_running(self.service_process)
 
@@ -57,10 +61,11 @@ class Service(object):
         dns = protocol + "://127.0.0.1" + str(self.service_path)
         running_error_codes = [401, 403]
         try:
-            urllib2.urlopen(dns)
-            return True
-        except urllib2.HTTPError, e:
-            return e.code in running_error_codes
+            with contextlib.closing(requests.get(dns, verify=False)) as response:
+                response.raise_for_status()
+                return True
+        except requests.exceptions.RequestException as e:
+            return e.response and e.response.status_code in running_error_codes
         except:
             return False
 
@@ -71,19 +76,26 @@ class Service(object):
         return self.access_instructions
 
     def yaml(self):
-        return { 'name' : self.service_name,
-                 'display_name' : self.display_name,
-                 'description' : self.description,
-                 'process_name' : self.service_process,
-                 'virtual_path' : self.service_path,
-                 'installation_path' : self.local_fs_path,
-                 'access_instructions' : self.access_instructions}
+        return {'name': self.service_name,
+                'display_name': self.display_name,
+                'description': self.description,
+                'process_name': self.service_process,
+                'virtual_path': self.service_path,
+                'installation_path': self.local_fs_path,
+                'access_instructions': self.access_instructions}
 
 
 class HttpsService(Service):
 
     def __init__(self, service_name, display_name, service_process, service_path, local_fs_path):
-        super(HttpsService, self).__init__(service_name, display_name, service_process, service_path, local_fs_path)
+        super(
+            HttpsService,
+            self).__init__(
+            service_name,
+            display_name,
+            service_process,
+            service_path,
+            local_fs_path)
 
     # override
     def _is_service_path_available(self, secure=True):
@@ -96,12 +108,17 @@ def load_service_registry():
         service_list = [dict_to_service(svc) for svc in registry['services']]
         return service_list
 
+
 def dict_to_service(svc_dict):
-    return Service(svc_dict['name'], svc_dict['display_name'], svc_dict['description'], svc_dict['process_name'], svc_dict['virtual_path'], svc_dict['installation_path'], svc_dict.get('access_instructions', None))
+    return Service(svc_dict['name'], svc_dict['display_name'], svc_dict['description'], svc_dict[
+                   'process_name'], svc_dict['virtual_path'], svc_dict['installation_path'], svc_dict.get('access_instructions', None))
+
 
 def save_service_registry(service_list):
     with open("service_registry.yml", 'w') as stream:
-        stream.write(yaml.dump({ 'services' : [service.yaml() for service in service_list] }, default_flow_style=False))
+        stream.write(
+            yaml.dump({'services': [service.yaml() for service in service_list]}, default_flow_style=False))
+
 
 def get_services():
     data = []
@@ -115,6 +132,7 @@ def get_service_data(service_name):
         if service.service_name == service_name:
             return service.get_service_data()
 
+
 def add_service(service):
     needs_save = False
     service_list = load_service_registry()
@@ -123,5 +141,3 @@ def add_service(service):
         needs_save = True
     if needs_save:
         save_service_registry(service_list)
-
-
