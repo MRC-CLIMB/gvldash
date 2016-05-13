@@ -65,7 +65,7 @@ class Service(object):
                 response.raise_for_status()
                 return True
         except requests.exceptions.RequestException as e:
-            return e.response and e.response.status_code in running_error_codes
+            return e.response is not None and e.response.status_code in running_error_codes
         except:
             return False
 
