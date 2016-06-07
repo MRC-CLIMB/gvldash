@@ -28,20 +28,11 @@
             <tbody>
                 <tr ng-repeat="service in getServiceList()">
                     <td ng-switch on="service.service_name" class="text-center">
-                    	<a ng-if="service.service_name != 'ssh'" class="btn btn-link" ng-class="{ 'application-disabled': service.service_status!='running', 'application-enabled': service.service_status=='running' }" href="{$ getServiceURL(service.service_name) $}">
-	                        <img ng-switch-when="galaxy" src="{% static 'images/logo_galaxy.png' %}"></img>
-	                        <img ng-switch-when="cloudman" src="{% static 'images/logo_cloudman.png' %}"></img>
-	                        <img ng-switch-when="vnc" src="{% static 'images/logo_lubuntu.png' %}"></img>
-	                        <img ng-switch-when="jupyterhub" src="{% static 'images/logo_jupyterhub.svg' %}" style="width: 128px"></img>
-	                        <img ng-switch-when="rstudio" src="{% static 'images/logo_rstudio.png' %}"></img>
-	                        <img ng-switch-when="public_html" src="{% static 'images/logo_public_html.png' %}"></img>
-	                        <img ng-switch-when="ssh" src="{% static 'images/logo_ssh.png' %}"></img>
-	                        <img ng-switch-when="lovd" src="{% static 'images/logo_lovd.jpg' %}"></img>
-	                        <img ng-switch-when="cpipe" src="{% static 'images/logo_cpipe.png' %}"></img>
-	                        <img ng-switch-when="smrt_portal" src="{% static 'images/logo_smrtportal.png' %}"></img>
+                    	<a ng-if="service.service_type == 'web'" class="btn btn-link" ng-class="{ 'application-disabled': service.service_status!='running', 'application-enabled': service.service_status=='running' }" href="{$ getServiceURL(service.service_name) $}">
+                            <img src="{$ service.service_logo $}" style="max-width: 128px">
 	                    </a>
-	                    <a ng-if="service.service_name == 'ssh'" class="btn btn-link" ng-class="{ 'application-disabled': service.service_status!='running', 'application-enabled': service.service_status=='running' }" href="#">
-	                        <img ng-switch-when="ssh" src="{% static 'images/logo_ssh.png' %}"></img>
+	                    <a ng-if="service.service_type == 'cmdline'" class="btn btn-link" ng-class="{ 'application-disabled': service.service_status!='running', 'application-enabled': service.service_status=='running' }" href="#">
+                            <img src="{$ service.service_logo $}" style="max-width: 128px">
 	                    </a>
                     </td>
                     <td>{$ service.display_name $}</td>

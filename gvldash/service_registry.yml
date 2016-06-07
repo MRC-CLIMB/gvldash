@@ -1,6 +1,8 @@
 services:
     - name: galaxy
       display_name: Galaxy
+      type: web
+      logo: /static/images/logo_galaxy.png
       process_name: galaxy.ini
       virtual_path: "/galaxy"
       installation_path: "/mnt/galaxy/galaxy-app"
@@ -13,6 +15,8 @@ services:
 
     - name: cloudman
       display_name: Cloudman
+      type: web
+      logo: /static/images/logo_cloudman.png
       process_name: cm_wsgi.ini
       virtual_path: "/cloud"
       installation_path: "/mnt/cm"
@@ -26,6 +30,8 @@ services:
 
     - name: vnc
       display_name: Lubuntu Desktop
+      type: web
+      logo: /static/images/logo_lubuntu.png
       process_name: novnc
       virtual_path: "/vnc"
       installation_path: "/opt/galaxy/novnc"
@@ -38,6 +44,8 @@ services:
 
     - name: ssh
       display_name: "SSH"
+      type: cmdline
+      logo: /static/images/logo_ssh.png
       process_name: sshd
       virtual_path:
       installation_path: "/usr/sbin/sshd"

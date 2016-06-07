@@ -13,6 +13,8 @@ packages:
       services:
         - name: jupyterhub
           display_name: JupyterHub
+          type: web
+          logo: /static/images/logo_jupyterhub.svg
           process_name: jupyterhub
           virtual_path: "/jupyter"
           installation_path: "/usr/local/bin/jupyterhub"
@@ -25,6 +27,8 @@ packages:
             combine code execution, text, mathematics, plots and rich media into a single document.
         - name: rstudio
           display_name: RStudio
+          type: web
+          logo: /static/images/logo_rstudio.png
           process_name: rstudio
           virtual_path: "/rstudio"
           installation_path: "/etc/rstudio"
@@ -35,6 +39,8 @@ packages:
             <a href="https://www.rstudio.com/">RStudio</a> IDE is a powerful and productive user interface for R.
         - name: public_html
           display_name: "Public HTML"
+          type: web
+          logo: /static/images/logo_public_html.png
           process_name: nginx
           virtual_path: "/public/researcher/"
           installation_path: "/home/researcher/public_html"
@@ -50,6 +56,8 @@ packages:
       services:
         - name: galaxy
           display_name: Galaxy
+          type: web
+          logo: /static/images/logo_galaxy.png
           process_name: galaxy.ini
           virtual_path: "/galaxy"
           installation_path: "/mnt/galaxy/galaxy-app"
@@ -71,6 +79,8 @@ packages:
       services:
         - name: lovd
           display_name: LOVD
+          type: web
+          logo: /static/images/logo_lovd.jpg
           process_name: php-fpm
           virtual_path: "/lovd"
           installation_path: "/mnt/gvl/apps/lovd"
@@ -95,6 +105,8 @@ packages:
       services:
         - name: cpipe
           display_name: Cpipe
+          type: cmdline
+          logo: /static/images/logo_cpipe.png
           process_name:
           virtual_path:
           access_instructions:
@@ -118,6 +130,8 @@ packages:
       services:
         - name: smrt_portal
           display_name: "SMRT Portal"
+          type: web
+          logo: /static/images/logo_smrtportal.png
           process_name: "smrtanalysis/current/redist/java/bin/java"
           virtual_path: "/smrtportal"
           installation_path: "/mnt/gvl/apps/smrtanalysis"

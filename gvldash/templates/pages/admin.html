@@ -32,18 +32,9 @@
                                 <tbody>
                                     <tr>
                                         <td ng-repeat="service in package.services" style="width: 64px" title="{$ service.description $}">
-                                            <span ng-switch on="service.name">
+                                            <span>
                                             {$ service.service_name $}
-                                            <img ng-switch-when="galaxy" src="{% static 'images/logo_galaxy.png' %}">
-                                            <img ng-switch-when="cloudman" src="{% static 'images/logo_cloudman.png' %}">
-                                            <img ng-switch-when="vnc" src="{% static 'images/logo_lubuntu.png' %}">
-                                            <img ng-switch-when="jupyterhub" src="{% static 'images/logo_jupyterhub.svg' %}" style="width: 100%">
-                                            <img ng-switch-when="rstudio" src="{% static 'images/logo_rstudio.png' %}">
-                                            <img ng-switch-when="public_html" src="{% static 'images/logo_public_html.png' %}">
-                                            <img ng-switch-when="ssh" src="{% static 'images/logo_ssh.png' %}">
-                                            <img ng-switch-when="lovd" src="{% static 'images/logo_lovd.jpg' %}">
-                                            <img ng-switch-when="cpipe" src="{% static 'images/logo_cpipe.png' %}">
-                                            <img ng-switch-when="smrt_portal" src="{% static 'images/logo_smrtportal.png' %}">
+                                            <img src="{$ service.logo $}" style="max-width: 100%">
                                             </span>
                                         </td>
                                     </tr>

@@ -14,9 +14,12 @@ class Service(object):
     service_path = None
     access_instructions = None
 
-    def __init__(self, service_name, display_name, description, service_process,
-                 service_path, local_fs_path, access_instructions):
+    def __init__(self, service_name, service_type, service_logo, display_name,
+                 description, service_process, service_path, local_fs_path,
+                 access_instructions):
         self.service_name = service_name
+        self.service_type = service_type
+        self.service_logo = service_logo
         self.display_name = display_name
         self.description = description
         self.service_process = service_process
@@ -27,6 +30,8 @@ class Service(object):
     def get_service_data(self):
         data = {}
         data['service_name'] = self.service_name
+        data['service_type'] = self.service_type
+        data['service_logo'] = self.service_logo
         data['display_name'] = self.display_name
         data['description'] = self.description
         data['service_status'] = self.get_service_status()
@@ -49,8 +54,10 @@ class Service(object):
         if self.service_path:
             return util.is_process_running(
                 self.service_process) and self._is_service_path_available()
-        else:
+        elif self.service_process:
             return util.is_process_running(self.service_process)
+        else:
+            return True
 
     def _is_service_path_available(self, secure=False):
         protocol = None
@@ -77,6 +84,8 @@ class Service(object):
 
     def yaml(self):
         return {'name': self.service_name,
+                'type': self.service_type,
+                'logo': self.service_logo,
                 'display_name': self.display_name,
                 'description': self.description,
                 'process_name': self.service_process,
@@ -87,15 +96,14 @@ class Service(object):
 
 class HttpsService(Service):
 
-    def __init__(self, service_name, display_name, service_process, service_path, local_fs_path):
-        super(
-            HttpsService,
-            self).__init__(
-            service_name,
-            display_name,
-            service_process,
-            service_path,
-            local_fs_path)
+    def __init__(self, service_name, service_type, service_logo, display_name,
+                 description, service_process, service_path, local_fs_path,
+                 access_instructions):
+        super(HttpsService, self).__init__(service_name, service_type,
+                                           service_logo, display_name,
+                                           description, service_process,
+                                           service_path, local_fs_path,
+                                           access_instructions)
 
     # override
     def _is_service_path_available(self, secure=True):
@@ -110,8 +118,11 @@ def load_service_registry():
 
 
 def dict_to_service(svc_dict):
-    return Service(svc_dict['name'], svc_dict['display_name'], svc_dict['description'], svc_dict[
-                   'process_name'], svc_dict['virtual_path'], svc_dict['installation_path'], svc_dict.get('access_instructions', None))
+    return Service(svc_dict['name'], svc_dict.get('type', 'web'),
+                   svc_dict.get('logo', None), svc_dict['display_name'],
+                   svc_dict['description'], svc_dict['process_name'],
+                   svc_dict['virtual_path'], svc_dict['installation_path'],
+                   svc_dict.get('access_instructions', None))
 
 
 def save_service_registry(service_list):
