@@ -28,7 +28,7 @@
             <tbody>
                 <tr ng-repeat="service in getServiceList()">
                     <td ng-switch on="service.service_name" class="text-center">
-                    	<a ng-if="service.service_type == 'web'" class="btn btn-link" ng-class="{ 'application-disabled': service.service_status!='running', 'application-enabled': service.service_status=='running' }" href="{$ getServiceURL(service.service_name) $}">
+                    	<a ng-if="service.service_type == 'web'" class="btn btn-link" ng-class="{ 'application-disabled': service.service_status!='running', 'application-enabled': service.service_status=='running' }" href="{$ getServiceURL(service.service_name, service.service_type) $}">
                             <img src="{$ service.service_logo $}" style="max-width: 128px">
 	                    </a>
 	                    <a ng-if="service.service_type == 'cmdline'" class="btn btn-link" ng-class="{ 'application-disabled': service.service_status!='running', 'application-enabled': service.service_status=='running' }" href="#">
@@ -52,9 +52,8 @@
                     </td>
 
                     <td>
-                        <a class="link" ng-if="service.service_name != 'ssh' && service.service_name != 'cpipe'" href="{$ getServiceURL(service.service_name) $}" class="btn btn-link" target="_blank" ng-class="{ disabled: service.service_status!='running' }">{$ getServiceURL(service.service_name) $}</a>
-                        <span style="margin-left:-12px" ng-if="service.service_name == 'ssh'">&nbsp;&nbsp;&nbsp;<kbd>ssh ubuntu@{$ getServiceURL(service.service_name) $}</kbd></span>
-                        <span style="margin-left:-12px" ng-if="service.service_name == 'cpipe'">&nbsp;&nbsp;&nbsp;<kbd>ssh ubuntu@{$ getServiceURL(service.service_name) $}</kbd></span>
+                        <a class="link" ng-if="service.service_type == 'web'" href="{$ getServiceURL(service.service_name, service.service_type) $}" class="btn btn-link" target="_blank" ng-class="{ disabled: service.service_status!='running' }">{$ getServiceURL(service.service_name, service.service_type) $}</a>
+                        <span style="margin-left:-12px" ng-if="service.service_type == 'cmdline'">&nbsp;&nbsp;&nbsp;<kbd>ssh ubuntu@{$ getServiceURL(service.service_name, service.service_type) $}</kbd></span>
                         <br />
                         <strong>Username:</strong><span> {$ service.access_instructions.username $}</span>
                         <br />
