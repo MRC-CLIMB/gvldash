@@ -22,7 +22,7 @@ from .common import Common
 
 class Production(Common):
 
-    GVLDASH_PACKAGE_REGISTRY_URL = 'https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-410/packages/package_registry.yml'
+    GVLDASH_PACKAGE_REGISTRY_URL = 'https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-420/packages/package_registry.yml'
 
 #     # This ensures that Django will be able to detect a secure connection
 #     # properly on Heroku.
