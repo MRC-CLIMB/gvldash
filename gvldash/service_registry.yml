@@ -25,7 +25,7 @@ services:
          password_hint: "<cluster password>"
       description: >
         <a href="http://cloudman.irb.hr/">CloudMan</a> is a cloud manager that orchestrates the steps required to provision and manage
-        compute clusters on cloud infrastructure. Use Cloudman to start and manage your Galaxy
+        compute clusters on cloud infrastructure. Use CloudMan to start and manage your Galaxy
         service and to add additional nodes to your compute cluster.
 
     - name: vnc
