@@ -14,7 +14,7 @@ services:
             reproducible, and transparent computational biomedical research.
 
     - name: cloudman
-      display_name: Cloudman
+      display_name: CloudMan
       type: web
       logo: /static/images/logo_cloudman.png
       process_name: cm_wsgi.ini
