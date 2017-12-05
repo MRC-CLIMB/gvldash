@@ -2,6 +2,8 @@ import os
 import subprocess
 import yaml
 import util
+
+from django.conf import settings
 from bioblend.cloudman import CloudManInstance
 
 
@@ -14,6 +16,9 @@ def load_instance_metadata():
         return {}
 
 instance_metadata = load_instance_metadata()
+
+def get_registry_location():
+    return instance_metadata.get('gvl_package_registry_url', settings.GVLDASH_PACKAGE_REGISTRY_URL)
 
 def get_cluster_password():
     return instance_metadata.get('password', None)

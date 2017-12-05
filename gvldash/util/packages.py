@@ -6,8 +6,7 @@ import urllib2
 from urlparse import urlparse
 
 from bioblend.cloudman import CloudManInstance
-from django.conf import settings
-from package_helpers import get_cluster_password
+from package_helpers import get_cluster_password, get_registry_location
 import services
 import util
 import yaml
@@ -157,7 +156,7 @@ def load_package_registry():
         package_file = open("package_registry.yml", 'r')
     else:
         package_file = closing(
-            urllib2.urlopen(settings.GVLDASH_PACKAGE_REGISTRY_URL))
+            urllib2.urlopen(get_registry_location()))
     with package_file as stream:
         registry = yaml.load(stream)
         package_list = [str_to_class(pkg['implementation_class'])(pkg['name'], pkg['display_name'], pkg['description'], pkg['services'], pkg.get('parameters', {}))
