@@ -10,8 +10,9 @@ services:
          username: "manual sign up"
          password_hint: "<custom password>"
       description: >
-            <a href="https://galaxyproject.org/">Galaxy</a> is an open, web-based platform for accessible,
-            reproducible, and transparent computational biomedical research.
+            <a target="_blank" href="https://galaxyproject.org/">Galaxy</a> is
+            an open, web-based platform for accessible, reproducible, and
+            transparent computational biomedical research.
 
     - name: cloudman
       display_name: CloudMan
@@ -24,9 +25,11 @@ services:
          username: "ubuntu"
          password_hint: "<cluster password>"
       description: >
-        <a href="http://cloudman.irb.hr/">CloudMan</a> is a cloud manager that orchestrates the steps required to provision and manage
-        compute clusters on cloud infrastructure. Use CloudMan to start and manage your Galaxy
-        service and to add additional nodes to your compute cluster.
+        <a target="_blank" href="http://cloudman.irb.hr/">CloudMan</a> is a
+        cloud manager that orchestrates the steps required to provision and
+        manage compute clusters on cloud infrastructure. Use CloudMan to start
+        and manage your Galaxy service and to add additional nodes to your
+        compute cluster.
 
     - name: vnc
       display_name: Lubuntu Desktop
@@ -39,8 +42,10 @@ services:
          username: "ubuntu"
          password_hint: "<cluster password>"
       description: >
-        <a href="http://lubuntu.net/">Lubuntu</a> is a lightweight desktop environment through which you can run desktop applications on
-        your virtual machine. You can also access the GVL commandline utilities through the desktop.
+        <a target="_blank" href="http://lubuntu.net/">Lubuntu</a> is a
+        lightweight desktop environment through which you can run desktop
+        applications on your virtual machine. You can also access the GVL
+        commandline utilities through the desktop.
 
     - name: ssh
       display_name: "SSH"
@@ -55,3 +60,18 @@ services:
       description: >
         You can login to your virtual machine remotely through an SSH client.
 
+    - name: reports
+      display_name: Galaxy Reports
+      type: web
+      logo: /static/images/logo_reports.png
+      process_name: reports.yml
+      virtual_path: "/reports"
+      installation_path: "/mnt/galaxy/galaxy-app/config"
+      access_instructions:
+         username: "ubuntu"
+         password_hint: "<cluster password>"
+      description: >
+            <a target="_blank"
+            href="https://docs.galaxyproject.org/en/master/admin/reports.html">Galaxy
+            Reports</a> is an easy to use web interface that will give you
+            information about Galaxy jobs, workflows, users, and the system.
