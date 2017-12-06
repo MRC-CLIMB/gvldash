@@ -76,12 +76,15 @@ a.application-disabled:hover {
 }
 
 a.application-enabled {
+  filter: none;
+  -webkit-filter: grayscale(0);
 }
 
 a.application-enabled:hover
 {
-    animation: bounce 0.5s 4 alternate;
-    -webkit-animation: bounce 0.5s 4 alternate;
+  filter: gray;
+  filter: grayscale(1);
+  -webkit-filter: grayscale(1);
 }
 
 @keyframes bounce {
