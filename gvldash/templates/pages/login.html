@@ -12,6 +12,7 @@
                 <p class="text-danger">Your username and password didn't match. Please try again.</p>
                 {% endif %}
                 <form id="loginform" class="form-horizontal" role="form" method="post" action="{% url 'django.contrib.auth.views.login' %}">
+                    <p>Use ubuntu or root to login, along with the corresponding password.</p>
                     {% csrf_token %}
                     <input type="hidden" name="next" value="{{ next }}">
                     <div style="margin-bottom: 25px" class="input-group">
