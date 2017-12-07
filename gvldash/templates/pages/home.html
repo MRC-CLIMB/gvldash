@@ -3,7 +3,7 @@
 
 {% block header %}
     <div class="col-md-12">
-        <h1 ng-cloak>GVL <small>{$ getGVLFlavour() ? getGVLVersion() + " - " + getGVLFlavour() : getGVLVersion() $}</small></h1>
+        <h1 ng-cloak>Genomics Virtual Lab instance <small>{$ getGVLFlavour() ? getGVLVersion() + " - " + getGVLFlavour() : getGVLVersion() $}</small></h1>
         <p>Welcome to the GVL Dashboard! The GVL Dashboard is a portal through which you can access all services on your
            GVL instance.</p>
     </div>
@@ -23,11 +23,10 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th></th>
-                    <th>Service Name</th>
+                    <th colspan="2">Application service</th>
                     <th>Description</th>
                     <th class="text-center">Status</th>
-                    <th style="min-width: 230px">Access Link</th>
+                    <th style="min-width: 230px">Access link</th>
                 </tr>
             </thead>
             <tbody>
@@ -97,7 +96,7 @@
                             <i class="fa fa-check-circle" title="Available"></i>
                         </p>
                     </td>
-                    <td><a href="https://genomespace.gvl.org.au/jsui/">https://genomespace.gvl.org.au</td>
+                    <td><a target="_blank" href="https://genomespace.gvl.org.au/jsui/">https://genomespace.gvl.org.au</td>
                 </tr>
                 <tr>
                     <td class="text-center"><a href="https://gvl.org.au/learn" class="application-enabled"><img src="{% static 'images/logo_gvl_learn.png' %}"></a></td>
@@ -108,18 +107,35 @@
                             <i class="fa fa-check-circle" title="Available"></i>
                         </p>
                     </td>
-                    <td><a href="https://gvl.org.au/learn">https://gvl.org.au/learn</a></td>
+                    <td><a target="_blank" href="https://gvl.org.au/learn">https://gvl.org.au/learn</a></td>
+                </tr>
+                <tr>
+                    <td class="text-center">
+                        <a href="https://usegalaxy.org/" class="application-enabled">
+                            <img src="{% static 'images/logo_galaxy.png' %}">
+                        </a>
+                    </td>
+                    <td>Galaxy Main</td>
+                    <td>Access the public Galaxy Main instance.</td>
+                    <td>
+                        <p class="text-success text-center">
+                            <i class="fa fa-check-circle" title="Available"></i>
+                        </p>
+                    </td>
+                    <td>
+                        <a target="_blank" href="https://usegalaxy.org/">https://usegalaxy.org</a>
+                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
-    
+
     <div style="padding: 30px 20px 30px">
         <h3>Citation</h3>
         <a href="http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0140829">Afgan E, Sloggett C, Goonasekera N, Makunin I, Benson D, Crowe M,
         Gladman S, Kowsar Y, Pheasant M, Horst R, Lonie A.,
         Genomics Virtual Laboratory: A Practical Bioinformatics Workbench for the Cloud., PLoS One. 2015 Oct 26;10(10):e0140829. </a>
-        <br>doi: <a href="http://dx.doi.org/10.1371/journal.pone.0140829">10.1371/journal.pone.0140829</a>
+        <br>DOI: <a href="http://dx.doi.org/10.1371/journal.pone.0140829">10.1371/journal.pone.0140829</a>
     </div>
 </div>
 {% endblock content %}

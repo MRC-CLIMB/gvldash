@@ -3,17 +3,22 @@
 
 {% block header %}
     <div class="col-md-12">
-        <h1>About the GVL</h1>
+        <h1>About the Genomics Virtual Lab</h1>
     </div>
 {% endblock header %}
 
 {% block content %}
 <div ng-controller="gvlAboutPageActionsController">
     <p>
-	The Genomics Virtual Laboratory takes the IT out of Bioinformatics. It lets Biologists use a suite of genomics analysis tools that currently often require specialist assistance.
-	The tools provided by the GVL can help you with creating an elastic compute cluster on the cloud and running your analyses on that cluster. The GVL can also help you with protocols and tutorials for common analysis problems.
-    The GVL was made possible through grants and contributions from the following institutions.
-	</p>
+    The <a href="https://gvl.org.au/">Genomics Virtual Laboratory (GVL)</a>
+    takes the IT out of Bioinformatics. It lets Biologists use a suite of
+    genomics analysis tools that currently often require specialist assistance.
+    The tools provided by the GVL can help you with creating an elastic compute
+    cluster on the cloud and running your analyses on that cluster. The GVL can
+    also help you with protocols and tutorials for common analysis problems. The
+    GVL was made possible through grants and contributions from the following
+    institutions:
+    </p>
 
     <div class="container logo">
         <div class="col-lg-2  col-md-3 col-sm-4 col-xs-12 frame">
@@ -36,73 +41,65 @@
         </div>
     </div>
 
-	<br /><br />
-	<h2>
+    <br />
+    <h2>
         Version Info
     </h2>
     <hr />
     <div>
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>Component Name</th>
-					<th class="align-right">Version</th>
-					<th>Build date</th>
-					<th>Extra data</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="app in getInstalledApps()">
-					<td style="vertical-align: top;">{$ app.name $}</td>
-					<td style="vertical-align: top;">{$ app.version $}</td>
-					<td style="vertical-align: top;">{$ app.build_date $}</td>
-					<td style="vertical-align: top;">
-						<p ng-repeat="(item, value) in app" ng-if="item != 'name' && item != 'version' && item != 'build_date'">
-							<strong>{$ item $} :</strong> {$ value $}
-						</p>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-	<br />
-    <h2>
-        Citation
-    </h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Component Name</th>
+                    <th class="align-right">Version</th>
+                    <th>Build date</th>
+                    <th>Extra data</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="app in getInstalledApps()">
+                    <td style="vertical-align: top;">{$ app.name $}</td>
+                    <td style="vertical-align: top;">{$ app.version $}</td>
+                    <td style="vertical-align: top;">{$ app.build_date $}</td>
+                    <td style="vertical-align: top;">
+                        <p ng-repeat="(item, value) in app" ng-if="item != 'name' && item != 'version' && item != 'build_date'">
+                            <strong>{$ item $} :</strong> {$ value $}
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
     <hr />
+
     <p>
+        <h2>
+            Citation
+        </h2>
         <a href="http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0140829">Afgan E, Sloggett C, Goonasekera N, Makunin I, Benson D, Crowe M,
         Gladman S, Kowsar Y, Pheasant M, Horst R, Lonie A.,
         Genomics Virtual Laboratory: A Practical Bioinformatics Workbench for the Cloud., PLoS One. 2015 Oct 26;10(10):e0140829. </a>
-        <br>doi: <a href="http://dx.doi.org/10.1371/journal.pone.0140829">10.1371/journal.pone.0140829</a>
+        <br>DOI: <a href="http://dx.doi.org/10.1371/journal.pone.0140829">10.1371/journal.pone.0140829</a>
     </p>
 
-    <br /><br />
-	<h2>
-        Website
-    </h2>
     <hr />
-    <p>
-	<a href="https://gvl.org.au/">https://gvl.org.au/</a>
-	</p>
 
-	<br /><br />
-	<h2>
-        FAQ
-    </h2>
-    <hr />
     <p>
-	<a href="https://gvl.org.au/help/faq">https://gvl.org.au/help/faq</a>
-	</p>
+        <h2>
+            FAQ
+        </h2>
+        <a href="https://gvl.org.au/help/faq">https://gvl.org.au/help/faq</a>
+    </p>
 
-	<br /><br />
-    <h2>
-        Help / Feedback
-    </h2>
     <hr />
+
     <p>
-	To provide feedback, report a bug or get help, e-mail us at: <a href="mailto:help@gvl.org.au">help@gvl.org.au</a>
-	</p>
+        <h2>
+            Help / Feedback
+        </h2>
+        To provide feedback, report a bug, or get help, e-mail us at: <a href="mailto:help@gvl.org.au">help@gvl.org.au</a>
+    </p>
     <br />
 </div>
 {% endblock content %}
