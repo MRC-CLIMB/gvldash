@@ -1,22 +1,25 @@
 .navbar-default .navbar-brand {
-  color: #bbe6ff;
+  color: rgba(255,255,255, 0.84)
 }
 
 .navbar-default {
-  background-color: #0077bb;
+  background-color: #2c3143;
   border-color: #0067a2;
 }
 
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
-  color: #88d4ff;
-  background-color: transparent;
+  color: rgba(255,255,255, 1)
 }
 .navbar-default .navbar-nav > li > a {
-  color: #bbe6ff;
+  color: rgba(255,255,255, 0.84)
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
   color: #ffffff;
   background-color: transparent;
+}
+
+body {
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif !important;
 }

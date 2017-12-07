@@ -1,18 +1,28 @@
 {% load staticfiles %}
+<!-- Footer -->
 <footer id="footer" class="footer">
     <div class="container">
-        <div class="col-lg-2  col-md-3 col-sm-4 col-xs-12 frame">
-        	<a href="https://www.nectar.org.au"><img src="{% static 'images/logo_nectar.png' %}"></a>
-        </div>
-        <div class="col-lg-2  col-md-3 col-sm-4 col-xs-12 col-lg-offset-1 frame">
-            <a href="http://www.unimelb.edu.au/"><img src="{% static 'images/logo_uom.png' %}"></a>
-        </div>
-        <div class="col-lg-2  col-md-3 col-sm-4 col-xs-12 col-lg-offset-1 frame">
-            <a href="http://www.uq.edu.au/"><img src="{% static 'images/logo_uq.png' %}"></a>
-        </div>
-        <div class="col-lg-2  col-md-3 col-sm-4 col-xs-12 col-lg-offset-1 frame">
-            <a href="https://www.jhu.edu/"><img src="{% static 'images/logo_jhu.png' %}"></a>
-        </div>
+        <div class="col-lg-2  col-md-2 col-sm-4 col-xs-4">
+                <h3><i class="fa fa-ticket"></i> About </h3>
+                <ul>
+                    <li> <a routerLink="/about" routerLinkActive="active"> About </a> </li>
+                    <li> <a href="mailto:help@gvl.org.au"> Contact Us </a> </li>
+                </ul>
+            </div>
+            <div class="col-lg-2  col-md-2 col-sm-4 col-xs-4 col-lg-offset-1">
+                <h3><i class="fa fa-code"></i> Developer </h3>
+                <ul>
+                    <li> <a href="https://github.com/galaxyproject/cloudlaunch-ui"> Source Code <i class="fa fa-github"></i></a> </li>
+                </ul>
+            </div>
+            <div class="col-lg-2  col-md-8 col-sm-4 col-xs-4 col-lg-offset-4">
+                <table>
+                <tr>
+                    <td><a href="https://galaxyproject.org/"><img src="{% static 'images/logo_galaxy_project.png' %}"></a></td>
+                    <td><a href="https://www.gvl.org.au/"><img src="{% static 'images/logo_gvl.png' %}"></a></td>
+                </tr>
+                </table>
+            </div>
     </div>
     <!--/.footer-->
 </footer>

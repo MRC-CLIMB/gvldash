@@ -1,11 +1,16 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
+{% block header %}
+    <div class="col-md-12">
+        <h1 ng-cloak>GVL <small>{$ getGVLFlavour() ? getGVLVersion() + " - " + getGVLFlavour() : getGVLVersion() $}</small></h1>
+        <p>Welcome to the GVL Dashboard! The GVL Dashboard is a portal through which you can access all services on your
+           GVL instance.</p>
+    </div>
+{% endblock header %}
+
 {% block content %}
 <div ng-controller="gvlHomePageActionsController">
-	<h1 ng-cloak>GVL <small>{$ getGVLFlavour() ? getGVLVersion() + " - " + getGVLFlavour() : getGVLVersion() $}</small></h1>
-    <p>Welcome to the GVL Dashboard! The GVL Dashboard is a portal through which you can access all services on your
-        GVL instance.</p>
     <h1>
         Instance Services <span ng-class="{ 'spinner-fadein': isRefreshInProgress(), 'spinner-fadeout': !isRefreshInProgress() }"><i class="fa fa-refresh fa-spin"></i></span>
         <br />

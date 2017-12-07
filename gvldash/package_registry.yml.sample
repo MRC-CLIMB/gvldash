@@ -70,13 +70,13 @@ packages:
         - name: galaxy_reports
           display_name: Galaxy Reports
           type: web
-          logo: /static/images/logo_galaxy.png
+          logo: /static/images/logo_reports.png
           process_name: galaxy_reports.pid
           virtual_path: "/reports"
           installation_path: "/mnt/galaxy/galaxy-app"
           access_instructions:
-             username: "same as Galaxy"
-             password_hint: "same as Galaxy"
+             username: "ubuntu"
+             password_hint: "<cluster password>"
           description: >
                 <a target="_blank"
                 href="https://docs.galaxyproject.org/en/master/admin/reports.html">Galaxy

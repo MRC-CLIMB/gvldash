@@ -1,15 +1,41 @@
 {% extends "base.html" %}
+{% load staticfiles %}
+
+{% block header %}
+    <div class="col-md-12">
+        <h1>About the GVL</h1>
+    </div>
+{% endblock header %}
 
 {% block content %}
 <div ng-controller="gvlAboutPageActionsController">
-    <h1>
-        About the GVL
-    </h1>
-    <hr />
     <p>
 	The Genomics Virtual Laboratory takes the IT out of Bioinformatics. It lets Biologists use a suite of genomics analysis tools that currently often require specialist assistance.
 	The tools provided by the GVL can help you with creating an elastic compute cluster on the cloud and running your analyses on that cluster. The GVL can also help you with protocols and tutorials for common analysis problems.
+    The GVL was made possible through grants and contributions from the following institutions.
 	</p>
+
+    <div class="container logo">
+        <div class="col-lg-2  col-md-3 col-sm-4 col-xs-12 frame">
+            <a href="https://www.nectar.org.au"><img src="{% static 'images/logo_nectar.png' %}"></a>
+        </div>
+        <div class="col-lg-2  col-md-3 col-sm-4 col-xs-12 col-lg-offset-1 frame">
+            <a href="http://www.unimelb.edu.au/"><img src="{% static 'images/logo_uom.png' %}"></a>
+        </div>
+        <div class="col-lg-2  col-md-3 col-sm-4 col-xs-12 col-lg-offset-1 frame">
+            <a href="http://www.uq.edu.au/"><img src="{% static 'images/logo_uq.png' %}"></a>
+        </div>
+        <div class="col-lg-2  col-md-3 col-sm-4 col-xs-12 col-lg-offset-1 frame">
+            <a href="https://www.jhu.edu/"><img src="{% static 'images/logo_jhu.png' %}"></a>
+        </div>
+        <div class="col-lg-2  col-md-3 col-sm-4 col-xs-12 col-lg-offset-3 frame">
+            <a href="https://www.education.gov.au/national-collaborative-research-infrastructure-strategy-ncris"><img src="{% static 'images/logo_ncris.png' %}"></a>
+        </div>
+        <div class="col-lg-2  col-md-3 col-sm-4 col-xs-12 col-lg-offset-1 frame">
+            <a href="http://www.psu.edu/"><img src="{% static 'images/logo_ncris.png' %}"></a>
+        </div>
+    </div>
+
 	<br /><br />
 	<h2>
         Version Info
@@ -77,5 +103,6 @@
     <p>
 	To provide feedback, report a bug or get help, e-mail us at: <a href="mailto:help@gvl.org.au">help@gvl.org.au</a>
 	</p>
+    <br />
 </div>
 {% endblock content %}
