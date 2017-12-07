@@ -90,7 +90,7 @@ class Production(Common):
 #     # END STORAGE CONFIGURATION
 #
 #     # EMAIL
-#     DEFAULT_FROM_EMAIL = values.Value('gvldash <noreply@genome.edu.au>')
+#     DEFAULT_FROM_EMAIL = values.Value('gvldash <noreply@gvl.org.au>')
 #     EMAIL_HOST = values.Value('smtp.sendgrid.com')
 #     EMAIL_HOST_PASSWORD = values.SecretValue(environ_prefix="", environ_name="SENDGRID_PASSWORD")
 #     EMAIL_HOST_USER = values.SecretValue(environ_prefix="", environ_name="SENDGRID_USERNAME")

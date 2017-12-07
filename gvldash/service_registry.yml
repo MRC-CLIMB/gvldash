@@ -64,14 +64,15 @@ services:
       display_name: Galaxy Reports
       type: web
       logo: /static/images/logo_reports.png
-      process_name: reports.yml
+      process_name: galaxy_reports.pid
       virtual_path: "/reports"
       installation_path: "/mnt/galaxy/galaxy-app/config"
       access_instructions:
-         username: "ubuntu"
-         password_hint: "<cluster password>"
+         username: "same as Galaxy"
+         password_hint: "same as Galaxy"
       description: >
             <a target="_blank"
             href="https://docs.galaxyproject.org/en/master/admin/reports.html">Galaxy
             Reports</a> is an easy to use web interface that will give you
-            information about Galaxy jobs, workflows, users, and the system.
+            information about Galaxy jobs, workflows, users, and other statistics about
+            your Galaxy instance.
