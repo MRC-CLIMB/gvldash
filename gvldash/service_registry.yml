@@ -65,7 +65,7 @@ services:
       type: web
       logo: /static/images/logo_reports.png
       process_name: reports_webapp.pid
-      virtual_path: "/reports"
+      virtual_path: "/reports/"
       installation_path: "/mnt/galaxy/galaxy-app"
       access_instructions:
          username: "ubuntu"
