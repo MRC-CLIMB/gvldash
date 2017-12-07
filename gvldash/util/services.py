@@ -118,11 +118,15 @@ def load_service_registry():
 
 
 def dict_to_service(svc_dict):
-    return Service(svc_dict['name'], svc_dict.get('type', 'web'),
-                   svc_dict.get('logo', None), svc_dict['display_name'],
-                   svc_dict['description'], svc_dict['process_name'],
-                   svc_dict['virtual_path'], svc_dict['installation_path'],
-                   svc_dict.get('access_instructions', None))
+    return Service(service_name=svc_dict['name'],
+                   service_type=svc_dict.get('type', 'web'),
+                   service_logo=svc_dict.get('logo', None),
+                   display_name=svc_dict['display_name'],
+                   description=svc_dict['description'],
+                   service_process=svc_dict['process_name'],
+                   service_path=svc_dict['virtual_path'],
+                   local_fs_path=svc_dict['installation_path'],
+                   access_instructions=svc_dict.get('access_instructions', None))
 
 
 def save_service_registry(service_list):

@@ -64,7 +64,7 @@ services:
       display_name: Galaxy Reports
       type: web
       logo: /static/images/logo_reports.png
-      process_name: galaxy_reports.pid
+      process_name: reports_webapp.pid
       virtual_path: "/reports"
       installation_path: "/mnt/galaxy/galaxy-app"
       access_instructions:
