@@ -1,10 +1,15 @@
 {% extends "base.html" %}
+
+{% block header %}
+    <div class="col-md-12">
+        <h1>Admin Login</h1>
+        <div>The Admin page allows you to control services available on your instance. Before proceeding, you need to login using
+        system credentials.</div>
+    </div>
+{% endblock header %}
+
 {% block content %}
 <div class="container">
-    <div class="alert alert-info" role="alert">
-        The Admin page allows you to control services available on your instance. Before proceeding, you need to login using the
-        system credentials.
-    </div>
     <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
         <div class="panel panel-info">
             <div class="panel-heading">
