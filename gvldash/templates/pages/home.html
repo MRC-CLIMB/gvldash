@@ -3,7 +3,7 @@
 
 {% block header %}
     <div class="col-md-12">
-        <h1 ng-cloak>Genomics Virtual Lab instance <small>{$ getGVLFlavour() ? getGVLVersion() + " - " + getGVLFlavour() : getGVLVersion() $}</small></h1>
+        <h1 ng-cloak>Genomics Virtual Lab <small>{$ getGVLVersion() $}</small></h1>
         <p>Welcome to the GVL Dashboard! The GVL Dashboard is a portal through which you can access all services on your
            GVL instance.</p>
     </div>
@@ -87,18 +87,6 @@
             </thead>
             <tbody>
                 <tr>
-                    <td class="text-center"><a href="https://genomespace.gvl.org.au/jsui/" class="application-enabled"><img src="{% static 'images/logo_genomespace.png' %}"></a></td>
-                    <td>GVL GenomeSpace</td>
-                    <td>GenomeSpace is like dropbox, for genome data. Use GenomeSpace to store all your genomics
-                        data securely and redundantly.</td>
-                    <td>
-                        <p class="text-success text-center">
-                            <i class="fa fa-check-circle" title="Available"></i>
-                        </p>
-                    </td>
-                    <td><a target="_blank" href="https://genomespace.gvl.org.au/jsui/">https://genomespace.gvl.org.au</td>
-                </tr>
-                <tr>
                     <td class="text-center"><a href="https://gvl.org.au/learn" class="application-enabled"><img src="{% static 'images/logo_gvl_learn.png' %}"></a></td>
                     <td>GVL Tutorials</td>
                     <td>Access GVL tutorials and other learning resources.</td>
@@ -115,8 +103,8 @@
                             <img src="{% static 'images/logo_galaxy.png' %}">
                         </a>
                     </td>
-                    <td>Galaxy Main</td>
-                    <td>Access the public Galaxy Main instance.</td>
+                    <td>Galaxy USA</td>
+                    <td>Access Galaxy USA.</td>
                     <td>
                         <p class="text-success text-center">
                             <i class="fa fa-check-circle" title="Available"></i>
@@ -125,6 +113,52 @@
                     <td>
                         <a target="_blank" href="https://usegalaxy.org/">https://usegalaxy.org</a>
                     </td>
+                </tr>
+                <tr>
+                    <td class="text-center">
+                        <a href="https://usegalaxy.eu" class="application-enabled">
+                            <img src="{% static 'images/logo_galaxy.png' %}">
+                        </a>
+                    </td>
+                    <td>Galaxy EU</td>
+                    <td>Access Galaxy Europe.</td>
+                    <td>
+                        <p class="text-success text-center">
+                            <i class="fa fa-check-circle" title="Available"></i>
+                        </p>
+                    </td>
+                    <td>
+                        <a target="_blank" href="https://usegalaxy.eu">https://usegalaxy.eu</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">
+                        <a href="https://usegalaxy.org.au" class="application-enabled">
+                            <img src="{% static 'images/logo_galaxy.png' %}">
+                        </a>
+                    </td>
+                    <td>Galaxy AU</td>
+                    <td>Access Galaxy Australia.</td>
+                    <td>
+                        <p class="text-success text-center">
+                            <i class="fa fa-check-circle" title="Available"></i>
+                        </p>
+                    </td>
+                    <td>
+                        <a target="_blank" href="https://usegalaxy.org.au">https://usegalaxy.org.au</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center"><a href="https://genomespace.gvl.org.au/jsui/" class="application-enabled"><img src="{% static 'images/logo_genomespace.png' %}"></a></td>
+                    <td>GVL GenomeSpace</td>
+                    <td>GenomeSpace is like dropbox, for genome data. Use GenomeSpace to store all your genomics
+                        data securely and redundantly.</td>
+                    <td>
+                        <p class="text-success text-center">
+                            <i class="fa fa-check-circle" title="Available"></i>
+                        </p>
+                    </td>
+                    <td><a target="_blank" href="https://genomespace.gvl.org.au/jsui/">https://genomespace.gvl.org.au</td>
                 </tr>
             </tbody>
         </table>
