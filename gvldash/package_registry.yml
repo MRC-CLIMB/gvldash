@@ -2,7 +2,7 @@ packages:
     - name: gvl_cmdline_utilities
       implementation_class: util.packages.ShellScriptPackage
       parameters:
-        install_script_url: "https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-430/packages/install_cmdlineutils_package.sh"
+        install_script_url: "https://raw.githubusercontent.com/MRC-CLIMB/gvldash/master/tool_installation_scripts/install_cmdlineutils_package.sh"
         install_version_data: "gvl_commandline_utilities.yml"
       display_name: Commandline Utilities
       description: >
@@ -84,59 +84,10 @@ packages:
                 information about Galaxy jobs, workflows, users, and other statistics about
                 your Galaxy instance.
 
-    - name: lovd
-      implementation_class: util.packages.ShellScriptPackage
-      parameters:
-        install_script_url: "https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-430/packages/install_lovd_package.sh"
-        install_version_data: "lovd.yml"
-      display_name: LOVD
-      description: >
-        This package can be used to install the Leiden Open Variant Database (<a href="http://www.lovd.nl/">LOVD</a>).
-      services:
-        - name: lovd
-          display_name: LOVD
-          type: web
-          logo: /static/images/logo_lovd.jpg
-          process_name: php-fpm
-          virtual_path: "/lovd"
-          installation_path: "/mnt/gvl/apps/lovd"
-          access_instructions:
-             username: "manual sign up"
-             password_hint: "<custom password>"
-          description: >
-                <a href="http://www.lovd.nl/">LOVD</a> stands for Leiden Open (source) Variation Database. LOVD's purpose is to provide a flexible,
-                freely available tool for Gene-centered collection and display of DNA variations.
-                LOVD 3.0 extends this idea to also provide patient-centered data storage and storage
-                of NGS data, even of variants outside of genes.
-
-    - name: cpipe
-      implementation_class: util.packages.ShellScriptPackage
-      parameters:
-        install_script_url: "https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-430/packages/install_cpipe_package.sh"
-        install_version_data: "cpipe.yml"
-      display_name: Cpipe
-      description: >
-        This package can be used to install Cpipe, a variant detection pipeline designed to process
-        high-throughput sequencing data, with the purpose of identifying potentially pathogenic mutations.
-      services:
-        - name: cpipe
-          display_name: Cpipe
-          type: cmdline
-          logo: /static/images/logo_cpipe.png
-          process_name:
-          virtual_path:
-          access_instructions:
-             username: "ubuntu"
-             password_hint: "<cluster password>"
-          installation_path: "/mnt/gvl/apps/cpipe"
-          description: >
-                Cpipe is a variant detection pipeline designed to process high-throughput sequencing data,
-                with the purpose of identifying potentially pathogenic mutations.
-
     - name: smrt_portal
       implementation_class: util.packages.ShellScriptPackage
       parameters:
-        install_script_url: "https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-430/packages/install_smrt_analysis_package.sh"
+        install_script_url: "https://raw.githubusercontent.com/MRC-CLIMB/gvldash/master/tool_installation_scripts/install_smrt_analysis_package.sh"
         install_version_data: "smrt_analysis.yml"
       display_name: SMRT Analysis
       description: >
@@ -156,28 +107,6 @@ packages:
              password_hint: "<custom password>"
           description: >
                 <a href="http://www.pacificbiosciences.com/products/software/secondary-analysis/">SMRT Portal</a> is PacBio's open source software suite for single molecule, real-time sequencing.
-
-    - name: pancancer_bwamem_workflow
-      implementation_class: util.packages.ShellScriptPackage
-      parameters:
-        install_script_url: "https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-430/packages/install_pancancer_bwamem_workflow_package.sh"
-        install_version_data: "pancancer_bwamem_workflow.yml"
-      display_name: Pancancer BWA-Mem Workflow
-      description: >
-        This is the SeqWare workflow for the TCGA/ICGC PanCancer project that aligns whole genome sequences with BWA-Mem. It also reads/writes to GNOS (optionally), the metadata/data repository system used in the project. After installation, the workflow can be executed through the commandline. More information: https://github.com/ICGC-TCGA-PanCancer/Seqware-BWA-Workflow
-      services:
-        - name: pancancer_bwamem_workflow
-          display_name: "BWA-Mem Workflow"
-          type: cmdline
-          logo: /static/images/logo_pancancer.png
-          process_name:
-          virtual_path:
-          installation_path: "/mnt/gvl/apps/pancancer/bwamem_workflow"
-          access_instructions:
-             username: "galaxy"
-             password_hint: "<cluster password>"
-          description: >
-                <a href="https://github.com/ICGC-TCGA-PanCancer/Seqware-BWA-Workflow">BWA-Mem Workflow</a> is the SeqWare workflow for the TCGA/ICGC PanCancer project that aligns whole genome sequences with BWA-Mem.
 
     - name: irida
       implementation_class: util.packages.ShellScriptPackage
@@ -200,25 +129,3 @@ packages:
              password_hint: "<custom password>"
           description: >
                 The <a href="http://www.irida.ca">Integrated Rapid Infectious Disease Analysis (IRIDA)</a> project is a Canadian-led initiative to build an open source, end-to-end platform for infectious disease genomic epidemiology.
-
-    - name: Apollo
-      implementation_class: util.packages.ShellScriptPackage
-      parameters:
-        install_script_url: "https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-430/packages/install_web_apollo.sh"
-        install_version_data: "web_apollo.yml"
-      display_name: "Web Apollo"
-      description: >
-        This package can be used to install the Apollo Genome annotation editor with a Java Server backend and a Javascript client that runs in a web browser as a JBrowse plugin. See <a href="http://genomearchitect.org">Apollo - Genome Architect</a> for details
-      services:
-        - name: webapollo
-          display_name: "Web Apollo"
-          type: web
-          logo: "https://swift.rc.nectar.org.au:8888/v1/AUTH_377/cloudman-gvl-430/packages/icons/WebApolloLogo.png"
-          process_name: "/usr/lib/jvm/java-8-oracle/bin/java"
-          virtual_path: "/apollo"
-          installation_path: "/mnt/gvl/apps/apollo"
-          access_instructions:
-             username: "manual sign up"
-             password_hint: "<custom password>"
-          description: >
-                <a href="http://genomearchitect.github.io/">Apollo</a>: instantaneous, collaborative genomic annotation editor available on the Web.
